@@ -1,0 +1,10 @@
+apply plugin: 'bintray-release'
+
+publish {
+    userOrg = "a-liya" // bintray.com 用户名
+    groupId = "com.a_liya" // jcenter上的路径
+    artifactId = publishArtifact
+    publishVersion = publishVersion // 版本号
+    desc = publishDesc
+    website = publishWebsite
+}
