@@ -16,10 +16,6 @@ allprojects {
     repositories {
         jcenter()
     }
-
-    project.ext {
-        publishVersion = '0.1.2'; // 发布到Jcenter的版本号
-    }
 }
 
 task clean(type: Delete) {
