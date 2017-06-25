@@ -11,6 +11,11 @@
         android:layout_height="100dp"
         android:layout_gravity="center" />
 
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:divider="#fff000"></ListView>
+
     <Button
         android:id="@+id/btn_left"
         android:layout_width="wrap_content"
