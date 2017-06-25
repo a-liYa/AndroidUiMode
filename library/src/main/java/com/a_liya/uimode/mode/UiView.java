@@ -2,8 +2,8 @@ package com.a_liya.uimode.mode;
 
 import android.content.res.Resources.Theme;
 import android.os.Build;
+import android.support.annotation.AttrRes;
 import android.support.annotation.CallSuper;
-import android.support.v4.content.ContextCompat;
 import android.util.SparseArray;
 import android.util.TypedValue;
 import android.view.View;
@@ -43,15 +43,13 @@ public class UiView<T extends View> implements UiMode<T> {
     @CallSuper
     @Override
     public <V extends T> void apply(V v, Theme theme) {
-        if (v == null) return;
+        if (v == null || theme == null) return;
 
         if (CheckUtils.residValid(attrIdBackground)) {
             v.setBackgroundResource(fetchResId(attrIdBackground, theme));
         }
 
-        if (CheckUtils.residValid(attrIdAlpha)) {
-//            v.setAlpha(v.getResources());
-        }
+
 
         if (CheckUtils.residValid(attrIdForeground)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -69,13 +67,15 @@ public class UiView<T extends View> implements UiMode<T> {
      * @param theme  当前Activity theme
      * @return 返回具体ResourceId
      */
-    public static int fetchResId(int attrId, Theme theme) {
+    public static int fetchResId(@AttrRes int attrId, Theme theme) {
         if (theme == null) {
             return NO_ATTR_ID;
         }
         theme.resolveAttribute(attrId, sOutValue, true);
         return sOutValue.resourceId;
     }
+
+
 
 
 }

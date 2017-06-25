@@ -4,6 +4,7 @@ import android.content.res.Resources;
 import android.support.annotation.CallSuper;
 import android.support.v4.content.ContextCompat;
 import android.util.SparseArray;
+import android.util.TypedValue;
 import android.widget.TextView;
 
 import com.a_liya.uimode.R;
@@ -33,9 +34,21 @@ public class UiTextView<T extends TextView> extends UiView<T> {
     public <V extends T> void apply(V v, Resources.Theme theme) {
         super.apply(v, theme);
         if (CheckUtils.residValid(attrIdTextColor)) {
-            v.setTextColor(ContextCompat.getColorStateList(v.getContext(),
-                    fetchResId(attrIdTextColor, theme)));
+            theme.resolveAttribute(attrIdTextColor, sOutValue, true);
+            switch (sOutValue.type) {
+                case TypedValue.TYPE_INT_COLOR_ARGB4:
+                case TypedValue.TYPE_INT_COLOR_ARGB8:
+                case TypedValue.TYPE_INT_COLOR_RGB4:
+                case TypedValue.TYPE_INT_COLOR_RGB8:
+                    v.setTextColor(sOutValue.data);
+                    break;
+                case TypedValue.TYPE_STRING:
+                    v.setTextColor(ContextCompat.
+                            getColorStateList(v.getContext(), sOutValue.resourceId));
+                    break;
+
+
+            }
         }
     }
-
 }

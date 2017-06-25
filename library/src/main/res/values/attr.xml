@@ -3,7 +3,6 @@
 
     <declare-styleable name="UiMode">
 
-        <attr name="bg_view" format="color|reference"></attr>
 
     </declare-styleable>
 
