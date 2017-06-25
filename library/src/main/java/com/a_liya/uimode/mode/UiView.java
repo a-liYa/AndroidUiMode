@@ -49,7 +49,9 @@ public class UiView<T extends View> implements UiMode<T> {
             v.setBackgroundResource(fetchResId(attrIdBackground, theme));
         }
 
-
+        if (CheckUtils.residValid(attrIdAlpha)) {
+            v.setAlpha(fetchFloat(attrIdAlpha, theme));
+        }
 
         if (CheckUtils.residValid(attrIdForeground)) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -75,7 +77,16 @@ public class UiView<T extends View> implements UiMode<T> {
         return sOutValue.resourceId;
     }
 
-
+    public static float fetchFloat(@AttrRes int attrId, Theme theme) {
+        if (theme == null) {
+            return 1.0f;
+        }
+        theme.resolveAttribute(attrId, sOutValue, true);
+        if (sOutValue.type == TypedValue.TYPE_FLOAT) {
+            return sOutValue.getFloat();
+        }
+        return 1.0f;
+    }
 
 
 }

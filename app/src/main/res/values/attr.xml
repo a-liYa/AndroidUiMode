@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="AppUiMode">
+
+        <attr name="ui_alpha" format="float|reference"></attr>
+        <attr name="ui_view" format="float|reference"></attr>
+        <attr name="bg_view" format="float|reference"></attr>
+
+        <attr name="attr_color" format="color|reference"></attr>
+
+    </declare-styleable>
+
+</resources>
