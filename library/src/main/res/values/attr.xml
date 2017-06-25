@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="UiMode">
+
+        <attr name="bg_view" format="color|reference"></attr>
+
+    </declare-styleable>
+
+    <declare-styleable name="SupportUiMode">
+
+        <attr name="android:background" />
+        <attr name="android:foreground" />
+        <attr name="android:alpha" />
+
+        <attr name="android:textColor" />
+
+    </declare-styleable>
+
+</resources>
