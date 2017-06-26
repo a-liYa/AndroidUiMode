@@ -81,6 +81,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
 //        UiModeBean uiModeBean = null;
         for (int i = 0; i < attrs.getAttributeCount(); i++) {
             String attrName = attrs.getAttributeName(i);
+
             if ("background".equals(attrName)) {
                 int attrValue = parseAttrValue(attrs.getAttributeValue(i));
                 if (attrValue != UiView.NO_ATTR_ID) {

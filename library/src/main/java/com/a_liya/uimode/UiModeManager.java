@@ -3,13 +3,14 @@ package com.a_liya.uimode;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.a_liya.uimode.mode.ApplyAlpha;
-import com.a_liya.uimode.mode.ApplyBackground;
-import com.a_liya.uimode.mode.ApplyDivider;
-import com.a_liya.uimode.mode.ApplyForeground;
-import com.a_liya.uimode.mode.ApplySrc;
-import com.a_liya.uimode.mode.ApplyTextColor;
-import com.a_liya.uimode.mode.UiApply;
+import com.a_liya.uimode.intef.ApplyPolicy;
+import com.a_liya.uimode.apply.ApplyAlpha;
+import com.a_liya.uimode.apply.ApplyBackground;
+import com.a_liya.uimode.apply.ApplyDivider;
+import com.a_liya.uimode.apply.ApplyForeground;
+import com.a_liya.uimode.apply.ApplySrc;
+import com.a_liya.uimode.apply.ApplyTextColor;
+import com.a_liya.uimode.intef.UiApply;
 import com.a_liya.uimode.mode.UiView;
 
 import java.util.HashMap;
@@ -23,20 +24,20 @@ import java.util.Set;
  * @author a_liYa
  * @date 2017/6/23 10:51.
  */
-public class UiModeManager {
+public class UiModeManager implements ApplyPolicy {
 
     private static Context sContext;
 
     private static Set<Integer> sSupportAttrIds;
-    private static Map<String, UiApply> sUiApplys = new HashMap<>();
+    private static Map<String, UiApply> sUiApplyMap = new HashMap<>();
 
     static {
-        sUiApplys.put("background", new ApplyBackground());
-        sUiApplys.put("foreground", new ApplyForeground());
-        sUiApplys.put("alpha", new ApplyAlpha());
-        sUiApplys.put("textColor", new ApplyTextColor());
-        sUiApplys.put("divider", new ApplyDivider());
-        sUiApplys.put("src", new ApplySrc());
+        sUiApplyMap.put("background", new ApplyBackground());
+        sUiApplyMap.put("foreground", new ApplyForeground());
+        sUiApplyMap.put("alpha", new ApplyAlpha());
+        sUiApplyMap.put("textColor", new ApplyTextColor());
+        sUiApplyMap.put("divider", new ApplyDivider());
+        sUiApplyMap.put("src", new ApplySrc());
     }
 
     /**
@@ -51,13 +52,14 @@ public class UiModeManager {
 
     public static void addSupportAttrIds(int[] attrs) {
         if (attrs == null) return;
+        // 不存在，创建
         if (sSupportAttrIds == null) {
             synchronized (UiModeManager.class) {
                 if (sSupportAttrIds == null)
                     sSupportAttrIds = new HashSet<>(attrs.length);
             }
         }
-
+        // 添加全部
         for (int attrId : attrs) {
             sSupportAttrIds.add(attrId);
         }
@@ -89,4 +91,11 @@ public class UiModeManager {
         return sSupportAttrIds != null && sSupportAttrIds.contains(attrId);
     }
 
+    @Override
+    public UiApply obtainApplyPolicy(String key) {
+        if (sUiApplyMap != null) {
+            return sUiApplyMap.get(key);
+        }
+        return null;
+    }
 }

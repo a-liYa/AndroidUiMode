@@ -1,8 +1,11 @@
-package com.a_liya.uimode.mode;
+package com.a_liya.uimode.apply;
 
 import android.content.res.Resources;
 import android.support.annotation.AttrRes;
 import android.view.View;
+
+import com.a_liya.uimode.intef.UiApply;
+import com.a_liya.uimode.mode.UiView;
 
 /**
  * 实现UiApply接口的抽象类，实现公共方法

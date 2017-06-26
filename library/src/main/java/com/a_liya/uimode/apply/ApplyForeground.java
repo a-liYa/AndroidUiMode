@@ -1,4 +1,4 @@
-package com.a_liya.uimode.mode;
+package com.a_liya.uimode.apply;
 
 import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;

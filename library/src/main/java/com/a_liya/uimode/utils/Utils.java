@@ -1,18 +1,10 @@
 package com.a_liya.uimode.utils;
 
 import android.content.Context;
-import android.content.res.AssetManager;
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.AttrRes;
 import android.support.annotation.DrawableRes;
-import android.text.TextUtils;
 import android.util.TypedValue;
-
-import com.a_liya.uimode.R;
-import com.a_liya.uimode.mode.UiMode;
-import com.a_liya.uimode.mode.UiView;
 
 /**
  * 兼容工具
