@@ -31,7 +31,7 @@ public class ViewInflater {
             Context.class, AttributeSet.class};
 
 
-    static View createViewFromTag(Context context, String name, AttributeSet attrs) {
+    public static View createViewFromTag(Context context, String name, AttributeSet attrs) {
         if (name.equals("view")) {
             name = attrs.getAttributeValue(null, "class");
         }

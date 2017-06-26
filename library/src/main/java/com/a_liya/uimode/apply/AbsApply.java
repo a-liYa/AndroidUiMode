@@ -5,7 +5,7 @@ import android.support.annotation.AttrRes;
 import android.view.View;
 
 import com.a_liya.uimode.intef.UiApply;
-import com.a_liya.uimode.mode.UiView;
+import com.a_liya.uimode.mode.UiMode;
 
 /**
  * 实现UiApply接口的抽象类，实现公共方法
@@ -17,8 +17,8 @@ import com.a_liya.uimode.mode.UiView;
  */
 public abstract class AbsApply implements UiApply {
 
-    public static boolean argsValid(View v, @AttrRes int attrId, Resources.Theme theme) {
-        return v != null && theme != null && UiView.attrIdValid(attrId);
+    protected static boolean argsValid(View v, @AttrRes int attrId, Resources.Theme theme) {
+        return v != null && theme != null && UiMode.attrIdValid(attrId);
     }
 
 }

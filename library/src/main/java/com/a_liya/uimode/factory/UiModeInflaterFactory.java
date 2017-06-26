@@ -1,22 +1,22 @@
 package com.a_liya.uimode.factory;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.SparseArray;
 import android.view.View;
 
-import com.a_liya.uimode.R;
-import com.a_liya.uimode.UiModeManager;
-import com.a_liya.uimode.mode.UiView;
+import com.a_liya.uimode.intef.InflaterSupport;
+import com.a_liya.uimode.mode.UiMode;
+import com.a_liya.uimode.utils.ViewInflater;
 import com.a_liya.uimode.widget.MaskImageView;
 
 import java.lang.ref.SoftReference;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * 夜间模式拦截器 - Factory
@@ -31,19 +31,25 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
      */
     private static SoftReference<UiModeInflaterFactory> sSoftInstance;
 
-    private static SparseArray<Integer> sAttrArrays = new SparseArray<>();
+    private static Map<String, Integer> sAttrIdsMap = new HashMap<>();
 
-    public static UiModeInflaterFactory get() {
+    private InflaterSupport mInflaterSupport;
+
+    public static UiModeInflaterFactory get(InflaterSupport support) {
         UiModeInflaterFactory factory = null;
         if (sSoftInstance != null) {
             factory = sSoftInstance.get();
         }
 
         if (factory == null) {
-            factory = new UiModeInflaterFactory();
+            factory = new UiModeInflaterFactory(support);
             sSoftInstance = new SoftReference<>(factory);
         }
         return factory;
+    }
+
+    public UiModeInflaterFactory(InflaterSupport support) {
+        mInflaterSupport = support;
     }
 
     @Override
@@ -77,71 +83,32 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                 break;
         }
 
-        sAttrArrays.clear();
-//        UiModeBean uiModeBean = null;
-        for (int i = 0; i < attrs.getAttributeCount(); i++) {
-            String attrName = attrs.getAttributeName(i);
+        sAttrIdsMap.clear();
+        if (mInflaterSupport != null) {
+            for (int i = 0; i < attrs.getAttributeCount(); i++) {
+                String attrName = attrs.getAttributeName(i);
 
-            if ("background".equals(attrName)) {
-                int attrValue = parseAttrValue(attrs.getAttributeValue(i));
-                if (attrValue != UiView.NO_ATTR_ID) {
-                    sAttrArrays.put(attrs.getAttributeNameResource(i), attrValue);
+                if (mInflaterSupport.isSupportApply(attrName)) {
+                    int attrValue = parseAttrValue(attrs.getAttributeValue(i));
+                    if (UiMode.attrIdValid(attrValue)) {
+                        sAttrIdsMap.put(attrName, attrValue);
+                    }
                 }
             }
-
-//
-//
-//            if (UiModeManager.isBackground(attrName)) {
-//                int attrValue = UiModeManager.parseAttrValue(attrs.getAttributeValue(i));
-//                if (attrValue > 0) {
-//                    if (uiModeBean == null) uiModeBean = new UiModeBean();
-//                    uiModeBean.setBackgroundResId(attrValue);
-//                }
-//            } else if (UiModeManager.isTextColor(attrName)) {
-//                int attrValue = UiModeManager.parseAttrValue(attrs.getAttributeValue(i));
-//                if (attrValue > 0) {
-//                    if (uiModeBean == null) uiModeBean = new UiModeBean();
-//                    uiModeBean.setTextColorResId(attrValue);
-//                }
-//            } else if (UiModeManager.isDivider(attrName)) {
-//                int attrValue = UiModeManager.parseAttrValue(attrs.getAttributeValue(i));
-//                if (attrValue > 0) {
-//                    if (uiModeBean == null) uiModeBean = new UiModeBean();
-//                    uiModeBean.setDividerResId(attrValue);
-//                }
-//            } else if (UiModeManager.isAlpha(attrName)) {
-//                int attrValue = UiModeManager.parseAttrValue(attrs.getAttributeValue(i));
-//                if (attrValue > 0) {
-//                    if (uiModeBean == null) uiModeBean = new UiModeBean();
-//                    uiModeBean.setAlphaResId(attrValue);
-//                }
-//            } else if (UiModeManager.isSrc(attrName)) {
-//                int attrValue = UiModeManager.parseAttrValue(attrs.getAttributeValue(i));
-//                if (attrValue > 0) {
-//                    if (uiModeBean == null) uiModeBean = new UiModeBean();
-//                    uiModeBean.setSrcResId(attrValue);
-//                }
-//            } else if (UiModeManager.isNavigationIcon(attrName)) {
-//                int attrValue = UiModeManager.parseAttrValue(attrs.getAttributeValue(i));
-//                if (attrValue > 0) {
-//                    if (uiModeBean == null) uiModeBean = new UiModeBean();
-//                    uiModeBean.setNavIconResId(attrValue);
-//                }
-//            }
-//        }
-//
-//        if (uiModeBean != null || isNeedInterceptByName(name)) {
-//            if (view == null) { // 系统没有拦截创建
-//                view = ViewInflater.createViewFromTag(context, name, attrs);
-//            }
-//
-//            if (view != null) {
-//                if (uiModeBean != null) {
-//                    view.setTag(R.id.tag_ui_mode, uiModeBean);
-//                }
-//                interceptHandler(view, name, context, attrs);
-//            }
         }
+
+        if (!sAttrIdsMap.isEmpty()) {
+            if (view == null) { // 系统没有拦截创建
+                view = ViewInflater.createViewFromTag(context, name, attrs);
+            }
+
+            if (view != null) {
+
+//                view.setTag(R.id.tag_ui_mode, s);
+                interceptHandler(view, name, context, attrs);
+            }
+        }
+//
         return view;
     }
 
@@ -153,7 +120,6 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
         if (view instanceof SwipeRefreshLayout) { // 适配SwipeRefreshLayout
 //            UiModeManager
 //                    .fitUiModeForSwipeRefreshLayout((SwipeRefreshLayout) view, context.getTheme
-// ());
         }
     }
 
@@ -172,8 +138,19 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
         return false;
     }
 
-    private static int parseAttrValue(String attrVal) {
-        return UiModeManager.parseAttrValue(attrVal);
+    private int parseAttrValue(String attrVal) {
+        if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("?")) {
+            String subStr = attrVal.substring(1, attrVal.length());
+            try {
+                Integer attrId = Integer.valueOf(subStr);
+                if (mInflaterSupport != null && mInflaterSupport.isSupportAttrId(attrId)) {
+                    return attrId;
+                }
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return UiMode.NO_ATTR_ID;
     }
 
 //    /**

@@ -6,7 +6,9 @@ import android.util.TypedValue;
 import android.view.View;
 
 /**
- * 应用对应的UiMode接口
+ * 适配UiMode的对应属性执行的方法 - 接口
+ * </p>
+ * 具体属性对应具体{@link UiApply}实现类
  *
  * @author a_liYa
  * @date 2017/6/26 12:33.

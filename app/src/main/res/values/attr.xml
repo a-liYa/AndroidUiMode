@@ -9,6 +9,8 @@
 
         <attr name="attr_color" format="color|reference"></attr>
 
+        <attr name="colorPrimary" />
+
     </declare-styleable>
 
 </resources>
