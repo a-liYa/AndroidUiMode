@@ -27,7 +27,7 @@ public class UiView<T extends View> implements UiMode<T> {
     // 动态数据值容器
     protected static TypedValue sOutValue = new TypedValue();
 
-    protected static final int NO_ATTR_ID = -1;
+    public static final int NO_ATTR_ID = -1;
 
     @CallSuper
     @Override

@@ -11,6 +11,8 @@ import android.text.TextUtils;
 import android.util.TypedValue;
 
 import com.a_liya.uimode.R;
+import com.a_liya.uimode.mode.UiMode;
+import com.a_liya.uimode.mode.UiView;
 
 /**
  * 兼容工具
@@ -44,32 +46,6 @@ public class Utils {
         }
     }
 
-    /**
-     * 解析属性值对应真正的资源id
-     *
-     * @param attrVal 属性值（String）
-     * @return 资源id
-     */
-    public static int parseAttrValue(String attrVal) {
-        if (TextUtils.isEmpty(attrVal)) return -1;
-        if (attrVal.startsWith("?")) {
-            String subStr = attrVal.substring(1, attrVal.length());
-            try {
-                int resId = Integer.valueOf(subStr);
 
-                for (int i = 0; i < R.styleable.UiMode.length; i++) {
-                    if (R.styleable.UiMode[i] == resId) {
-                        return resId;
-                    }
-                }
-                if (R.attr.colorPrimary == resId) {
-                    return resId;
-                }
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-        return -1;
-    }
 
 }
