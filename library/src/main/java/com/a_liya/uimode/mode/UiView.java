@@ -88,5 +88,14 @@ public class UiView<T extends View> implements UiMode<T> {
         return 1.0f;
     }
 
+    /**
+     * 校验 attrId 是否有效
+     *
+     * @param attrId 资源id
+     * @return true 有效资源, false 无效资源
+     */
+    public static boolean attrIdValid(int attrId) {
+        return attrId != NO_ATTR_ID;
+    }
 
 }

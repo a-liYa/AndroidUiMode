@@ -3,9 +3,18 @@ package com.a_liya.uimode;
 import android.content.Context;
 import android.text.TextUtils;
 
+import com.a_liya.uimode.mode.ApplyAlpha;
+import com.a_liya.uimode.mode.ApplyBackground;
+import com.a_liya.uimode.mode.ApplyDivider;
+import com.a_liya.uimode.mode.ApplyForeground;
+import com.a_liya.uimode.mode.ApplySrc;
+import com.a_liya.uimode.mode.ApplyTextColor;
+import com.a_liya.uimode.mode.UiApply;
 import com.a_liya.uimode.mode.UiView;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Set;
 
 /**
@@ -19,6 +28,16 @@ public class UiModeManager {
     private static Context sContext;
 
     private static Set<Integer> sSupportAttrIds;
+    private static Map<String, UiApply> sUiApplys = new HashMap<>();
+
+    static {
+        sUiApplys.put("background", new ApplyBackground());
+        sUiApplys.put("foreground", new ApplyForeground());
+        sUiApplys.put("alpha", new ApplyAlpha());
+        sUiApplys.put("textColor", new ApplyTextColor());
+        sUiApplys.put("divider", new ApplyDivider());
+        sUiApplys.put("src", new ApplySrc());
+    }
 
     /**
      * 初始化： 只为持有一个ApplicationContext的引用

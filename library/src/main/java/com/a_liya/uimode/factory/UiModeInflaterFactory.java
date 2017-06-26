@@ -11,7 +11,9 @@ import android.util.AttributeSet;
 import android.util.SparseArray;
 import android.view.View;
 
+import com.a_liya.uimode.R;
 import com.a_liya.uimode.UiModeManager;
+import com.a_liya.uimode.mode.UiView;
 import com.a_liya.uimode.widget.MaskImageView;
 
 import java.lang.ref.SoftReference;
@@ -79,7 +81,12 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
 //        UiModeBean uiModeBean = null;
         for (int i = 0; i < attrs.getAttributeCount(); i++) {
             String attrName = attrs.getAttributeName(i);
-
+            if ("background".equals(attrName)) {
+                int attrValue = parseAttrValue(attrs.getAttributeValue(i));
+                if (attrValue != UiView.NO_ATTR_ID) {
+                    sAttrArrays.put(attrs.getAttributeNameResource(i), attrValue);
+                }
+            }
 
 //
 //
