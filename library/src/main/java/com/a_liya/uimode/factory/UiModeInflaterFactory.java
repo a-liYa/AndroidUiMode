@@ -103,9 +103,8 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
             }
 
             if (view != null) {
-
-//                view.setTag(R.id.tag_ui_mode, s);
-                interceptHandler(view, name, context, attrs);
+                UiMode.saveViewAndAttrIds(view, sAttrIdsMap);
+//                interceptHandler(view, name, context, attrs);
             }
         }
 //
