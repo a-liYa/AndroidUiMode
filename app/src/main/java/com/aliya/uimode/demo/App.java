@@ -19,4 +19,5 @@ public class App extends Application {
         UiModeManager.init(this, R.styleable.AppUiMode);
 
     }
+
 }

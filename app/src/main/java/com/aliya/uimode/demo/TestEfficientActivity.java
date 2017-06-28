@@ -4,8 +4,12 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
 import android.util.SparseArray;
+import android.view.View;
 
 import com.aliya.uimode.demo.base.BaseActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * 测试效率 - 页面
@@ -15,12 +19,33 @@ import com.aliya.uimode.demo.base.BaseActivity;
  */
 public class TestEfficientActivity extends BaseActivity {
 
+    @BindView(R.id.v1)
+    View mV1;
+    @BindView(R.id.v2)
+    View mV2;
+    @BindView(R.id.v3)
+    View mV3;
+    @BindView(R.id.v4)
+    View mV4;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_efficient);
+        ButterKnife.bind(this);
+        TestUtils.add(this, mV1);
+        TestUtils.add(this, mV2);
+        TestUtils.add(this, mV3);
+        TestUtils.add(this, mV4);
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("TAG", "onDestroy time: " + SystemClock.uptimeMillis());
+        TestUtils.print();
+        TestUtils.post();
+    }
 
     private void testNew(long num) {
         long startMs;

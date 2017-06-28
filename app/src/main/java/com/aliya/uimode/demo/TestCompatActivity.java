@@ -34,10 +34,6 @@ public class TestCompatActivity extends BaseActivity {
         setContentView(R.layout.activity_test_compat);
         ButterKnife.bind(this);
 
-        TestUtils.add(this, mEtNum);
-        TestUtils.add(this, mBtnLeft);
-        TestUtils.add(this, mBtnRight);
-
     }
 
     @OnClick({R.id.btn_left, R.id.btn_right})

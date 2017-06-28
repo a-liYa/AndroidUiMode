@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.aliya.uimode.UiModeManager;
 
@@ -18,9 +17,19 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        LayoutInflaterCompat.setFactory(getLayoutInflater(), UiModeManager
- .obtainInflaterFactory());
-//        Log.e("TAG", "" + getLayoutInflater());
+
+        LayoutInflaterCompat.setFactory
+                (getLayoutInflater(), UiModeManager.obtainInflaterFactory());
+
+//        LayoutInflaterCompat.setFactory(getLayoutInflater(), new LayoutInflaterFactory() {
+//            @Override
+//            public View onCreateView(View parent, String name, Context context, AttributeSet
+//                    attrs) {
+//                Log.e("TAG", "onCreateView at time " + SystemClock.uptimeMillis());
+//                return null;
+//            }
+//        });
+
         super.onCreate(savedInstanceState);
 
     }

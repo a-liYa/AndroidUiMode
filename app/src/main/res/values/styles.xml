@@ -9,7 +9,7 @@
 
         <item name="android:textAllCaps">false</item>
 
-        <item name="bg_view">0</item>
+        <item name="bg_view">@color/colorAccent</item>
         <item name="ui_view">0.3</item>
         <item name="ui_alpha">@dimen/ui_mode_alpha</item>
         <item name="attr_color">@drawable/sl_color</item>
@@ -21,7 +21,8 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-        <item name="bg_view">1</item>
+        <item name="bg_view">@color/colorAccent</item>
+        <item name="ui_view">0.5</item>
         <item name="android:textAllCaps">false</item>
 
         <!--<item name="bg_view">#000001</item>-->
