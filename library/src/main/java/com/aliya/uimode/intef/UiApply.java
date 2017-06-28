@@ -7,8 +7,9 @@ import android.view.View;
 
 /**
  * 适配UiMode的对应属性执行的方法 - 接口
- * </p>
+ * <p>
  * 具体属性对应具体{@link UiApply}实现类
+ * </p>
  *
  * @author a_liYa
  * @date 2017/6/26 12:33.

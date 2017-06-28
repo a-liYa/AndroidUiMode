@@ -58,9 +58,10 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
     }
 
     /**
-     * 初始化： 只为持有一个ApplicationContext的引用
+     * 初始化： 持有一个ApplicationContext引用，保存支持的Attr
      *
-     * @param context
+     * @param context Context
+     * @param attrs   支持夜间模式的属性数组
      */
     public static final void init(Context context, int[] attrs) {
         sContext = context.getApplicationContext();
