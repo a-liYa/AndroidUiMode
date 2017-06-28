@@ -4,6 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.a_liya.uimode.demo.TestEfficientActivity">
+    tools:context=".TestEfficientActivity">
 
 </android.support.constraint.ConstraintLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.a_liya.uimode.demo">
+    package="com.aliya.uimode.demo">
 
     <application
         android:name=".App"
@@ -19,7 +19,8 @@
         </activity>
         <activity android:name=".TestCompatActivity" />
         <activity android:name=".TestEfficientActivity" />
-        <activity android:name=".CycleActivity"></activity>
+        <activity android:name=".CycleActivity" />
+        <activity android:name=".UiModeActivity"></activity>
     </application>
 
 </manifest>
