@@ -33,18 +33,11 @@ public class TestEfficientActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_efficient);
         ButterKnife.bind(this);
-        TestUtils.add(this, mV1);
-        TestUtils.add(this, mV2);
-        TestUtils.add(this, mV3);
-        TestUtils.add(this, mV4);
     }
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("TAG", "onDestroy time: " + SystemClock.uptimeMillis());
-        TestUtils.print();
-        TestUtils.post();
     }
 
     private void testNew(long num) {

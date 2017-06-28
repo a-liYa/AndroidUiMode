@@ -4,6 +4,7 @@
     android:id="@+id/ll_root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/bgc_white"
     android:gravity="center_horizontal"
     android:orientation="vertical"
     tools:context=".MainActivity">
@@ -13,7 +14,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="?attr/bg_view"
+        android:background="?attr/colorAccent"
         android:text="测试兼容性" />
 
     <Button
@@ -21,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="?attr/bg_view"
+        android:background="?attr/colorAccent"
         android:text="GoCycle" />
 
     <Button
@@ -29,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="?attr/bg_view"
+        android:background="?attr/colorAccent"
         android:text="测试效率" />
 
     <Button
@@ -37,7 +38,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:background="?attr/bg_view"
+        android:background="?attr/colorAccent"
         android:text="UiMode切换" />
 
 </LinearLayout>

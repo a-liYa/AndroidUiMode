@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/bgc_white"
     tools:context=".TestCompatActivity">
 
     <EditText
@@ -11,22 +12,23 @@
         android:layout_height="50dp"
         android:layout_gravity="center_horizontal"
         android:gravity="center"
-        android:inputType="number" />
+        android:inputType="number"
+        android:textColor="?attr/tc_3b424c" />
 
     <Button
         android:id="@+id/btn_left"
-
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left"
-        android:text="白间模式" />
+        android:text="Left"
+        android:textColor="?attr/tc_3b424c" />
 
     <Button
         android:id="@+id/btn_right"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|right"
-        android:text="夜间模式" />
-
+        android:text="Right"
+        android:textColor="?attr/tc_3b424c" />
 
 </FrameLayout>

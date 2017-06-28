@@ -1,8 +1,11 @@
 package com.aliya.uimode.demo;
 
 import android.os.Bundle;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 
+import com.aliya.uimode.UiModeManager;
 import com.aliya.uimode.demo.base.BaseActivity;
 
 import butterknife.ButterKnife;
@@ -27,12 +30,14 @@ public class UiModeActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_left:
-                setTheme(R.style.AppTheme);
-
+                long start = SystemClock.uptimeMillis();
+                UiModeManager.setTheme(R.style.AppTheme);
+                Log.e("TAG", "模式切换执行的时间 " + (SystemClock.uptimeMillis() - start) + " ms");
                 break;
             case R.id.btn_right:
-                setTheme(R.style.NightAppTheme);
-
+                long startMs = SystemClock.uptimeMillis();
+                UiModeManager.setTheme(R.style.NightAppTheme);
+                Log.e("TAG", "模式切换执行的时间 " + (SystemClock.uptimeMillis() - startMs) + " ms");
                 break;
         }
     }

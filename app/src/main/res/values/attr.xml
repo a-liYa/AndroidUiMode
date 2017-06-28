@@ -3,13 +3,23 @@
 
     <declare-styleable name="AppUiMode">
 
-        <attr name="ui_alpha" format="float|reference"></attr>
-        <attr name="ui_view" format="float|reference"></attr>
-        <attr name="bg_view" format="color|reference"></attr>
-
-        <attr name="attr_color" format="color|reference"></attr>
-
         <attr name="colorPrimary" />
+        <attr name="colorPrimaryDark" />
+        <attr name="colorAccent" />
+
+        <attr name="ui_alpha" format="float|reference" />
+
+        <attr name="bgc_white" format="color|reference" />
+        <attr name="fgc_color" format="color|reference" />
+
+        <attr name="tc_white" format="color|reference" />
+        <attr name="tc_3b424c" format="color|reference" />
+
+        <attr name="divider_f0f0f0" format="color|reference" />
+        <attr name="bg_btn" format="color|reference" />
+
+        <attr name="ic_nav_bar_back" format="reference" />
+        <attr name="ic_logo" format="reference" />
 
     </declare-styleable>
 

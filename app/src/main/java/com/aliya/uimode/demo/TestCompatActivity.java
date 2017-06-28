@@ -1,8 +1,6 @@
 package com.aliya.uimode.demo;
 
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,16 +38,8 @@ public class TestCompatActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_left:
-                getApplicationContext().setTheme(R.style.AppTheme);
-                LayoutInflater from = LayoutInflater.from(getApplicationContext());
-                from.inflate(R.layout.layout_appcontext_inflater, null);
-
-//                TestUtils.print();
                 break;
             case R.id.btn_right:
-//                LayoutInflater appFrom = LayoutInflater.from(getApplicationContext());
-
-//                Log.e("TAG", "AppContext " + appFrom);
                 break;
         }
     }

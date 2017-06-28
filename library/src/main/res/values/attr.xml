@@ -1,18 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="SupportUiMode">
-
-        <attr name="android:background" />
-        <attr name="android:foreground" />
-        <attr name="android:alpha" />
-
-        <attr name="android:textColor" />
-
-        <attr name="android:divider" />
-
+    <declare-styleable name="UiMode">
+        <attr name="iv_maskColor" format="color" />
     </declare-styleable>
-
-    <attr name="iv_maskColor" format="color" />
 
 </resources>

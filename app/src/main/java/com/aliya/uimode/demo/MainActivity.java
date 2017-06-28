@@ -2,14 +2,10 @@ package com.aliya.uimode.demo;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.aliya.uimode.demo.base.BaseActivity;
-
-import java.util.HashMap;
-import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -42,7 +38,7 @@ public class MainActivity extends BaseActivity {
                 startActivity(new Intent(this, TestEfficientActivity.class));
                 break;
             case R.id.btn_4:
-//                startActivity(new Intent(this, UiModeActivity.class));
+                startActivity(new Intent(this, UiModeActivity.class));
                 break;
         }
     }

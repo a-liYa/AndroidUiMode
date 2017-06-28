@@ -6,6 +6,6 @@
     <View
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:background="?attr/bg_view" />
+        android:background="?attr/bgc_white" />
 
 </FrameLayout>

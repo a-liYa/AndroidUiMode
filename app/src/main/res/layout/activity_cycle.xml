@@ -4,17 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/bgc_white"
     tools:context=".CycleActivity">
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:divider="?attr/divider_f0f0f0"
+        android:dividerHeight="1dp">
+
+    </ListView>
 
     <Button
         android:id="@+id/btn_cycle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:alpha="?attr/ui_alpha"
         android:text="Go MainActivity" />
-
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="?attr/bg_view" />
 
 </FrameLayout>
