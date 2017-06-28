@@ -40,9 +40,9 @@ public class TestCompatActivity extends BaseActivity {
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_left:
-                LayoutInflater from = LayoutInflater.from(this);
-
-                Log.e("TAG", "Activity " + from);
+                getApplicationContext().setTheme(R.style.AppTheme);
+                LayoutInflater from = LayoutInflater.from(getApplicationContext());
+                from.inflate(R.layout.layout_appcontext_inflater, null);
 
 //                TestUtils.print();
                 break;

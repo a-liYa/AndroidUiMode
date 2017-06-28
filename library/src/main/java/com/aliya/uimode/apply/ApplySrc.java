@@ -13,7 +13,7 @@ import android.widget.ImageView;
  * @author a_liYa
  * @date 2017/6/26 13:32.
  */
-public class ApplySrc extends AbsApply {
+public final class ApplySrc extends AbsApply {
 
     @Override
     public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {

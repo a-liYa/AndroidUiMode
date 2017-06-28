@@ -3,11 +3,11 @@ package com.aliya.uimode;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
-import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.view.LayoutInflater;
 
@@ -25,8 +25,10 @@ import com.aliya.uimode.mode.UiMode;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
+import java.util.Stack;
 
 /**
  * UiMode管理类
@@ -91,10 +93,32 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
 
     }
 
+    public static void setTheme(int resId) {
+        // 设置所有Activity主题
+        Stack<Activity> appStack = AppStack.getAppStack();
+        if (appStack != null) {
+            Iterator<Activity> iterator = appStack.iterator();
+            while (iterator.hasNext()) {
+                Activity next = iterator.next();
+                if (next != null) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        if (next.isDestroyed()) continue;
+                    }
+                    next.setTheme(resId);
+                }
+            }
+        }
+
+        // 执行View到对应主题
+        UiMode.applyUiMode(resId, get());
+
+    }
+
     private static final Application.ActivityLifecycleCallbacks lifecycleCallbacks =
             new Application.ActivityLifecycleCallbacks() {
                 @Override
                 public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                    AppStack.pushActivity(activity);
                 }
 
                 @Override
@@ -119,11 +143,13 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
 
                 @Override
                 public void onActivityDestroyed(Activity activity) {
+                    AppStack.removeActivity(activity);
                     long startMs = SystemClock.uptimeMillis();
                     Log.e("TAG", "---------------onActivityDestroyed " + startMs);
                     UiMode.removeUselessViews(activity);
                     long endMs = SystemClock.uptimeMillis();
-                    Log.e("TAG", "---------------onActivityDestroyed 回收耗时 " + (endMs - startMs) + " >>> " + endMs);
+                    Log.e("TAG", "---------------onActivityDestroyed 回收耗时 " + (endMs - startMs) +
+                            " >>> " + endMs);
                 }
             };
 

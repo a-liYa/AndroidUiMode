@@ -13,7 +13,7 @@ import android.widget.TextView;
  * @author a_liYa
  * @date 2017/6/26 12:51.
  */
-public class ApplyTextColor extends AbsApply {
+public final class ApplyTextColor extends AbsApply {
 
     @Override
     public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {

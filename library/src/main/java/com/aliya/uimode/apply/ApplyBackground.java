@@ -11,7 +11,7 @@ import android.view.View;
  * @author a_liYa
  * @date 2017/6/26 12:33.
  */
-public class ApplyBackground extends AbsApply {
+public final class ApplyBackground extends AbsApply {
 
     @Override
     public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {

@@ -3,6 +3,8 @@ package com.aliya.uimode.mode;
 import android.app.Activity;
 import android.content.Context;
 import android.content.res.Resources.Theme;
+import android.os.SystemClock;
+import android.util.Log;
 import android.view.View;
 
 import com.aliya.uimode.R;
@@ -30,6 +32,9 @@ public class UiMode {
     private static ReferenceQueue<View> queue = new ReferenceQueue<>();
     public static final int NO_ATTR_ID = -1;
 
+    private UiMode() {
+    }
+
     public static void saveViewAndAttrIds(final Context ctx, View v, Map<String, Integer> attrs) {
         if (v != null && attrs != null) {
             Map<String, Integer> attrIds = new HashMap<>(attrs.size());
@@ -54,7 +59,58 @@ public class UiMode {
         weakViewSet.add((queue == null) ? new WeakReference<>(v) : new WeakReference(v, queue));
     }
 
-    public static void apply(View v, Theme theme, ApplyPolicy policy) {
+    public static void applyUiMode(int resId, ApplyPolicy policy) {
+
+        // 先执行Activity相关的View
+        for (Map.Entry<Context, Set<WeakReference<View>>> entry :
+                sActivityViewMap.entrySet()) {
+            final Theme theme = entry.getKey().getTheme();
+            Set<WeakReference<View>> weakViewSet = entry.getValue();
+            if (weakViewSet != null) {
+                Iterator<WeakReference<View>> iterator = weakViewSet.iterator();
+                while (iterator.hasNext()) {
+                    WeakReference<View> next = iterator.next();
+                    if (next != null) {
+                        View view = next.get();
+                        if (view != null) {
+                            apply(view, theme, policy);
+                        } else {
+                            iterator.remove();
+                        }
+                    }
+                }
+            }
+        }
+
+        for (Map.Entry<Context, Set<WeakReference<View>>> entry :
+                sContextViewMap.entrySet()) {
+            Context key = entry.getKey();
+            if (key == null) continue;
+
+            key.setTheme(resId);
+            final Theme theme = key.getTheme();
+            if (theme == null) continue;
+
+            Set<WeakReference<View>> weakViewSet = entry.getValue();
+            if (weakViewSet != null) {
+                Iterator<WeakReference<View>> iterator = weakViewSet.iterator();
+                while (iterator.hasNext()) {
+                    WeakReference<View> next = iterator.next();
+                    if (next != null) {
+                        View view = next.get();
+                        if (view != null) {
+                            apply(view, theme, policy);
+                        } else {
+                            iterator.remove();
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    private static void apply(View v, Theme theme, ApplyPolicy policy) {
         if (v == null) return;
 
         Map<String, Integer> attrIds = null;
@@ -75,11 +131,10 @@ public class UiMode {
     }
 
     public static void removeUselessViews(Activity activity) {
-//        Log.e("TAG", "开始时个数 " + num() + " ----- " + SystemClock.uptimeMillis());
+        Log.e("TAG", "开始时个数 " + num());
         sActivityViewMap.remove(activity);
-//        Log.e("TAG", " 中间时间 " + " ----- " + SystemClock.uptimeMillis());
         clearUselessContextViews();
-//        Log.e("TAG", "结束时个数 " + num() + " ----- " + SystemClock.uptimeMillis());
+        Log.e("TAG", "结束时个数 " + num() + " ----- " + SystemClock.uptimeMillis());
     }
 
     private static int num() {

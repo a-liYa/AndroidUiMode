@@ -15,7 +15,7 @@ import com.aliya.uimode.utils.Utils;
  * @author a_liYa
  * @date 2017/6/26 13:04.
  */
-public class ApplyForeground extends AbsApply {
+public final class ApplyForeground extends AbsApply {
 
     @Override
     public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {
