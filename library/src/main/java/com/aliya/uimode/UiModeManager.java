@@ -1,7 +1,15 @@
 package com.aliya.uimode;
 
+import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
+import android.os.Bundle;
+import android.os.SystemClock;
+import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
+import android.support.v7.app.AppCompatDelegate;
+import android.util.Log;
+import android.view.LayoutInflater;
 
 import com.aliya.uimode.apply.ApplyAlpha;
 import com.aliya.uimode.apply.ApplyBackground;
@@ -13,6 +21,7 @@ import com.aliya.uimode.factory.UiModeInflaterFactory;
 import com.aliya.uimode.intef.ApplyPolicy;
 import com.aliya.uimode.intef.InflaterSupport;
 import com.aliya.uimode.intef.UiApply;
+import com.aliya.uimode.mode.UiMode;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -58,15 +67,66 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
     }
 
     /**
-     * 初始化： 持有一个ApplicationContext引用，保存支持的Attr
+     * 初始化： 持有ApplicationContext引用，保存支持的Attr
      *
      * @param context Context
      * @param attrs   支持夜间模式的属性数组
      */
     public static final void init(Context context, int[] attrs) {
+
         sContext = context.getApplicationContext();
+
         addSupportAttrIds(attrs);
+
+        if (sContext instanceof Application) {
+
+            ((Application) sContext).unregisterActivityLifecycleCallbacks(lifecycleCallbacks);
+            ((Application) sContext).registerActivityLifecycleCallbacks(lifecycleCallbacks);
+
+            LayoutInflater inflater = LayoutInflater.from(sContext);
+            if (LayoutInflaterCompat.getFactory(inflater) == null) {
+                LayoutInflaterCompat.setFactory(inflater, obtainInflaterFactory());
+            }
+        }
+
     }
+
+    private static final Application.ActivityLifecycleCallbacks lifecycleCallbacks =
+            new Application.ActivityLifecycleCallbacks() {
+                @Override
+                public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+                }
+
+                @Override
+                public void onActivityStarted(Activity activity) {
+                }
+
+                @Override
+                public void onActivityResumed(Activity activity) {
+                }
+
+                @Override
+                public void onActivityPaused(Activity activity) {
+                }
+
+                @Override
+                public void onActivityStopped(Activity activity) {
+                }
+
+                @Override
+                public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+                }
+
+                @Override
+                public void onActivityDestroyed(Activity activity) {
+                    long startMs = SystemClock.uptimeMillis();
+                    Log.e("TAG", "---------------onActivityDestroyed " + startMs);
+                    UiMode.removeUselessViews(activity);
+                    long endMs = SystemClock.uptimeMillis();
+                    Log.e("TAG", "---------------onActivityDestroyed 回收耗时 " + (endMs - startMs) + " >>> " + endMs);
+                }
+            };
+
 
     @Override
     public UiApply obtainApplyPolicy(String key) {
