@@ -1,6 +1,7 @@
 package com.aliya.uimode.demo;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,12 +33,18 @@ public class TestCompatActivity extends BaseActivity {
         setContentView(R.layout.activity_test_compat);
         ButterKnife.bind(this);
 
+
+//        theme.resolveAttribute(style, tValue, true);
+
     }
 
     @OnClick({R.id.btn_left, R.id.btn_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_left:
+
+                Log.e("TAG", "");
+
                 break;
             case R.id.btn_right:
                 break;

@@ -6,6 +6,12 @@
     android:background="?attr/bgc_white"
     tools:context=".TestCompatActivity">
 
+    <com.aliya.uimode.demo.ui.TestView
+        style="@style/TestStyle"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_marginTop="100dp" />
+
     <EditText
         android:id="@+id/et_num"
         android:layout_width="200dp"

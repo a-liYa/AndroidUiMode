@@ -6,7 +6,6 @@
     android:background="?attr/bgc_white"
     tools:context=".TestCompatActivity">
 
-
     <Button
         android:id="@+id/btn_left"
         android:layout_width="wrap_content"
