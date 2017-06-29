@@ -33,7 +33,7 @@ public class TestCompatActivity extends BaseActivity {
         setContentView(R.layout.activity_test_compat);
         ButterKnife.bind(this);
 
-
+//        Class.forName()
 //        theme.resolveAttribute(style, tValue, true);
 
     }

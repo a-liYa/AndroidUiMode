@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 
@@ -44,6 +45,7 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
 
     private static Set<Integer> sSupportAttrIds;
     private static Map<String, UiApply> sSupportApplies = new HashMap<>();
+    public static String NAME_ATTR_MASK_COLOR;
 
     static {
         sSupportApplies.put("background", new ApplyBackground());
@@ -79,6 +81,10 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
         sContext = context.getApplicationContext();
 
         addSupportAttrIds(attrs);
+
+        if (TextUtils.isEmpty(NAME_ATTR_MASK_COLOR)) {
+            NAME_ATTR_MASK_COLOR = context.getResources().getResourceEntryName(R.attr.iv_maskColor);
+        }
 
         if (sContext instanceof Application) {
 
@@ -187,5 +193,9 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
 
     public static LayoutInflaterFactory obtainInflaterFactory() {
         return UiModeInflaterFactory.get(get());
+    }
+
+    public boolean isNightMode() {
+        return true;
     }
 }

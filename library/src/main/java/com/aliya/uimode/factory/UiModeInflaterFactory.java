@@ -85,9 +85,9 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
 
         sAttrIdsMap.clear();
         if (mInflaterSupport != null) {
-            for (int i = 0; i < attrs.getAttributeCount(); i++) {
+            final int N = attrs.getAttributeCount();
+            for (int i = 0; i < N; i++) {
                 String attrName = attrs.getAttributeName(i);
-
                 if (mInflaterSupport.isSupportApply(attrName)) {
                     int attrValue = parseAttrValue(attrs.getAttributeValue(i));
                     if (UiMode.attrIdValid(attrValue)) {
