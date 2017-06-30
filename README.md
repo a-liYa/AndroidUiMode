@@ -20,6 +20,18 @@ style样式：
 ```
 此时```android:background```属性对应的?attr/bg_color值无法获取
 
+* 2、Drawable resource 定义文件里面Android 5.0以下系统，不支持：?attr属性
+
+res/drawable/bg_test_attr.xml
+```
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <solid android:color="?attr/colorPrimary" />
+</shape>
+```
+以上写法不兼容低于Android 5.0的系统   
+
 
 ### ImageView夜间模式用法
 * 1、theme的style样式配置全局
