@@ -16,6 +16,7 @@ import com.aliya.uimode.apply.ApplyAlpha;
 import com.aliya.uimode.apply.ApplyBackground;
 import com.aliya.uimode.apply.ApplyDivider;
 import com.aliya.uimode.apply.ApplyForeground;
+import com.aliya.uimode.apply.ApplyNavIcon;
 import com.aliya.uimode.apply.ApplySrc;
 import com.aliya.uimode.apply.ApplyTextColor;
 import com.aliya.uimode.factory.UiModeInflaterFactory;
@@ -54,6 +55,7 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
         sSupportApplies.put("textColor", new ApplyTextColor());
         sSupportApplies.put("divider", new ApplyDivider());
         sSupportApplies.put("src", new ApplySrc());
+        sSupportApplies.put("navigationIcon", new ApplyNavIcon());
     }
 
     private UiModeManager() {

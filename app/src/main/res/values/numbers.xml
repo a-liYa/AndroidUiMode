@@ -3,12 +3,4 @@
     <item name="ui_mode_alpha" format="float" type="dimen">1</item>
     <item name="ui_mode_alpha_night" format="float" type="dimen">0.5</item>
 
-    <item name="act_anim_time" format="integer" type="integer">200</item>
-
-    <!--评论框最大行数-->
-    <item name="comment_max_lines" format="integer" type="integer">4</item>
-    <!--评论框最大字数-->
-    <item name="comment_max_length" format="integer" type="integer">1000</item>
-
-
 </resources>
