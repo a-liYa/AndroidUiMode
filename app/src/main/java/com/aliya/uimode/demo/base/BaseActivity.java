@@ -6,6 +6,7 @@ import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
 
 import com.aliya.uimode.UiModeManager;
+import com.aliya.uimode.demo.ThemeMode;
 
 /**
  * BaseActivity
@@ -17,7 +18,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-
+        ThemeMode.setTheme2Activity(this);
         LayoutInflaterCompat.setFactory
                 (getLayoutInflater(), UiModeManager.obtainInflaterFactory());
 

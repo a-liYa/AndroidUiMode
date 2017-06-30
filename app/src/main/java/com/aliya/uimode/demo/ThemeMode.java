@@ -1,5 +1,9 @@
 package com.aliya.uimode.demo;
 
+import android.app.Activity;
+
+import com.aliya.uimode.UiModeManager;
+
 /**
  * 夜间模式 对应主题 配置
  *
@@ -8,12 +12,29 @@ package com.aliya.uimode.demo;
  */
 public class ThemeMode {
 
-    private static int sUiModeTheme;
+    private static boolean isNightMode = false;
 
-    public static final int DAY_THEME = R.style.AppTheme;
-    public static final int NIGHT_THEME = R.style.NightAppTheme;
+    private static final int DAY_THEME = R.style.AppTheme;
+    private static final int NIGHT_THEME = R.style.NightAppTheme;
 
-    public static final int DEFAULT_THEME = DAY_THEME;
+    private static final int DEFAULT_THEME = DAY_THEME;
 
+    public static final void setUiMode(boolean isNightMode) {
+        if (ThemeMode.isNightMode != isNightMode) {
+            ThemeMode.isNightMode = isNightMode;
+            UiModeManager.setTheme(getCurrentTheme());
+        }
+    }
 
+    public static final int getCurrentTheme() {
+        return isNightMode ? NIGHT_THEME : DAY_THEME;
+    }
+
+    public static final void setTheme2Activity(Activity activity) {
+        if (activity == null) return;
+        if (DEFAULT_THEME != getCurrentTheme()) {
+            activity.setTheme(getCurrentTheme());
+        }
+
+    }
 }

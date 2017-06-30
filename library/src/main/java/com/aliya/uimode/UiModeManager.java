@@ -5,11 +5,9 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.SystemClock;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.LayoutInflater;
 
 import com.aliya.uimode.apply.ApplyAlpha;
@@ -152,12 +150,7 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
                 @Override
                 public void onActivityDestroyed(Activity activity) {
                     AppStack.removeActivity(activity);
-                    long startMs = SystemClock.uptimeMillis();
-                    Log.e("TAG", "---------------onActivityDestroyed " + startMs);
                     UiMode.removeUselessViews(activity);
-                    long endMs = SystemClock.uptimeMillis();
-                    Log.e("TAG", "---------------onActivityDestroyed 回收耗时 " + (endMs - startMs) +
-                            " >>> " + endMs);
                 }
             };
 
@@ -197,7 +190,4 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
         return UiModeInflaterFactory.get(get());
     }
 
-    public boolean isNightMode() {
-        return true;
-    }
 }
