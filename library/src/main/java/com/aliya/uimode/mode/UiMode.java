@@ -2,6 +2,7 @@ package com.aliya.uimode.mode;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.Resources;
 import android.content.res.Resources.Theme;
 import android.os.SystemClock;
 import android.util.Log;
@@ -10,6 +11,7 @@ import android.view.View;
 import com.aliya.uimode.R;
 import com.aliya.uimode.intef.ApplyPolicy;
 import com.aliya.uimode.intef.UiApply;
+import com.aliya.uimode.intef.UiModeChangeListener;
 
 import java.lang.ref.ReferenceQueue;
 import java.lang.ref.WeakReference;
@@ -41,11 +43,15 @@ public class UiMode {
             attrIds.putAll(attrs);
             v.setTag(R.id.tag_ui_mode, attrIds);
 
-            if (ctx instanceof Activity) {
-                putView2Map(ctx, v, sActivityViewMap, null);
-            } else {
-                putView2Map(ctx, v, sContextViewMap, queue);
-            }
+            saveView(ctx, v);
+        }
+    }
+
+    public static void saveView(Context ctx, View v) {
+        if (ctx instanceof Activity) {
+            putView2Map(ctx, v, sActivityViewMap, null);
+        } else {
+            putView2Map(ctx, v, sContextViewMap, queue);
         }
     }
 
@@ -61,27 +67,15 @@ public class UiMode {
 
     public static void applyUiMode(int resId, ApplyPolicy policy) {
 
-        // 先执行Activity相关的View
+        // 1、先执行Activity相关的View
         for (Map.Entry<Context, Set<WeakReference<View>>> entry :
                 sActivityViewMap.entrySet()) {
             final Theme theme = entry.getKey().getTheme();
             Set<WeakReference<View>> weakViewSet = entry.getValue();
-            if (weakViewSet != null) {
-                Iterator<WeakReference<View>> iterator = weakViewSet.iterator();
-                while (iterator.hasNext()) {
-                    WeakReference<View> next = iterator.next();
-                    if (next != null) {
-                        View view = next.get();
-                        if (view != null) {
-                            apply(view, theme, policy);
-                        } else {
-                            iterator.remove();
-                        }
-                    }
-                }
-            }
+            onApplyUiMode(policy, theme, weakViewSet);
         }
 
+        // 2、在执行ApplicationContext相关的View
         for (Map.Entry<Context, Set<WeakReference<View>>> entry :
                 sContextViewMap.entrySet()) {
             Context key = entry.getKey();
@@ -92,22 +86,27 @@ public class UiMode {
             if (theme == null) continue;
 
             Set<WeakReference<View>> weakViewSet = entry.getValue();
-            if (weakViewSet != null) {
-                Iterator<WeakReference<View>> iterator = weakViewSet.iterator();
-                while (iterator.hasNext()) {
-                    WeakReference<View> next = iterator.next();
-                    if (next != null) {
-                        View view = next.get();
-                        if (view != null) {
-                            apply(view, theme, policy);
-                        } else {
-                            iterator.remove();
-                        }
+            onApplyUiMode(policy, theme, weakViewSet);
+        }
+
+    }
+
+    private static void onApplyUiMode(ApplyPolicy policy, Theme theme, Set<WeakReference<View>>
+            weakViewSet) {
+        if (weakViewSet != null) {
+            Iterator<WeakReference<View>> iterator = weakViewSet.iterator();
+            while (iterator.hasNext()) {
+                WeakReference<View> next = iterator.next();
+                if (next != null) {
+                    View view = next.get();
+                    if (view != null) {
+                        apply(view, theme, policy);
+                    } else {
+                        iterator.remove();
                     }
                 }
             }
         }
-
     }
 
     private static void apply(View v, Theme theme, ApplyPolicy policy) {
@@ -119,6 +118,7 @@ public class UiMode {
             attrIds = (Map<String, Integer>) vTag;
         }
 
+        // 1、执行View自带属性
         if (attrIds != null && policy != null) {
             for (Map.Entry<String, Integer> entry : attrIds.entrySet()) {
                 String key = entry.getKey();
@@ -127,6 +127,11 @@ public class UiMode {
                     uiApply.onApply(v, entry.getValue(), theme);
                 }
             }
+        }
+
+        // 2、执行View实现UiModeChangeListener接口onUiModeChange()方法
+        if (v instanceof UiModeChangeListener) {
+            ((UiModeChangeListener) v).onUiModeChange();
         }
     }
 

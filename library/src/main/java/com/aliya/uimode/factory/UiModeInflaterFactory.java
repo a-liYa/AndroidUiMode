@@ -10,6 +10,7 @@ import android.util.AttributeSet;
 import android.view.View;
 
 import com.aliya.uimode.intef.InflaterSupport;
+import com.aliya.uimode.intef.UiModeChangeListener;
 import com.aliya.uimode.mode.UiMode;
 import com.aliya.uimode.utils.ViewInflater;
 import com.aliya.uimode.widget.MaskImageView;
@@ -103,11 +104,26 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
             }
 
             if (view != null) {
-                UiMode.saveViewAndAttrIds(context, view, sAttrIdsMap);
+                UiMode.saveViewAndAttrIds(context, view, sAttrIdsMap); // 缓存View
 //                interceptHandler(view, name, context, attrs);
             }
+        } else { //  实现UiModeChangeListener接口的View
+            if (view != null) {
+                if (view instanceof UiModeChangeListener)
+                    UiMode.saveView(context, view);
+            } else {
+                try {
+                    Class<?> clazz = Class.forName(name);
+                    if (UiModeChangeListener.class.isAssignableFrom(clazz)) {
+                        view = ViewInflater.createViewFromTag(context, name, attrs);
+                        UiMode.saveView(context, view); // 缓存View
+                    }
+                } catch (Exception e) {
+                    // nothing to do
+                }
+            }
         }
-//
+
         return view;
     }
 
@@ -152,24 +168,4 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
         return UiMode.NO_ATTR_ID;
     }
 
-//    /**
-//     * 通过反射创建View
-//     */
-//    private View reflectiveCreateView(String name, String prefix, Context context, AttributeSet
-//            attrs) {
-//        Constructor<? extends View> constructor;
-//        Class<? extends View> clazz;
-//
-//        try {
-//            clazz = context.getClassLoader().loadClass(
-//                    prefix != null ? (prefix + name) : name).asSubclass(View.class);
-//            constructor = clazz.getConstructor(sConstructorSignature);
-//            constructor.setAccessible(true);
-//            return constructor.newInstance(context, attrs);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
-//
-//        return null;
-//    }
 }

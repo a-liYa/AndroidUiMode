@@ -33,15 +33,13 @@ public class TestCompatActivity extends BaseActivity {
         setContentView(R.layout.activity_test_compat);
         ButterKnife.bind(this);
 
-//        Class.forName()
-//        theme.resolveAttribute(style, tValue, true);
-
     }
 
     @OnClick({R.id.btn_left, R.id.btn_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_left:
+
 
                 Log.e("TAG", "");
 
