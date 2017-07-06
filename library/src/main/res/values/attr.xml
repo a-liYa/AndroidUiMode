@@ -5,4 +5,8 @@
         <attr name="iv_maskColor" format="color" />
     </declare-styleable>
 
+    <declare-styleable name="RatioLayout">
+        <attr name="ratio_w2h" format="string" />
+    </declare-styleable>
+
 </resources>

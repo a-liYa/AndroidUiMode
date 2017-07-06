@@ -28,9 +28,9 @@ dependencies {
 
 ext {
     publishArtifact = 'android-uimode'
-    publishVersion = '0.1.1' // 发布到Jcenter的版本号
+    publishVersion = '0.1.2' // 发布到Jcenter的版本号
     publishDesc = '帮助Android app更简单的实现日、夜间模式'
     publishWebsite = 'https://github.com/a-liYa/AndroidUiMode'
 }
 
-apply from: '../publish.gradle'
+apply from: "${rootDir}/publish.gradle"

@@ -37,6 +37,13 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
 
     private int mMaskColor = Color.TRANSPARENT;
 
+    /**
+     * 宽高的比率
+     */
+    private float ratio_w_h = -1;
+
+    private int[] mAttrs = {R.attr.ratio_w2h};
+    private static final String DIVIDER_TAG = ":";
     private static final int DEFAULT_ATTR_ID_MASK_COLOR = R.attr.iv_maskColor;
     private int mAttrIdMaskColor = UiMode.NO_ATTR_ID;
 
@@ -75,6 +82,20 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
                     break;
                 }
             }
+
+            TypedArray ta = getContext().obtainStyledAttributes(attrs, mAttrs);
+            String w_h = ta.getString(R.styleable.RatioLayout_ratio_w2h);
+            if (!TextUtils.isEmpty(w_h) && w_h.contains(DIVIDER_TAG)) {
+                String[] split = w_h.trim().split(DIVIDER_TAG);
+                if (split != null && split.length == 2) {
+                    try {
+                        ratio_w_h = Float.parseFloat(split[0].trim())
+                                / Float.parseFloat(split[1].trim());
+                    } catch (NumberFormatException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
         }
         if (mMaskColor == Color.TRANSPARENT && mAttrIdMaskColor == UiMode.NO_ATTR_ID) {
             mAttrIdMaskColor = DEFAULT_ATTR_ID_MASK_COLOR;
@@ -82,6 +103,27 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
 
         resolveRealMaskColorByTheme();
 
+    }
+
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        if (ratio_w_h > 0) {
+            int wMode = MeasureSpec.getMode(widthMeasureSpec);
+            int hMode = MeasureSpec.getMode(heightMeasureSpec);
+
+            int wSize = MeasureSpec.getSize(widthMeasureSpec);
+            int hSize = MeasureSpec.getSize(heightMeasureSpec);
+
+            if (wMode == MeasureSpec.EXACTLY && hMode != MeasureSpec.EXACTLY) {
+                heightMeasureSpec = MeasureSpec
+                        .makeMeasureSpec(Math.round(wSize / ratio_w_h), MeasureSpec.EXACTLY);
+            } else if (wMode != MeasureSpec.EXACTLY && hMode == MeasureSpec.EXACTLY) {
+                widthMeasureSpec = MeasureSpec
+                        .makeMeasureSpec(Math.round(hSize * ratio_w_h), MeasureSpec.EXACTLY);
+            }
+        }
+
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
 
