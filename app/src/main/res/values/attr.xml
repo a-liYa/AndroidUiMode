@@ -3,6 +3,7 @@
 
     <declare-styleable name="AppUiMode">
 
+        <!--系统自带属性-->
         <attr name="colorPrimary" />
         <attr name="colorPrimaryDark" />
         <attr name="colorAccent" />
