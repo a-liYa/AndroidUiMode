@@ -1,5 +1,8 @@
 apply plugin: 'com.android.library'
 
+def vCode = 10
+def vName = '0.1.2'
+
 android {
     compileSdkVersion 25
     buildToolsVersion "25.0.3"
@@ -7,8 +10,8 @@ android {
     defaultConfig {
         minSdkVersion 14
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.0"
+        versionCode vCode
+        versionName vName
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
 
@@ -28,7 +31,7 @@ dependencies {
 
 ext {
     publishArtifact = 'android-uimode'
-    publishVersion = '0.1.2' // 发布到Jcenter的版本号
+    publishVersion = vName // 发布到Jcenter的版本号
     publishDesc = '帮助Android app更简单的实现日、夜间模式'
     publishWebsite = 'https://github.com/a-liYa/AndroidUiMode'
 }

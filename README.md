@@ -1,6 +1,14 @@
 # AndroidUiMode
 让日夜间模式实现起来更简单
 
+### 添加依赖
+
+```
+dependencies {
+    compile 'com.aliya:android-uimode:0.1.3'
+    compile 'com.android.support:appcompat-v7:x.x.x'
+}  
+```   
 
 ### 不支持的
 
