@@ -1,7 +1,10 @@
 package com.aliya.uimode.apply;
 
 import android.content.res.Resources;
+import android.graphics.drawable.Drawable;
+import android.os.Build;
 import android.support.annotation.AttrRes;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -25,7 +28,14 @@ public final class ApplyBackground extends AbsApply {
                     v.setBackgroundColor(sOutValue.data);
                     return true;
                 case TypedValue.TYPE_STRING:
-                    v.setBackgroundResource(sOutValue.resourceId);
+                    Drawable d = ContextCompat.getDrawable(v.getContext(), sOutValue.resourceId);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                        v.setBackground(d);
+                    } else {
+                        v.setBackgroundDrawable(d);
+                    }
+                    // 没有使用下面此方法，防止resourceId相等时设置背景无效
+//                    v.setBackgroundResource(sOutValue.resourceId);
                     return true;
             }
 

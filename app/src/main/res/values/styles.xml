@@ -18,6 +18,8 @@
         <item name="ic_customMaskColor">#7f000000</item>
         <item name="iv_maskColor">@android:color/transparent</item>
 
+        <item name="colorControlHighlight">#33000000</item>
+
     </style>
 
     <style name="NightAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
@@ -40,6 +42,8 @@
         <item name="divider_f0f0f0">@color/divider_f0f0f0_night</item>
         <item name="iv_maskColor">#7f000000</item>
         <item name="ic_customMaskColor">#7f000000</item>
+
+        <item name="colorControlHighlight">#33ffffff</item>
 
     </style>
 

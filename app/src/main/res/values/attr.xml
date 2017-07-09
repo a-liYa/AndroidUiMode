@@ -1,12 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <declare-styleable name="AppUiMode">
+    <declare-styleable name="SupportUiMode">
 
         <!--系统自带属性-->
         <attr name="colorPrimary" />
         <attr name="colorPrimaryDark" />
         <attr name="colorAccent" />
+
+        <!--按钮水波纹-->
+        <attr name="selectableItemBackground" />
 
         <attr name="ui_alpha" format="float|reference" />
 

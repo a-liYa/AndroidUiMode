@@ -5,7 +5,6 @@ import android.os.SystemClock;
 import android.util.Log;
 import android.view.View;
 
-import com.aliya.uimode.UiModeManager;
 import com.aliya.uimode.demo.base.BaseActivity;
 
 import butterknife.ButterKnife;

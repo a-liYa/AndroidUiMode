@@ -136,10 +136,10 @@ public class UiMode {
     }
 
     public static void removeUselessViews(Activity activity) {
-        Log.e("TAG", "开始时个数 " + num());
+//        Log.e("TAG", "开始时个数 " + num());
         sActivityViewMap.remove(activity);
         clearUselessContextViews();
-        Log.e("TAG", "结束时个数 " + num() + " ----- " + SystemClock.uptimeMillis());
+//        Log.e("TAG", "结束时个数 " + num() + " ----- " + SystemClock.uptimeMillis());
     }
 
     private static int num() {
