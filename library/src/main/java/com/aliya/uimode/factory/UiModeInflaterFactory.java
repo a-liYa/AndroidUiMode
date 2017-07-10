@@ -9,6 +9,7 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
+import com.aliya.uimode.UiModeManager;
 import com.aliya.uimode.intef.InflaterSupport;
 import com.aliya.uimode.intef.UiModeChangeListener;
 import com.aliya.uimode.mode.UiMode;
@@ -90,6 +91,11 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
             for (int i = 0; i < N; i++) {
                 String attrName = attrs.getAttributeName(i);
                 if (mInflaterSupport.isSupportApply(attrName)) {
+                    if (UiModeManager.NAME_ATTR_INVALIDATE.equals(attrName)
+                            && attrs.getAttributeBooleanValue(i, false)) {
+                        sAttrIdsMap.put(attrName, UiMode.NO_ATTR_ID);
+                        continue;
+                    }
                     int attrValue = parseAttrValue(attrs.getAttributeValue(i));
                     if (UiMode.attrIdValid(attrValue)) {
                         sAttrIdsMap.put(attrName, attrValue);

@@ -3,6 +3,7 @@
 
     <declare-styleable name="UiMode">
         <attr name="iv_maskColor" format="color" />
+        <attr name="invalidate" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="RatioLayout">

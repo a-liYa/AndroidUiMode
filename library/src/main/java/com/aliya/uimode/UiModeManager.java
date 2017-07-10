@@ -14,6 +14,7 @@ import com.aliya.uimode.apply.ApplyAlpha;
 import com.aliya.uimode.apply.ApplyBackground;
 import com.aliya.uimode.apply.ApplyDivider;
 import com.aliya.uimode.apply.ApplyForeground;
+import com.aliya.uimode.apply.ApplyInvalidate;
 import com.aliya.uimode.apply.ApplyNavIcon;
 import com.aliya.uimode.apply.ApplySrc;
 import com.aliya.uimode.apply.ApplyTextColor;
@@ -45,6 +46,7 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
     private static Set<Integer> sSupportAttrIds;
     private static Map<String, UiApply> sSupportApplies = new HashMap<>();
     public static String NAME_ATTR_MASK_COLOR;
+    public static String NAME_ATTR_INVALIDATE;
 
     static {
         sSupportApplies.put("background", new ApplyBackground());
@@ -54,6 +56,7 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
         sSupportApplies.put("divider", new ApplyDivider());
         sSupportApplies.put("src", new ApplySrc());
         sSupportApplies.put("navigationIcon", new ApplyNavIcon());
+        sSupportApplies.put("invalidate", new ApplyInvalidate());
     }
 
     private UiModeManager() {
@@ -84,6 +87,9 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
 
         if (TextUtils.isEmpty(NAME_ATTR_MASK_COLOR)) {
             NAME_ATTR_MASK_COLOR = context.getResources().getResourceEntryName(R.attr.iv_maskColor);
+        }
+        if (TextUtils.isEmpty(NAME_ATTR_INVALIDATE)) {
+            NAME_ATTR_INVALIDATE = context.getResources().getResourceEntryName(R.attr.invalidate);
         }
 
         if (sContext instanceof Application) {
