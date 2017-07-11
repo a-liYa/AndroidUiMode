@@ -23,6 +23,7 @@ public class UiModeActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ui_mode);
         ButterKnife.bind(this);
+
     }
 
     @OnClick({R.id.btn_left, R.id.btn_right})

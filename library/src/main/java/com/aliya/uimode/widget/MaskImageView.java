@@ -35,7 +35,9 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
 
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
-    private int mMaskColor = Color.TRANSPARENT;
+    private int mMaskAttrId = UiMode.NO_ATTR_ID;
+    private Integer mMaskColor = null;
+    private int mApplyMaskColor = NO_COLOR;
 
     /**
      * 宽高的比率
@@ -43,9 +45,11 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     private float ratio_w_h = -1;
 
     private int[] mAttrs = {R.attr.ratio_w2h};
+    private static TypedValue sOutValue = new TypedValue();
+
     private static final String DIVIDER_TAG = ":";
-    private static final int DEFAULT_ATTR_ID_MASK_COLOR = R.attr.iv_maskColor;
-    private int mAttrIdMaskColor = UiMode.NO_ATTR_ID;
+    public static final int NO_COLOR = Color.TRANSPARENT;
+    private static final int DEFAULT_MASK_COLOR_ATTR_ID = R.attr.iv_maskColor;
 
     public MaskImageView(Context context) {
         this(context, null);
@@ -61,25 +65,26 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     }
 
     private void init(AttributeSet attrs) {
-        if (TextUtils.isEmpty(UiModeManager.NAME_ATTR_MASK_COLOR)) return;
 
         if (attrs != null) {
-            final int N = attrs.getAttributeCount();
-            for (int i = 0; i < N; i++) {
-                String attrName = attrs.getAttributeName(i);
-                if (UiModeManager.NAME_ATTR_MASK_COLOR.equals(attrName)) {
-                    String attrVal = attrs.getAttributeValue(i);
-                    if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("?")) {
-                        String subStr = attrVal.substring(1, attrVal.length());
-                        try {
-                            mAttrIdMaskColor = Integer.valueOf(subStr);
-                        } catch (Exception e) {
-                            e.printStackTrace();
+            if (!TextUtils.isEmpty(UiModeManager.NAME_ATTR_MASK_COLOR)) {
+                final int N = attrs.getAttributeCount();
+                for (int i = 0; i < N; i++) {
+                    String attrName = attrs.getAttributeName(i);
+                    if (UiModeManager.NAME_ATTR_MASK_COLOR.equals(attrName)) {
+                        String attrVal = attrs.getAttributeValue(i);
+                        if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("?")) {
+                            String subStr = attrVal.substring(1, attrVal.length());
+                            try {
+                                mMaskAttrId = Integer.valueOf(subStr);
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            parseAttrMaskColor(attrs);
                         }
-                    } else {
-                        parseAttrMaskColor(attrs);
+                        break;
                     }
-                    break;
                 }
             }
 
@@ -96,12 +101,10 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
                     }
                 }
             }
-        }
-        if (mMaskColor == Color.TRANSPARENT && mAttrIdMaskColor == UiMode.NO_ATTR_ID) {
-            mAttrIdMaskColor = DEFAULT_ATTR_ID_MASK_COLOR;
+            ta.recycle();
         }
 
-        resolveRealMaskColorByTheme();
+        resolveRealMaskColor();
 
     }
 
@@ -126,42 +129,63 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
-
-    private void resolveRealMaskColorByTheme() {
-        if (mAttrIdMaskColor != UiMode.NO_ATTR_ID) {
-            TypedValue outValue = new TypedValue();
-            Resources.Theme theme = getContext().getTheme();
-            if (theme != null) {
-                theme.resolveAttribute(mAttrIdMaskColor, outValue, true);
-                switch (outValue.type) {
-                    case TypedValue.TYPE_INT_COLOR_ARGB4:
-                    case TypedValue.TYPE_INT_COLOR_ARGB8:
-                    case TypedValue.TYPE_INT_COLOR_RGB4:
-                    case TypedValue.TYPE_INT_COLOR_RGB8:
-                        mMaskColor = outValue.data;
-                        break;
-                    case TypedValue.TYPE_STRING:
-                        mMaskColor = ContextCompat.getColor(getContext(), outValue.resourceId);
-                        break;
+    private void resolveRealMaskColor() {
+        if (mMaskAttrId != UiMode.NO_ATTR_ID) {
+            resolveColorAttribute(mMaskAttrId);
+        } else {
+            if (mMaskColor != null) {
+                Resources.Theme theme = getContext().getTheme();
+                if (theme != null) {
+                    theme.resolveAttribute(R.attr.iv_useMaskColor, sOutValue, true);
+                    if (sOutValue.type == TypedValue.TYPE_INT_BOOLEAN) {
+                        if(sOutValue.data == 0) { // data为0:表示false
+                            mApplyMaskColor = NO_COLOR;
+                        } else {
+                            mApplyMaskColor = mMaskColor;
+                        }
+                    }
                 }
+            } else {
+                resolveColorAttribute(DEFAULT_MASK_COLOR_ATTR_ID);
             }
         }
 
-        if (mAttrIdMaskColor != Color.TRANSPARENT) {
-            mPaint.setColor(mMaskColor);
+        mPaint.setColor(mApplyMaskColor);
+    }
+
+    private void resolveColorAttribute(int attrId) {
+        Resources.Theme theme = getContext().getTheme();
+        if (theme != null) {
+            theme.resolveAttribute(attrId, sOutValue, true);
+            switch (sOutValue.type) {
+                case TypedValue.TYPE_INT_COLOR_ARGB4:
+                case TypedValue.TYPE_INT_COLOR_ARGB8:
+                case TypedValue.TYPE_INT_COLOR_RGB4:
+                case TypedValue.TYPE_INT_COLOR_RGB8:
+                    mApplyMaskColor = sOutValue.data;
+                    break;
+                case TypedValue.TYPE_STRING:
+                    mApplyMaskColor = ContextCompat.getColor(getContext(), sOutValue.resourceId);
+                    break;
+                default:
+                    mApplyMaskColor = NO_COLOR;
+                    break;
+            }
         }
     }
 
     private void parseAttrMaskColor(AttributeSet attrs) {
         TypedArray a = getContext().obtainStyledAttributes(attrs, new int[]{R.attr.iv_maskColor});
-        mMaskColor = a.getColor(0, Color.TRANSPARENT);
+        if (a.hasValue(0)) {
+            mMaskColor = a.getColor(0, NO_COLOR);
+        }
         a.recycle();
     }
 
     @Override
     protected void onDraw(Canvas canvas) {
 //        setLayerType(LAYER_TYPE_SOFTWARE, null); // 关闭硬件加速
-        if (mAttrIdMaskColor != Color.TRANSPARENT) { // Color不是透明色
+        if (mApplyMaskColor != NO_COLOR) {
             int layerId = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(), null,
                     Canvas.ALL_SAVE_FLAG);
             super.onDraw(canvas);
@@ -176,7 +200,7 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     @Override
     public void onUiModeChange() {
         if (getDrawable() != null) {
-            resolveRealMaskColorByTheme();
+            resolveRealMaskColor();
             invalidate();
         }
     }

@@ -14,7 +14,7 @@
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="100dp"
         android:src="@mipmap/ic_launcher"
-        app:iv_maskColor="?attr/ic_customMaskColor" />
+        app:iv_maskColor="@android:color/transparent" />
 
     <View
         android:layout_width="match_parent"
