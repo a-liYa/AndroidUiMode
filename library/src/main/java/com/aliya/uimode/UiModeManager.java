@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 
 import com.aliya.uimode.apply.ApplyAlpha;
@@ -38,6 +39,8 @@ import java.util.Stack;
  * @date 2017/6/23 10:51.
  */
 public class UiModeManager implements ApplyPolicy, InflaterSupport {
+
+    public static final String TAG = "UiMode";
 
     private static volatile UiModeManager sInstance;
 
@@ -71,59 +74,6 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
             }
         }
         return sInstance;
-    }
-
-    /**
-     * 初始化： 持有ApplicationContext引用，保存支持的Attr
-     *
-     * @param context Context
-     * @param attrs   支持夜间模式的属性数组
-     */
-    public static final void init(Context context, int[] attrs) {
-
-        sContext = context.getApplicationContext();
-
-        addSupportAttrIds(attrs);
-
-        if (TextUtils.isEmpty(NAME_ATTR_MASK_COLOR)) {
-            NAME_ATTR_MASK_COLOR = context.getResources().getResourceEntryName(R.attr.iv_maskColor);
-        }
-        if (TextUtils.isEmpty(NAME_ATTR_INVALIDATE)) {
-            NAME_ATTR_INVALIDATE = context.getResources().getResourceEntryName(R.attr.invalidate);
-        }
-
-        if (sContext instanceof Application) {
-
-            ((Application) sContext).unregisterActivityLifecycleCallbacks(lifecycleCallbacks);
-            ((Application) sContext).registerActivityLifecycleCallbacks(lifecycleCallbacks);
-
-            LayoutInflater inflater = LayoutInflater.from(sContext);
-            if (LayoutInflaterCompat.getFactory(inflater) == null) {
-                LayoutInflaterCompat.setFactory(inflater, obtainInflaterFactory());
-            }
-        }
-
-    }
-
-    public static void setTheme(int resId) {
-        // 设置所有Activity主题
-        Stack<Activity> appStack = AppStack.getAppStack();
-        if (appStack != null) {
-            Iterator<Activity> iterator = appStack.iterator();
-            while (iterator.hasNext()) {
-                Activity next = iterator.next();
-                if (next != null) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                        if (next.isDestroyed()) continue;
-                    }
-                    next.setTheme(resId);
-                }
-            }
-        }
-
-        // 执行View到对应主题
-        UiMode.applyUiMode(resId, get());
-
     }
 
     private static final Application.ActivityLifecycleCallbacks lifecycleCallbacks =
@@ -176,6 +126,64 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
         return sSupportAttrIds != null && sSupportAttrIds.contains(attrId);
     }
 
+    /**
+     * 初始化： 持有ApplicationContext引用，保存支持的Attr
+     *
+     * @param context Context
+     * @param attrs   支持夜间模式的属性数组
+     */
+    public static final void init(Context context, int[] attrs) {
+
+        sContext = context.getApplicationContext();
+
+        addSupportAttrIds(attrs);
+
+        if (TextUtils.isEmpty(NAME_ATTR_MASK_COLOR)) {
+            NAME_ATTR_MASK_COLOR = context.getResources().getResourceEntryName(R.attr.iv_maskColor);
+        }
+        if (TextUtils.isEmpty(NAME_ATTR_INVALIDATE)) {
+            NAME_ATTR_INVALIDATE = context.getResources().getResourceEntryName(R.attr.invalidate);
+        }
+
+        if (sContext instanceof Application) {
+
+            ((Application) sContext).unregisterActivityLifecycleCallbacks(lifecycleCallbacks);
+            ((Application) sContext).registerActivityLifecycleCallbacks(lifecycleCallbacks);
+
+            LayoutInflater inflater = LayoutInflater.from(sContext);
+            if (LayoutInflaterCompat.getFactory(inflater) == null) {
+                LayoutInflaterCompat.setFactory(inflater, obtainInflaterFactory());
+            }
+        }
+
+    }
+
+    public static void setTheme(int resId) {
+        if (sContext == null) {
+            Log.e(TAG, "Using the ui mode, you need to initialize");
+            return;
+        }
+
+        // 设置所有Activity主题
+        Stack<Activity> appStack = AppStack.getAppStack();
+        if (appStack != null) {
+            Iterator<Activity> iterator = appStack.iterator();
+            while (iterator.hasNext()) {
+                Activity next = iterator.next();
+                if (next != null) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        if (next.isDestroyed()) continue;
+                    }
+                    next.setTheme(resId);
+                }
+            }
+        }
+
+        // 执行View到对应主题
+        UiMode.applyUiMode(resId, get());
+
+    }
+
     public static void addSupportAttrIds(int[] attrs) {
         if (attrs == null) return;
         // 不存在，创建
@@ -189,6 +197,14 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
         // 添加全部
         for (int attrId : attrs) {
             sSupportAttrIds.add(attrId);
+        }
+    }
+
+    public static void setInflaterFactor(LayoutInflater inflater) {
+        if (sContext != null) {
+            LayoutInflaterCompat.setFactory(inflater, UiModeManager.obtainInflaterFactory());
+        } else {
+            Log.e(TAG, "Using the ui mode, you need to initialize");
         }
     }
 
