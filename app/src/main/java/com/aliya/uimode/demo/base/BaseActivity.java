@@ -18,7 +18,7 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        ThemeMode.setTheme2Activity(this);
+        ThemeMode.fitTheme2Activity(this);
         LayoutInflaterCompat.setFactory
                 (getLayoutInflater(), UiModeManager.obtainInflaterFactory());
 

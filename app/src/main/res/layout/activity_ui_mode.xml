@@ -13,8 +13,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="100dp"
-        android:src="@mipmap/ic_launcher"
-        app:iv_maskColor="@android:color/transparent" />
+        android:src="@mipmap/ic_launcher" />
 
     <View
         android:layout_width="match_parent"

@@ -1,6 +1,10 @@
 package com.aliya.uimode.demo;
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageManager;
+import android.support.annotation.StyleRes;
 
 import com.aliya.uimode.UiModeManager;
 
@@ -12,29 +16,80 @@ import com.aliya.uimode.UiModeManager;
  */
 public class ThemeMode {
 
-    private static boolean isNightMode = false;
+    private boolean isNightMode;
 
-    private static final int DAY_THEME = R.style.AppTheme;
-    private static final int NIGHT_THEME = R.style.NightAppTheme;
+    private int mDayTheme = NO_THEME;
+    private int mNightTheme = NO_THEME;
 
-    private static final int DEFAULT_THEME = DAY_THEME;
+    private static final int NO_THEME = -1;
+    private static int default_theme = NO_THEME;
+
+    private static ThemeMode sInstance;
+
+    public static final void init(Context context) {
+        PackageManager manager = context.getPackageManager();
+        try {
+            ApplicationInfo appInfo = manager.getApplicationInfo(context.getPackageName(),
+                    PackageManager.GET_META_DATA);
+            default_theme = appInfo.theme;
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static final void initTheme(@StyleRes int dayTheme, @StyleRes int nightTheme) {
+        _get().setDayTheme(dayTheme).setNightTheme(nightTheme);
+    }
+
+    private static ThemeMode _get() {
+        if (sInstance == null) {
+            synchronized (ThemeMode.class) {
+                if (sInstance == null) {
+                    sInstance = new ThemeMode();
+                }
+            }
+        }
+        return sInstance;
+    }
+
+    public int getDayTheme() {
+        return mDayTheme;
+    }
+
+    public ThemeMode setDayTheme(int dayTheme) {
+        mDayTheme = dayTheme;
+        return this;
+    }
+
+    public int getNightTheme() {
+        return mNightTheme;
+    }
+
+    public ThemeMode setNightTheme(int nightTheme) {
+        mNightTheme = nightTheme;
+        return this;
+    }
+
+    private final int getCurrentTheme() {
+        return isNightMode ? mNightTheme : mDayTheme;
+    }
 
     public static final void setUiMode(boolean isNightMode) {
-        if (ThemeMode.isNightMode != isNightMode) {
-            ThemeMode.isNightMode = isNightMode;
-            UiModeManager.setTheme(getCurrentTheme());
+        if (_get().isNightMode != isNightMode) {
+            _get().isNightMode = isNightMode;
+            int theme = isNightMode ? _get().getNightTheme() : _get().getDayTheme();
+            if (NO_THEME != theme) {
+                UiModeManager.setTheme(theme);
+            }
         }
     }
 
-    public static final int getCurrentTheme() {
-        return isNightMode ? NIGHT_THEME : DAY_THEME;
-    }
-
-    public static final void setTheme2Activity(Activity activity) {
+    public static final void fitTheme2Activity(Activity activity) {
         if (activity == null) return;
-        if (DEFAULT_THEME != getCurrentTheme()) {
-            activity.setTheme(getCurrentTheme());
-        }
 
+        int currTheme = _get().getCurrentTheme();
+        if (NO_THEME != currTheme && default_theme != currTheme) {
+            activity.setTheme(currTheme);
+        }
     }
 }

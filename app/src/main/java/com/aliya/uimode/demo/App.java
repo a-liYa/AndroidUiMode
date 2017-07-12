@@ -16,7 +16,9 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        UiModeManager.init(this, R.styleable.SupportUiMode);
+        ThemeMode.init(this);
+        ThemeMode.initTheme(R.style.AppTheme, R.style.NightAppTheme);
+//        UiModeManager.init(this, R.styleable.SupportUiMode);
 
     }
 
