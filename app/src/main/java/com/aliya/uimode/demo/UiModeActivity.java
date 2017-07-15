@@ -2,11 +2,19 @@ package com.aliya.uimode.demo;
 
 import android.os.Bundle;
 import android.os.SystemClock;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.aliya.uimode.demo.base.BaseActivity;
+import com.aliya.uimode.mode.Attr;
+import com.aliya.uimode.mode.UiMode;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -17,6 +25,9 @@ import butterknife.OnClick;
  * @date 2017/6/27 下午1:00.
  */
 public class UiModeActivity extends BaseActivity {
+
+    @BindView(R.id.ll)
+    LinearLayout mLl;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,4 +53,15 @@ public class UiModeActivity extends BaseActivity {
         }
     }
 
+    @OnClick(R.id.btn_add)
+    public void onViewClicked() {
+
+        TextView textView = new TextView(this);
+        textView.setText("我是第" + mLl.getChildCount() + "个View");
+        textView.setGravity(Gravity.CENTER);
+        textView.setTextColor(ContextCompat.getColor(this, R.color.tc_3b424c));
+        mLl.addView(textView, ViewGroup.LayoutParams.MATCH_PARENT, 150);
+        UiMode.putUiModeView(textView, Attr.builder().add(Attr.NAME_TC, R.attr.tc_3b424c).build());
+
+    }
 }

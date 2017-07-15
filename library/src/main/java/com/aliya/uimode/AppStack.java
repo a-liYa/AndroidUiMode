@@ -10,7 +10,7 @@ import java.util.Stack;
  * @author a_liYa
  * @date 2017/6/28 15:58.
  */
-class AppStack {
+final class AppStack {
 
     private static Stack<Activity> sStack;
 

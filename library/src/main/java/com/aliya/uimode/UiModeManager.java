@@ -23,6 +23,7 @@ import com.aliya.uimode.factory.UiModeInflaterFactory;
 import com.aliya.uimode.intef.ApplyPolicy;
 import com.aliya.uimode.intef.InflaterSupport;
 import com.aliya.uimode.intef.UiApply;
+import com.aliya.uimode.mode.Attr;
 import com.aliya.uimode.mode.UiMode;
 
 import java.util.HashMap;
@@ -38,9 +39,9 @@ import java.util.Stack;
  * @author a_liYa
  * @date 2017/6/23 10:51.
  */
-public class UiModeManager implements ApplyPolicy, InflaterSupport {
+public final class UiModeManager implements ApplyPolicy, InflaterSupport {
 
-    public static final String TAG = "UiMode";
+    private static final String TAG = "UiMode";
 
     private static volatile UiModeManager sInstance;
 
@@ -52,14 +53,14 @@ public class UiModeManager implements ApplyPolicy, InflaterSupport {
     public static String NAME_ATTR_INVALIDATE;
 
     static {
-        sSupportApplies.put("background", new ApplyBackground());
-        sSupportApplies.put("foreground", new ApplyForeground());
-        sSupportApplies.put("alpha", new ApplyAlpha());
-        sSupportApplies.put("textColor", new ApplyTextColor());
-        sSupportApplies.put("divider", new ApplyDivider());
-        sSupportApplies.put("src", new ApplySrc());
-        sSupportApplies.put("navigationIcon", new ApplyNavIcon());
-        sSupportApplies.put("invalidate", new ApplyInvalidate());
+        sSupportApplies.put(Attr.NAME_BG, new ApplyBackground());
+        sSupportApplies.put(Attr.NAME_FG, new ApplyForeground());
+        sSupportApplies.put(Attr.NAME_ALPHA, new ApplyAlpha());
+        sSupportApplies.put(Attr.NAME_TC, new ApplyTextColor());
+        sSupportApplies.put(Attr.NAME_DIVIDER, new ApplyDivider());
+        sSupportApplies.put(Attr.NAME_SRC, new ApplySrc());
+        sSupportApplies.put(Attr.NAME_NI, new ApplyNavIcon());
+        sSupportApplies.put(Attr.INVALIDATE, new ApplyInvalidate());
     }
 
     private UiModeManager() {

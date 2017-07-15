@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,12 +20,13 @@
         android:background="?attr/selectableItemBackground"
         android:clickable="true" />
 
-    <android.support.v7.widget.RecyclerView
+    <LinearLayout
+        android:id="@+id/ll"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:invalidate="true" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-    </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
 
     <Button
         android:id="@+id/btn_left"
@@ -34,6 +34,14 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|left"
         android:text="白间模式"
+        android:textColor="?attr/tc_3b424c" />
+
+    <Button
+        android:id="@+id/btn_add"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|center_horizontal"
+        android:text="添加View"
         android:textColor="?attr/tc_3b424c" />
 
     <Button

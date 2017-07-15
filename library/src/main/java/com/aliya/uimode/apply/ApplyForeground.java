@@ -4,10 +4,9 @@ import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.support.annotation.AttrRes;
+import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
-
-import com.aliya.uimode.utils.Utils;
 
 /**
  * 应用android:foreground属性 {@link android.view.View}
@@ -31,7 +30,7 @@ public final class ApplyForeground extends AbsApply {
                         return true;
                     case TypedValue.TYPE_STRING:
                         v.setForeground(
-                                Utils.getDrawableCompat(v.getContext(), sOutValue.resourceId));
+                                ContextCompat.getDrawable(v.getContext(), sOutValue.resourceId));
                         return true;
                 }
             }

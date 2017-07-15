@@ -2,10 +2,7 @@ package com.aliya.uimode.mode;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources;
 import android.content.res.Resources.Theme;
-import android.os.SystemClock;
-import android.util.Log;
 import android.view.View;
 
 import com.aliya.uimode.R;
@@ -27,7 +24,7 @@ import java.util.Set;
  * @author a_liYa
  * @date 2017/6/23 11:07.
  */
-public class UiMode {
+public final class UiMode {
 
     private static Map<Context, Set<WeakReference<View>>> sContextViewMap = new HashMap<>();
     private static Map<Context, Set<WeakReference<View>>> sActivityViewMap = new HashMap<>();
@@ -37,7 +34,18 @@ public class UiMode {
     private UiMode() {
     }
 
-    public static void saveViewAndAttrIds(final Context ctx, View v, Map<String, Integer> attrs) {
+    /**
+     * 供外部使用，添加 通过new创建带有夜间模式属性的View
+     *
+     * @param v     a view
+     * @param attrs 建议通过 {@link com.aliya.uimode.mode.Attr.Builder} 创建
+     */
+    public static void putUiModeView(View v, Map<String, Integer> attrs) {
+        if (v == null) return;
+        saveViewAndAttrIds(v.getContext(), v, attrs);
+    }
+
+    public static void saveViewAndAttrIds(Context ctx, View v, final Map<String, Integer> attrs) {
         if (v != null && attrs != null) {
             Map<String, Integer> attrIds = new HashMap<>(attrs.size());
             attrIds.putAll(attrs);
@@ -48,6 +56,8 @@ public class UiMode {
     }
 
     public static void saveView(Context ctx, View v) {
+        if (ctx == null || v == null) return;
+
         if (ctx instanceof Activity) {
             putView2Map(ctx, v, sActivityViewMap, null);
         } else {
@@ -139,7 +149,7 @@ public class UiMode {
 //        Log.e("TAG", "开始时个数 " + num());
         sActivityViewMap.remove(activity);
         clearUselessContextViews();
-//        Log.e("TAG", "结束时个数 " + num() + " ----- " + SystemClock.uptimeMillis());
+//        Log.e("TAG", "结束时个数 " + num());
     }
 
     private static int num() {
