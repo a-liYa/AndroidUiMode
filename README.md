@@ -60,3 +60,74 @@ res/drawable/bg_test_attr.xml
         android:layout_height="wrap_content"
         app:iv_maskColor="?attr/ic_customMaskColor" />
 ```
+
+### 有关属性
+
+```
+<declare-styleable name="UiMode">
+    <attr name="iv_maskColor" format="color" />
+    <attr name="iv_useMaskColor" format="boolean" />
+    <attr name="invalidate" format="boolean" />
+</declare-styleable>
+```
+
+* 1、iv_maskColor
+
+`ImageView使用PorterDuffXfermode进行遮罩的颜色属性`  
+> 1. 若ImageView没有配iv_maskColor; 跟随当前Activity对应主题配置的iv_maskColor 
+```
+<style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    ...
+    <item name="iv_maskColor">@android:color/transparent</item>
+    ...
+</style>
+<style name="NightAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+    ...
+    <item name="iv_maskColor">#7f000000</item>
+    ...
+</style>
+```  
+
+> 2. app:iv_maskColor="?attr/xxx"; 此时遮罩颜色值对应该ImageView所在Activity对应主题的xxx属性配置的值  
+
+ attrs.xml  
+``` 
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="SupportUiMode">
+        <attr name="xxx" format="color|reference" />
+    </declare-styleable>
+</resources>
+```
+ styles.xml
+```
+<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    ...
+    <item name="xxx">#7f000000</item>
+    ...
+</style>
+```
+
+> 3. app:iv_maskColor="#f00"; 遮罩颜色值是#f00，但是不知道什么时候生效；此时需要配合iv_useMaskColor属性，详见iv_useMaskColor解释
+
+
+*  2、iv_useMaskColor
+```
+<style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    ...
+    <item name="iv_useMaskColor">false</item>
+    ...
+</style>
+<style name="NightAppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+    ...
+    <item name="iv_useMaskColor">true</item>
+    ...
+</style>
+```
+依据上面配置，当前Activity对应主题NightAppTheme时，ImageView `app:iv_maskColor="#f00"` 才会生效；
+
+* 3、invalidate
+
+`app:invalidate="true"` 表示日、夜间模式切换会调用对应View.invalidate()来刷新
+
+> 场景：RecyclerView的分割线，当日、夜间模式切换时，RecyclerView不刷新分割线的颜色就不会变化

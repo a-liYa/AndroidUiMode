@@ -39,15 +39,10 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     private Integer mMaskColor = null;
     private int mApplyMaskColor = NO_COLOR;
 
-    /**
-     * 宽高的比率
-     */
-    private float ratio_w_h = -1;
-
-    private int[] mAttrs = {R.attr.ratio_w2h};
     private static TypedValue sOutValue = new TypedValue();
 
-    private static final String DIVIDER_TAG = ":";
+    private RatioHelper helper;
+
     public static final int NO_COLOR = Color.TRANSPARENT;
     private static final int DEFAULT_MASK_COLOR_ATTR_ID = R.attr.iv_maskColor;
 
@@ -62,10 +57,10 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     public MaskImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(attrs);
+        helper = new RatioHelper(context, attrs);
     }
 
     private void init(AttributeSet attrs) {
-
         if (attrs != null) {
             if (!TextUtils.isEmpty(UiModeManager.NAME_ATTR_MASK_COLOR)) {
                 final int N = attrs.getAttributeCount();
@@ -87,44 +82,16 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
                     }
                 }
             }
-
-            TypedArray ta = getContext().obtainStyledAttributes(attrs, mAttrs);
-            String w_h = ta.getString(R.styleable.RatioLayout_ratio_w2h);
-            if (!TextUtils.isEmpty(w_h) && w_h.contains(DIVIDER_TAG)) {
-                String[] split = w_h.trim().split(DIVIDER_TAG);
-                if (split != null && split.length == 2) {
-                    try {
-                        ratio_w_h = Float.parseFloat(split[0].trim())
-                                / Float.parseFloat(split[1].trim());
-                    } catch (NumberFormatException e) {
-                        e.printStackTrace();
-                    }
-                }
-            }
-            ta.recycle();
         }
 
         resolveRealMaskColor();
-
     }
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-        if (ratio_w_h > 0) {
-            int wMode = MeasureSpec.getMode(widthMeasureSpec);
-            int hMode = MeasureSpec.getMode(heightMeasureSpec);
 
-            int wSize = MeasureSpec.getSize(widthMeasureSpec);
-            int hSize = MeasureSpec.getSize(heightMeasureSpec);
-
-            if (wMode == MeasureSpec.EXACTLY && hMode != MeasureSpec.EXACTLY) {
-                heightMeasureSpec = MeasureSpec
-                        .makeMeasureSpec(Math.round(wSize / ratio_w_h), MeasureSpec.EXACTLY);
-            } else if (wMode != MeasureSpec.EXACTLY && hMode == MeasureSpec.EXACTLY) {
-                widthMeasureSpec = MeasureSpec
-                        .makeMeasureSpec(Math.round(hSize * ratio_w_h), MeasureSpec.EXACTLY);
-            }
-        }
+        widthMeasureSpec = helper.widthMeasureSpec(widthMeasureSpec, heightMeasureSpec);
+        heightMeasureSpec = helper.heightMeasureSpec(widthMeasureSpec, heightMeasureSpec);
 
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }

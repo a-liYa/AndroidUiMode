@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,11 +9,13 @@
 
     <com.aliya.uimode.widget.MaskImageView
         android:id="@+id/iv_mask"
-        android:layout_width="wrap_content"
+        android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="100dp"
-        android:src="@mipmap/ic_launcher" />
+        android:background="@color/bg_white_night"
+        android:src="@mipmap/ic_launcher"
+        app:ratio_w2h="1:1" />
 
     <View
         android:layout_width="match_parent"
