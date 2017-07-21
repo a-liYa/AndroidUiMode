@@ -29,6 +29,14 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:gravity="center_vertical"
+            android:hint="EditText hint"
+            android:textColor="?attr/tc_3b424c"
+            android:textColorHint="?attr/tc_3b424c" />
+
     </LinearLayout>
 
     <Button

@@ -17,6 +17,7 @@ public class Attr {
     public static final String NAME_FG = "foreground";
     public static final String NAME_ALPHA = "alpha";
     public static final String NAME_TC = "textColor";
+    public static final String NAME_TCH = "textColorHint";
     public static final String NAME_DIVIDER = "divider";
     public static final String NAME_SRC = "src";
     public static final String NAME_NI = "navigationIcon";
