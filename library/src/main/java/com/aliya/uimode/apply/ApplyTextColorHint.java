@@ -11,7 +11,7 @@ import android.widget.EditText;
  * 应用android:textColorHint属性 {@link EditText}
  *
  * @author a_liYa
- * @date 2017/6/26 12:51.
+ * @date 2017/7/21 9:51.
  */
 public final class ApplyTextColorHint extends AbsApply {
 
