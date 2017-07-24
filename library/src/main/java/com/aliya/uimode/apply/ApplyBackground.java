@@ -18,8 +18,7 @@ public final class ApplyBackground extends AbsApply {
 
     @Override
     public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {
-        if (argsValid(v, attrId, theme)) {
-            theme.resolveAttribute(attrId, sOutValue, true);
+        if (argsValid(v, attrId, theme) && theme.resolveAttribute(attrId, sOutValue, true)) {
             switch (sOutValue.type) {
                 case TypedValue.TYPE_INT_COLOR_ARGB4:
                 case TypedValue.TYPE_INT_COLOR_ARGB8:
@@ -34,11 +33,10 @@ public final class ApplyBackground extends AbsApply {
                     } else {
                         v.setBackgroundDrawable(d);
                     }
-                    // 没有使用下面此方法，防止resourceId相等时设置背景无效
-//                    v.setBackgroundResource(sOutValue.resourceId);
+                    // 没用以下方法，防止resourceId相等时设置背景无效（resId对应资源里的资源有变化）
+//                        v.setBackgroundResource(sOutValue.resourceId);
                     return true;
             }
-
         }
         return false;
     }

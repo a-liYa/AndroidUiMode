@@ -18,18 +18,19 @@ public final class ApplyTextColor extends AbsApply {
     @Override
     public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {
         if (argsValid(v, attrId, theme) && v instanceof TextView) {
-            theme.resolveAttribute(attrId, sOutValue, true);
-            switch (sOutValue.type) {
-                case TypedValue.TYPE_INT_COLOR_ARGB4:
-                case TypedValue.TYPE_INT_COLOR_ARGB8:
-                case TypedValue.TYPE_INT_COLOR_RGB4:
-                case TypedValue.TYPE_INT_COLOR_RGB8:
-                    ((TextView) v).setTextColor(sOutValue.data);
-                    return true;
-                case TypedValue.TYPE_STRING:
-                    ((TextView) v).setTextColor(ContextCompat.
-                            getColorStateList(v.getContext(), sOutValue.resourceId));
-                    return true;
+            if (theme.resolveAttribute(attrId, sOutValue, true)) {
+                switch (sOutValue.type) {
+                    case TypedValue.TYPE_INT_COLOR_ARGB4:
+                    case TypedValue.TYPE_INT_COLOR_ARGB8:
+                    case TypedValue.TYPE_INT_COLOR_RGB4:
+                    case TypedValue.TYPE_INT_COLOR_RGB8:
+                        ((TextView) v).setTextColor(sOutValue.data);
+                        return true;
+                    case TypedValue.TYPE_STRING:
+                        ((TextView) v).setTextColor(ContextCompat.
+                                getColorStateList(v.getContext(), sOutValue.resourceId));
+                        return true;
+                }
             }
         }
         return false;

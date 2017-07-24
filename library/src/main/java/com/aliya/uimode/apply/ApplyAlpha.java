@@ -16,10 +16,11 @@ public final class ApplyAlpha extends AbsApply {
     @Override
     public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {
         if (argsValid(v, attrId, theme)) {
-            theme.resolveAttribute(attrId, sOutValue, true);
-            if (sOutValue.type == TypedValue.TYPE_FLOAT) {
-                v.setAlpha(sOutValue.getFloat());
-                return true;
+            if (theme.resolveAttribute(attrId, sOutValue, true)) {
+                if (sOutValue.type == TypedValue.TYPE_FLOAT) {
+                    v.setAlpha(sOutValue.getFloat());
+                    return true;
+                }
             }
         }
         return false;

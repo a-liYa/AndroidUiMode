@@ -102,10 +102,10 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
         } else {
             if (mMaskColor != null) {
                 Resources.Theme theme = getContext().getTheme();
-                if (theme != null) {
-                    theme.resolveAttribute(R.attr.iv_useMaskColor, sOutValue, true);
+                if (theme != null &&
+                        theme.resolveAttribute(R.attr.iv_useMaskColor, sOutValue, true)) {
                     if (sOutValue.type == TypedValue.TYPE_INT_BOOLEAN) {
-                        if(sOutValue.data == 0) { // data为0:表示false
+                        if (sOutValue.data == 0) { // data为0:表示false
                             mApplyMaskColor = NO_COLOR;
                         } else {
                             mApplyMaskColor = mMaskColor;
@@ -122,8 +122,7 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
 
     private void resolveColorAttribute(int attrId) {
         Resources.Theme theme = getContext().getTheme();
-        if (theme != null) {
-            theme.resolveAttribute(attrId, sOutValue, true);
+        if (theme != null && theme.resolveAttribute(attrId, sOutValue, true)) {
             switch (sOutValue.type) {
                 case TypedValue.TYPE_INT_COLOR_ARGB4:
                 case TypedValue.TYPE_INT_COLOR_ARGB8:

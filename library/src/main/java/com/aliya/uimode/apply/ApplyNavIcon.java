@@ -17,11 +17,12 @@ public class ApplyNavIcon extends AbsApply {
     @Override
     public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {
         if (argsValid(v, attrId, theme) && v instanceof Toolbar) {
-            theme.resolveAttribute(attrId, sOutValue, true);
-            switch (sOutValue.type) {
-                case TypedValue.TYPE_STRING:
-                    ((Toolbar) v).setNavigationIcon(sOutValue.resourceId);
-                    return true;
+            if (theme.resolveAttribute(attrId, sOutValue, true)) {
+                switch (sOutValue.type) {
+                    case TypedValue.TYPE_STRING:
+                        ((Toolbar) v).setNavigationIcon(sOutValue.resourceId);
+                        return true;
+                }
             }
         }
         return false;
