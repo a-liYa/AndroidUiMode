@@ -49,6 +49,10 @@ public final class UiMode {
         if (v != null && attrs != null) {
             Map<String, Integer> attrIds = new HashMap<>(attrs.size());
             attrIds.putAll(attrs);
+            Object tag = v.getTag(R.id.tag_ui_mode);
+            if (tag instanceof HashMap) {
+                attrIds.putAll((Map<String, Integer>) tag);
+            }
             v.setTag(R.id.tag_ui_mode, attrIds);
 
             saveView(ctx, v);
@@ -75,7 +79,7 @@ public final class UiMode {
         weakViewSet.add((queue == null) ? new WeakReference<>(v) : new WeakReference(v, queue));
     }
 
-    public static void applyUiMode(int resId, ApplyPolicy policy) {
+    public static void applyUiMode(int themeId, ApplyPolicy policy) {
 
         // 1、先执行Activity相关的View
         for (Map.Entry<Context, Set<WeakReference<View>>> entry :
@@ -91,7 +95,7 @@ public final class UiMode {
             Context key = entry.getKey();
             if (key == null) continue;
 
-            key.setTheme(resId);
+            key.setTheme(themeId);
             final Theme theme = key.getTheme();
             if (theme == null) continue;
 
