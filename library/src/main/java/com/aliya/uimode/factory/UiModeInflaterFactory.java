@@ -105,12 +105,16 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
         }
 
         if (!sAttrIdsMap.isEmpty()) {
+
+            final Map<String, Integer> attrIds = new HashMap<>(sAttrIdsMap.size());
+            attrIds.putAll(sAttrIdsMap);
+
             if (view == null) { // 系统没有拦截创建
                 view = ViewInflater.createViewFromTag(context, name, attrs);
             }
 
             if (view != null) {
-                UiMode.saveViewAndAttrIds(context, view, sAttrIdsMap); // 缓存View
+                UiMode.saveViewAndAttrIds(context, view, attrIds); // 缓存View
 //                interceptHandler(view, name, context, attrs);
             }
         } else { //  实现UiModeChangeListener接口的View

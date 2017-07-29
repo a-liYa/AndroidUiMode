@@ -45,15 +45,17 @@ public final class UiMode {
         saveViewAndAttrIds(v.getContext(), v, attrs);
     }
 
-    public static void saveViewAndAttrIds(Context ctx, View v, final Map<String, Integer> attrs) {
+    public static void saveViewAndAttrIds(Context ctx, View v, Map<String, Integer> attrs) {
         if (v != null && attrs != null) {
-            Map<String, Integer> attrIds = new HashMap<>(attrs.size());
-            attrIds.putAll(attrs);
+            Map<String, Integer> attrIds;
             Object tag = v.getTag(R.id.tag_ui_mode);
             if (tag instanceof HashMap) {
-                attrIds.putAll((Map<String, Integer>) tag);
+                attrIds = (Map<String, Integer>) tag;
+            } else {
+                attrIds = new HashMap<>(attrs.size());
+                v.setTag(R.id.tag_ui_mode, attrIds);
             }
-            v.setTag(R.id.tag_ui_mode, attrIds);
+            attrIds.putAll(attrs);
 
             saveView(ctx, v);
         }

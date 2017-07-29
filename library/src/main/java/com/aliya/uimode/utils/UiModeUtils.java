@@ -17,6 +17,13 @@ import com.aliya.uimode.mode.UiMode;
  */
 public class UiModeUtils {
 
+    /**
+     * ImageView应用src属性， 并加入到UiMode列表
+     *
+     * @param v      ImageView
+     * @param attrId .
+     * @param theme  当前主题
+     */
     public static void applyImageSrc(ImageView v, @AttrRes int attrId, Resources.Theme theme) {
         if (v == null || theme == null) return;
 
@@ -26,9 +33,14 @@ public class UiModeUtils {
                 UiMode.putUiModeView(v, Attr.builder().add(Attr.NAME_SRC, attrId).build());
             }
         }
-
     }
 
+    /**
+     * ImageView应用src属性， 并加入到UiMode列表
+     *
+     * @param v      ImageView
+     * @param attrId .
+     */
     public static void applyImageSrc(ImageView v, @AttrRes int attrId) {
         if (v == null || v.getContext() == null) return;
 
