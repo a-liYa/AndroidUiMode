@@ -28,6 +28,10 @@ public final class ApplyBackground extends AbsApply {
                     return true;
                 case TypedValue.TYPE_STRING:
                     Drawable d = ContextCompat.getDrawable(v.getContext(), sOutValue.resourceId);
+                    Drawable old = v.getBackground();
+                    if (old != null && d != null) { // 传递 level
+                        d.setLevel(old.getLevel());
+                    }
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                         v.setBackground(d);
                     } else {
