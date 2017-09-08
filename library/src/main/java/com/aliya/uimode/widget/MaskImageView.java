@@ -6,8 +6,10 @@ import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
+import android.graphics.RectF;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.TextUtils;
@@ -30,8 +32,9 @@ import com.aliya.uimode.mode.UiMode;
 public class MaskImageView extends AppCompatImageView implements UiModeChangeListener {
 
     // PorterDuff.Mode.SRC_ATOP 只在图片有颜色的像素加半透明黑色遮罩
-    private PorterDuffXfermode pdx = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
-    // DARKEN，LIGHTEN, SRC_OVER
+    private PorterDuffXfermode xfermodeMask = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
+    // 处理圆角
+    private PorterDuffXfermode xfermodeRadius = new PorterDuffXfermode(PorterDuff.Mode.CLEAR);
 
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
@@ -39,10 +42,13 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     private Integer mMaskColor = null;
     private int mApplyMaskColor = NO_COLOR;
 
-    private static TypedValue sOutValue = new TypedValue();
+    private float radius;
+    private RectF mRect;
+    private Path mPath;
 
     private RatioHelper helper;
 
+    private static TypedValue sOutValue = new TypedValue();
     public static final int NO_COLOR = Color.TRANSPARENT;
     private static final int DEFAULT_MASK_COLOR_ATTR_ID = R.attr.iv_maskColor;
 
@@ -82,6 +88,12 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
                     }
                 }
             }
+
+            TypedArray a = getContext().obtainStyledAttributes(attrs, new int[]{R.attr.radius});
+            if (a.hasValue(0)) {
+                radius = a.getDimension(0, 0);
+            }
+            a.recycle();
         }
 
         resolveRealMaskColor();
@@ -151,17 +163,93 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     @Override
     protected void onDraw(Canvas canvas) {
 //        setLayerType(LAYER_TYPE_SOFTWARE, null); // 关闭硬件加速
-        if (mApplyMaskColor != NO_COLOR) {
-            int layerId = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(), null,
-                    Canvas.ALL_SAVE_FLAG);
+        if (mApplyMaskColor != NO_COLOR || radius > 0) {
+            int saveCount = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(),
+                    null, Canvas.ALL_SAVE_FLAG);
             super.onDraw(canvas);
-            mPaint.setXfermode(pdx);
-            canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mPaint);
-            canvas.restoreToCount(layerId);
+            if (mApplyMaskColor != NO_COLOR) { // 处理遮罩
+                mPaint.setXfermode(xfermodeMask);
+                canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mPaint);
+            }
+            if (radius > 0) { // 处理圆角
+                mPaint.setXfermode(xfermodeRadius);
+                drawLeftTop(canvas, radius);
+                drawRightTop(canvas, radius);
+                drawRightBottom(canvas, radius);
+                drawLeftBottom(canvas, radius);
+            }
+            canvas.restoreToCount(saveCount);
         } else {
             super.onDraw(canvas);
         }
     }
+
+    private void initPath() {
+        if (mPath == null) {
+            mPath = new Path();
+        } else {
+            mPath.reset();
+        }
+        if (mRect == null) {
+            mRect = new RectF();
+        }
+    }
+
+    private void drawLeftTop(Canvas canvas, float radius) {
+        initPath();
+        mPath.moveTo(0, radius);
+        mPath.lineTo(0, 0);
+        mPath.lineTo(radius, 0);
+        mRect.set(0, 0, radius * 2, radius * 2);
+        mPath.arcTo(mRect, -90, -90);
+        mPath.close();
+        canvas.drawPath(mPath, mPaint);
+    }
+
+    private void drawLeftBottom(Canvas canvas, float radius) {
+        initPath();
+        mPath.moveTo(0, getHeight() - radius);
+        mPath.lineTo(0, getHeight());
+        mPath.lineTo(radius, getHeight());
+        mRect.set(0, // x
+                getHeight() - radius * 2, // y
+                radius * 2, // x
+                getHeight());
+        mPath.arcTo(mRect, 90, 90);
+        mPath.close();
+        canvas.drawPath(mPath, mPaint);
+    }
+
+    private void drawRightBottom(Canvas canvas, float radius) {
+        initPath();
+        mPath.moveTo(getWidth() - radius, getHeight());
+        mPath.lineTo(getWidth(), getHeight());
+        mPath.lineTo(getWidth(), getHeight() - radius);
+        mRect.set(getWidth() - radius * 2, getHeight()
+                - radius * 2, getWidth(), getHeight());
+        mPath.arcTo(mRect, 0, 90);
+        mPath.close();
+        canvas.drawPath(mPath, mPaint);
+    }
+
+    private void drawRightTop(Canvas canvas, float radius) {
+        initPath();
+        mPath.moveTo(getWidth(), radius);
+        mPath.lineTo(getWidth(), 0);
+        mPath.lineTo(getWidth() - radius, 0);
+        mRect.set(getWidth() - radius * 2, 0, getWidth(), 0 + radius * 2);
+        mPath.arcTo(mRect, -90, 90);
+        mPath.close();
+        canvas.drawPath(mPath, mPaint);
+    }
+
+    /**
+     * 圆角、clipPath，有锯齿
+     * mRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
+     * mPath.addRoundRect(mRect, radius, radius, Path.Direction.CCW);
+     * canvas.clipPath(mPath, Region.Op.REPLACE);
+     */
+
 
     @Override
     public void onUiModeChange() {

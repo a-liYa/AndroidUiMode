@@ -11,4 +11,8 @@
         <attr name="ratio_w2h" format="string" />
     </declare-styleable>
 
+    <declare-styleable name="Radius">
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
+
 </resources>

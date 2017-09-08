@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.aliya.uimode.demo.base.BaseActivity;
 import com.aliya.uimode.mode.Attr;
 import com.aliya.uimode.mode.UiMode;
+import com.aliya.uimode.widget.MaskImageView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +29,8 @@ public class UiModeActivity extends BaseActivity {
 
     @BindView(R.id.ll)
     LinearLayout mLl;
+    @BindView(R.id.iv_mask)
+    MaskImageView mIvMask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +40,7 @@ public class UiModeActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.btn_left, R.id.btn_right})
+    @OnClick({R.id.btn_left, R.id.btn_right, R.id.iv_mask})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_left:
@@ -49,6 +52,9 @@ public class UiModeActivity extends BaseActivity {
                 long startMs = SystemClock.uptimeMillis();
                 ThemeMode.setUiMode(true);
                 Log.e("TAG", "模式切换执行的时间 " + (SystemClock.uptimeMillis() - startMs) + " ms");
+                break;
+            case R.id.iv_mask:
+
                 break;
         }
     }
