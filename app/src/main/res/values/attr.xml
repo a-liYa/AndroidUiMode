@@ -27,6 +27,8 @@
 
         <attr name="ic_customMaskColor" format="color|reference" />
 
+        <attr name="cb_button" format="reference" />
+
         <attr name="subStyle" format="reference" />
 
     </declare-styleable>

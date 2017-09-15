@@ -21,6 +21,7 @@ public class Attr {
     public static final String NAME_DIVIDER = "divider";
     public static final String NAME_SRC = "src";
     public static final String NAME_NI = "navigationIcon";
+    public static final String NAME_BUTTON = "button";
 
     public static final String INVALIDATE = "invalidate";
 

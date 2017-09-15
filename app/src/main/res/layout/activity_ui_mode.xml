@@ -40,6 +40,13 @@
             android:textColor="?attr/tc_3b424c"
             android:textColorHint="?attr/tc_3b424c" />
 
+        <CheckBox
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_gravity="center_horizontal"
+            android:checked="true"
+            android:button="?attr/cb_button" />
+
     </LinearLayout>
 
     <Button

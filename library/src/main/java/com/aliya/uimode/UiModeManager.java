@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 
 import com.aliya.uimode.apply.ApplyAlpha;
 import com.aliya.uimode.apply.ApplyBackground;
+import com.aliya.uimode.apply.ApplyButton;
 import com.aliya.uimode.apply.ApplyDivider;
 import com.aliya.uimode.apply.ApplyForeground;
 import com.aliya.uimode.apply.ApplyInvalidate;
@@ -62,6 +63,7 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
         sSupportApplies.put(Attr.NAME_DIVIDER, new ApplyDivider());
         sSupportApplies.put(Attr.NAME_SRC, new ApplySrc());
         sSupportApplies.put(Attr.NAME_NI, new ApplyNavIcon());
+        sSupportApplies.put(Attr.NAME_BUTTON, new ApplyButton());
         sSupportApplies.put(Attr.INVALIDATE, new ApplyInvalidate());
     }
 
