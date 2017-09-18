@@ -22,6 +22,8 @@ public class Attr {
     public static final String NAME_SRC = "src";
     public static final String NAME_NI = "navigationIcon";
     public static final String NAME_BUTTON = "button";
+    public static final String NAME_PROGRESS_DRAWABLE = "progressDrawable";
+    public static final String NAME_THUMB = "thumb";
 
     public static final String INVALIDATE = "invalidate";
 

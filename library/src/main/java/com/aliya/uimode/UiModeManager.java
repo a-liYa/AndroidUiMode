@@ -18,9 +18,11 @@ import com.aliya.uimode.apply.ApplyDivider;
 import com.aliya.uimode.apply.ApplyForeground;
 import com.aliya.uimode.apply.ApplyInvalidate;
 import com.aliya.uimode.apply.ApplyNavIcon;
+import com.aliya.uimode.apply.ApplyProgressDrawable;
 import com.aliya.uimode.apply.ApplySrc;
 import com.aliya.uimode.apply.ApplyTextColor;
 import com.aliya.uimode.apply.ApplyTextColorHint;
+import com.aliya.uimode.apply.ApplyThumb;
 import com.aliya.uimode.factory.UiModeInflaterFactory;
 import com.aliya.uimode.intef.ApplyPolicy;
 import com.aliya.uimode.intef.InflaterSupport;
@@ -64,6 +66,9 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
         sSupportApplies.put(Attr.NAME_SRC, new ApplySrc());
         sSupportApplies.put(Attr.NAME_NI, new ApplyNavIcon());
         sSupportApplies.put(Attr.NAME_BUTTON, new ApplyButton());
+        sSupportApplies.put(Attr.NAME_PROGRESS_DRAWABLE, new ApplyProgressDrawable());
+        sSupportApplies.put(Attr.NAME_THUMB, new ApplyThumb());
+
         sSupportApplies.put(Attr.INVALIDATE, new ApplyInvalidate());
     }
 
