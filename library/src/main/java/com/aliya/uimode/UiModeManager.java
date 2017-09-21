@@ -15,6 +15,10 @@ import com.aliya.uimode.apply.ApplyAlpha;
 import com.aliya.uimode.apply.ApplyBackground;
 import com.aliya.uimode.apply.ApplyButton;
 import com.aliya.uimode.apply.ApplyDivider;
+import com.aliya.uimode.apply.ApplyDrawableBottom;
+import com.aliya.uimode.apply.ApplyDrawableLeft;
+import com.aliya.uimode.apply.ApplyDrawableRight;
+import com.aliya.uimode.apply.ApplyDrawableTop;
 import com.aliya.uimode.apply.ApplyForeground;
 import com.aliya.uimode.apply.ApplyInvalidate;
 import com.aliya.uimode.apply.ApplyNavIcon;
@@ -51,6 +55,7 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
 
     private static Context sContext;
 
+    // 指定支持的 R.attr 属性集合
     private static Set<Integer> sSupportAttrIds;
     private static Map<String, UiApply> sSupportApplies = new HashMap<>();
     public static String NAME_ATTR_MASK_COLOR;
@@ -68,6 +73,10 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
         sSupportApplies.put(Attr.NAME_BUTTON, new ApplyButton());
         sSupportApplies.put(Attr.NAME_PROGRESS_DRAWABLE, new ApplyProgressDrawable());
         sSupportApplies.put(Attr.NAME_THUMB, new ApplyThumb());
+        sSupportApplies.put(Attr.NAME_DRAWABLE_TOP, new ApplyDrawableTop());
+        sSupportApplies.put(Attr.NAME_DRAWABLE_BOTTOM, new ApplyDrawableBottom());
+        sSupportApplies.put(Attr.NAME_DRAWABLE_RIGHT, new ApplyDrawableRight());
+        sSupportApplies.put(Attr.NAME_DRAWABLE_LEFT, new ApplyDrawableLeft());
 
         sSupportApplies.put(Attr.INVALIDATE, new ApplyInvalidate());
     }

@@ -7,6 +7,19 @@
     android:background="?attr/bgc_white"
     tools:context=".TestCompatActivity">
 
+    <TextView
+        android:id="@+id/tv_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="350dp"
+        android:drawableTop="?attr/tv_drawable_top"
+        android:drawableBottom="?attr/tv_drawable_top"
+        android:drawableLeft="?attr/tv_drawable_top"
+        android:drawableRight="?attr/tv_drawable_top"
+        android:text="文本"
+        android:textColor="?attr/tc_3b424c" />
+
     <com.aliya.uimode.widget.MaskImageView
         android:id="@+id/iv_mask"
         android:layout_width="match_parent"
@@ -44,8 +57,8 @@
             android:layout_width="35dp"
             android:layout_height="35dp"
             android:layout_gravity="center_horizontal"
-            android:checked="true"
-            android:button="?attr/cb_button" />
+            android:button="?attr/cb_button"
+            android:checked="true" />
 
     </LinearLayout>
 

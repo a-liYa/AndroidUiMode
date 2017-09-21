@@ -19,6 +19,8 @@
         <item name="iv_maskColor">@android:color/transparent</item>
         <item name="iv_useMaskColor">false</item>
 
+        <item name="tv_drawable_top">@mipmap/module_user_ic_mytip</item>
+
         <item name="cb_button">@drawable/sl_cb_button</item>
 
         <item name="colorControlHighlight">#1f000000</item>
@@ -48,6 +50,7 @@
         <item name="iv_maskColor">#7f000000</item>
         <item name="iv_useMaskColor">true</item>
 
+        <item name="tv_drawable_top">@mipmap/module_user_ic_mytip_night</item>
         <item name="cb_button">@drawable/sl_cb_button_night</item>
 
         <item name="colorControlHighlight">#33ffffff</item>

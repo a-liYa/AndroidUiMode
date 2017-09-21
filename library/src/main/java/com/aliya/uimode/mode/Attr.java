@@ -24,6 +24,10 @@ public class Attr {
     public static final String NAME_BUTTON = "button";
     public static final String NAME_PROGRESS_DRAWABLE = "progressDrawable";
     public static final String NAME_THUMB = "thumb";
+    public static final String NAME_DRAWABLE_TOP = "drawableTop";
+    public static final String NAME_DRAWABLE_BOTTOM = "drawableBottom";
+    public static final String NAME_DRAWABLE_RIGHT = "drawableRight";
+    public static final String NAME_DRAWABLE_LEFT = "drawableLeft";
 
     public static final String INVALIDATE = "invalidate";
 

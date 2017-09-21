@@ -31,6 +31,8 @@ public class UiModeActivity extends BaseActivity {
     LinearLayout mLl;
     @BindView(R.id.iv_mask)
     MaskImageView mIvMask;
+    @BindView(R.id.tv_text)
+    TextView mTvText;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
