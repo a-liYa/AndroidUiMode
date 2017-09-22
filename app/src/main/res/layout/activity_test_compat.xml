@@ -4,14 +4,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/bgc_white"
+    android:theme="?attr/module_app_theme"
     tools:context=".TestCompatActivity">
 
     <!--<com.aliya.uimode.demo.ui.TestView-->
-        <!--android:layout_width="20dp"-->
-        <!--android:layout_height="20dp"-->
-        <!--android:layout_gravity="center_vertical"-->
-        <!--android:layout_marginTop="100dp"-->
-        <!--android:background="@drawable/bg_test_attr" />-->
+    <!--android:layout_width="20dp"-->
+    <!--android:layout_height="20dp"-->
+    <!--android:layout_gravity="center_vertical"-->
+    <!--android:layout_marginTop="100dp"-->
+    <!--android:background="@drawable/bg_test_attr" />-->
 
     <EditText
         android:id="@+id/et_num"

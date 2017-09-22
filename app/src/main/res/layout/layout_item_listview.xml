@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="88dp"
     android:paddingLeft="17dp"
-    android:paddingRight="17dp">
+    android:paddingRight="17dp"
+    android:theme="?attr/module_app_theme">
 
     <TextView
         android:layout_width="wrap_content"

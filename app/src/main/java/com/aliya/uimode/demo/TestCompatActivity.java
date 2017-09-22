@@ -1,7 +1,11 @@
 package com.aliya.uimode.demo;
 
+import android.content.Context;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.TypedValue;
+import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -32,6 +36,18 @@ public class TestCompatActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test_compat);
         ButterKnife.bind(this);
+
+
+        Resources.Theme theme = getTheme();
+
+        TypedValue value = new TypedValue();
+//        ContextThemeWrapper
+        theme.resolveAttribute(R.attr.module_app_theme, value, true);
+
+        Log.e("TAG", "value " + value.type);
+
+        Log.e("TAG", value.resourceId + " - " + R.style.ModuleAppTheme + " - " + R.style.ModuleAppThemeNight);
+
 
     }
 

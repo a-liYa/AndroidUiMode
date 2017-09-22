@@ -32,6 +32,9 @@
 
         <attr name="subStyle" format="reference" />
 
+
+        <attr name="module_app_theme" format="reference" />
+
     </declare-styleable>
 
 </resources>
