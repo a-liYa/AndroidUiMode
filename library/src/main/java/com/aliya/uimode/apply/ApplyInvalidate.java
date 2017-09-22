@@ -1,6 +1,5 @@
 package com.aliya.uimode.apply;
 
-import android.content.res.Resources;
 import android.support.annotation.AttrRes;
 import android.view.View;
 
@@ -13,7 +12,7 @@ import android.view.View;
 public final class ApplyInvalidate extends AbsApply {
 
     @Override
-    public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {
+    public boolean onApply(View v, @AttrRes int attrId) {
         if (v != null) {
             v.invalidate(); // 刷新View
             return true;

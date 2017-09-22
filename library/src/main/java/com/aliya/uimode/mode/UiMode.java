@@ -2,7 +2,7 @@ package com.aliya.uimode.mode;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.res.Resources.Theme;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.aliya.uimode.R;
@@ -81,14 +81,20 @@ public final class UiMode {
         weakViewSet.add((queue == null) ? new WeakReference<>(v) : new WeakReference(v, queue));
     }
 
+    /**
+     * 执行全部 UiMode
+     *
+     * @param themeId theme id
+     * @param policy  apply 策略
+     */
     public static void applyUiMode(int themeId, ApplyPolicy policy) {
 
         // 1、先执行Activity相关的View
         for (Map.Entry<Context, Set<WeakReference<View>>> entry :
                 sActivityViewMap.entrySet()) {
-            final Theme theme = entry.getKey().getTheme();
+//            final Theme theme = entry.getKey().getTheme();
             Set<WeakReference<View>> weakViewSet = entry.getValue();
-            onApplyUiMode(policy, theme, weakViewSet);
+            onApplyUiMode(policy, weakViewSet);
         }
 
         // 2、在执行ApplicationContext相关的View
@@ -96,18 +102,21 @@ public final class UiMode {
                 sContextViewMap.entrySet()) {
             Context key = entry.getKey();
             if (key == null) continue;
-
             key.setTheme(themeId);
-            final Theme theme = key.getTheme();
-            if (theme == null) continue;
-
-            Set<WeakReference<View>> weakViewSet = entry.getValue();
-            onApplyUiMode(policy, theme, weakViewSet);
+//            final Theme theme = key.getTheme();
+//            if (theme == null) continue;
+            onApplyUiMode(policy, entry.getValue());
         }
 
     }
 
-    private static void onApplyUiMode(ApplyPolicy policy, Theme theme, Set<WeakReference<View>>
+    /**
+     * apply UiMode to Sets View
+     *
+     * @param policy      apply 策略
+     * @param weakViewSet view sets WeakReference
+     */
+    private static void onApplyUiMode(ApplyPolicy policy, Set<WeakReference<View>>
             weakViewSet) {
         if (weakViewSet != null) {
             Iterator<WeakReference<View>> iterator = weakViewSet.iterator();
@@ -116,7 +125,7 @@ public final class UiMode {
                 if (next != null) {
                     View view = next.get();
                     if (view != null) {
-                        apply(view, theme, policy);
+                        apply(view, policy);
                     } else {
                         iterator.remove();
                     }
@@ -125,7 +134,13 @@ public final class UiMode {
         }
     }
 
-    private static void apply(View v, Theme theme, ApplyPolicy policy) {
+    /**
+     * apply UiMode to the View
+     *
+     * @param v      this view
+     * @param policy apply 策略
+     */
+    private static void apply(View v, ApplyPolicy policy) {
         if (v == null) return;
 
         Map<String, Integer> attrIds = null;
@@ -136,11 +151,22 @@ public final class UiMode {
 
         // 1、执行View自带属性
         if (attrIds != null && policy != null) {
+            // 先执行View的android:theme属性
+            if (attrIds.containsKey(Attr.NAME_THEME)) {
+                UiApply uiApply = policy.obtainApplyPolicy(Attr.NAME_THEME);
+                if (uiApply != null) {
+                    uiApply.onApply(v, attrIds.get(Attr.NAME_THEME));
+                }
+            }
+
             for (Map.Entry<String, Integer> entry : attrIds.entrySet()) {
                 String key = entry.getKey();
+
+                if (TextUtils.equals(key, Attr.NAME_THEME)) continue; // 主题已被先执行
+
                 UiApply uiApply = policy.obtainApplyPolicy(key);
                 if (uiApply != null) {
-                    uiApply.onApply(v, entry.getValue(), theme);
+                    uiApply.onApply(v, entry.getValue());
                 }
             }
         }

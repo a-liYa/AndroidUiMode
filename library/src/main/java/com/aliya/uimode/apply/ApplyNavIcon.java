@@ -1,6 +1,5 @@
 package com.aliya.uimode.apply;
 
-import android.content.res.Resources;
 import android.support.annotation.AttrRes;
 import android.support.v7.widget.Toolbar;
 import android.util.TypedValue;
@@ -15,9 +14,9 @@ import android.view.View;
 public class ApplyNavIcon extends AbsApply {
 
     @Override
-    public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {
-        if (argsValid(v, attrId, theme) && v instanceof Toolbar) {
-            if (theme.resolveAttribute(attrId, sOutValue, true)) {
+    public boolean onApply(View v, @AttrRes int attrId) {
+        if (argsValid(v, attrId) && v instanceof Toolbar) {
+            if (getTheme(v).resolveAttribute(attrId, sOutValue, true)) {
                 switch (sOutValue.type) {
                     case TypedValue.TYPE_STRING:
                         ((Toolbar) v).setNavigationIcon(sOutValue.resourceId);

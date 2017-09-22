@@ -1,6 +1,5 @@
 package com.aliya.uimode.apply;
 
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.AttrRes;
@@ -17,8 +16,8 @@ import android.view.View;
 public final class ApplyBackground extends AbsApply {
 
     @Override
-    public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {
-        if (argsValid(v, attrId, theme) && theme.resolveAttribute(attrId, sOutValue, true)) {
+    public boolean onApply(View v, @AttrRes int attrId) {
+        if (argsValid(v, attrId) && getTheme(v).resolveAttribute(attrId, sOutValue, true)) {
             switch (sOutValue.type) {
                 case TypedValue.TYPE_INT_COLOR_ARGB4:
                 case TypedValue.TYPE_INT_COLOR_ARGB8:

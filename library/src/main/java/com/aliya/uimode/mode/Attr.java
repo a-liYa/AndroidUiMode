@@ -13,6 +13,7 @@ import java.util.Map;
  */
 public class Attr {
 
+    public static final String NAME_THEME = "theme";
     public static final String NAME_BG = "background";
     public static final String NAME_FG = "foreground";
     public static final String NAME_ALPHA = "alpha";

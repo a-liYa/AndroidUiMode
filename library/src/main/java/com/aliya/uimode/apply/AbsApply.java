@@ -17,8 +17,26 @@ import com.aliya.uimode.mode.UiMode;
  */
 public abstract class AbsApply implements UiApply {
 
-    protected static boolean argsValid(View v, @AttrRes int attrId, Resources.Theme theme) {
-        return v != null && theme != null && UiMode.attrIdValid(attrId);
+    /**
+     * 校验 参数 是否全部合法
+     *
+     * @param v      a view
+     * @param attrId attr id
+     * @return true ：参数合法
+     */
+    protected static boolean argsValid(View v, @AttrRes int attrId) {
+        return v != null && UiMode.attrIdValid(attrId)
+                && v.getContext() != null && getTheme(v) != null;
+    }
+
+    /**
+     * 从 view 获取 theme
+     *
+     * @param v a view
+     * @return theme
+     */
+    protected static Resources.Theme getTheme(View v) {
+        return v.getContext().getTheme();
     }
 
 }

@@ -26,6 +26,7 @@ import com.aliya.uimode.apply.ApplyProgressDrawable;
 import com.aliya.uimode.apply.ApplySrc;
 import com.aliya.uimode.apply.ApplyTextColor;
 import com.aliya.uimode.apply.ApplyTextColorHint;
+import com.aliya.uimode.apply.ApplyTheme;
 import com.aliya.uimode.apply.ApplyThumb;
 import com.aliya.uimode.factory.UiModeInflaterFactory;
 import com.aliya.uimode.intef.ApplyPolicy;
@@ -62,6 +63,7 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
     public static String NAME_ATTR_INVALIDATE;
 
     static {
+        sSupportApplies.put(Attr.NAME_THEME, new ApplyTheme());
         sSupportApplies.put(Attr.NAME_BG, new ApplyBackground());
         sSupportApplies.put(Attr.NAME_FG, new ApplyForeground());
         sSupportApplies.put(Attr.NAME_ALPHA, new ApplyAlpha());

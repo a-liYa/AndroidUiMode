@@ -1,6 +1,5 @@
 package com.aliya.uimode.apply;
 
-import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.AttrRes;
 import android.support.v4.content.ContextCompat;
@@ -17,9 +16,9 @@ import android.widget.ProgressBar;
 public final class ApplyProgressDrawable extends AbsApply {
 
     @Override
-    public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {
-        if (argsValid(v, attrId, theme) && v instanceof ProgressBar) {
-            if (theme.resolveAttribute(attrId, sOutValue, true)) {
+    public boolean onApply(View v, @AttrRes int attrId) {
+        if (argsValid(v, attrId) && v instanceof ProgressBar) {
+            if (getTheme(v).resolveAttribute(attrId, sOutValue, true)) {
                 switch (sOutValue.type) {
                     case TypedValue.TYPE_STRING:
                         Drawable d = ContextCompat.getDrawable(v.getContext(),

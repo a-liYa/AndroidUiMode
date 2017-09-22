@@ -1,6 +1,5 @@
 package com.aliya.uimode.intef;
 
-import android.content.res.Resources;
 import android.support.annotation.AttrRes;
 import android.util.TypedValue;
 import android.view.View;
@@ -23,9 +22,8 @@ public interface UiApply {
      *
      * @param v      被应用的View
      * @param attrId 资源id
-     * @param theme  主题
      * @return true:应用成功； false:应用失败
      */
-    boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme);
+    boolean onApply(View v, @AttrRes int attrId);
 
 }

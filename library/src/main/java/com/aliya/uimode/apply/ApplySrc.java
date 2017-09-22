@@ -1,6 +1,5 @@
 package com.aliya.uimode.apply;
 
-import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.AttrRes;
 import android.util.TypedValue;
@@ -16,9 +15,9 @@ import android.widget.ImageView;
 public final class ApplySrc extends AbsApply {
 
     @Override
-    public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {
-        if (argsValid(v, attrId, theme) && v instanceof ImageView) {
-            if (theme.resolveAttribute(attrId, sOutValue, true)) {
+    public boolean onApply(View v, @AttrRes int attrId) {
+        if (argsValid(v, attrId) && v instanceof ImageView) {
+            if (getTheme(v).resolveAttribute(attrId, sOutValue, true)) {
                 switch (sOutValue.type) {
                     case TypedValue.TYPE_INT_COLOR_ARGB4:
                     case TypedValue.TYPE_INT_COLOR_ARGB8:

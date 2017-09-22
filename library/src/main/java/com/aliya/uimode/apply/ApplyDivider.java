@@ -1,6 +1,5 @@
 package com.aliya.uimode.apply;
 
-import android.content.res.Resources;
 import android.graphics.drawable.ColorDrawable;
 import android.support.annotation.AttrRes;
 import android.support.v4.content.ContextCompat;
@@ -17,9 +16,9 @@ import android.widget.ListView;
 public final class ApplyDivider extends AbsApply {
 
     @Override
-    public boolean onApply(View v, @AttrRes int attrId, Resources.Theme theme) {
-        if (argsValid(v, attrId, theme) && v instanceof ListView) {
-            if (theme.resolveAttribute(attrId, sOutValue, true)) {
+    public boolean onApply(View v, @AttrRes int attrId) {
+        if (argsValid(v, attrId) && v instanceof ListView) {
+            if (getTheme(v).resolveAttribute(attrId, sOutValue, true)) {
                 int dividerHeight = ((ListView) v).getDividerHeight();
                 switch (sOutValue.type) {
                     case TypedValue.TYPE_INT_COLOR_ARGB4:
