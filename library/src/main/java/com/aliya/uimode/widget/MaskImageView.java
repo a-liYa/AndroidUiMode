@@ -101,11 +101,9 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
 
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-
-        widthMeasureSpec = helper.widthMeasureSpec(widthMeasureSpec, heightMeasureSpec);
-        heightMeasureSpec = helper.heightMeasureSpec(widthMeasureSpec, heightMeasureSpec);
-
-        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+        super.onMeasure(
+                helper.widthMeasureSpec(widthMeasureSpec, heightMeasureSpec, getLayoutParams()),
+                helper.heightMeasureSpec(widthMeasureSpec, heightMeasureSpec, getLayoutParams()));
     }
 
     private void resolveRealMaskColor() {
