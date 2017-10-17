@@ -21,7 +21,8 @@
         android:layout_gravity="center_horizontal"
         android:gravity="center"
         android:inputType="number"
-        android:textColor="?attr/tc_3b424c" />
+        android:textColor="?attr/tc_3b424c"
+        android:theme="?attr/module_app_theme" />
 
     <Button
         android:id="@+id/btn_left"

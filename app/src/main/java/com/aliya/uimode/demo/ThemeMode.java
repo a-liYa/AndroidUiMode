@@ -84,7 +84,7 @@ public class ThemeMode {
         }
     }
 
-    public static final void fitTheme2Activity(Activity activity) {
+    public static final void fitActivityTheme(Activity activity) {
         if (activity == null) return;
 
         int currTheme = _get().getCurrentTheme();

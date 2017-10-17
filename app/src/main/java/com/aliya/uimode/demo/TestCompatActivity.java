@@ -1,10 +1,8 @@
 package com.aliya.uimode.demo;
 
-import android.content.Context;
-import android.content.res.Resources;
+import android.app.Activity;
 import android.os.Bundle;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.ContextThemeWrapper;
 import android.view.View;
 import android.widget.Button;
@@ -17,7 +15,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 /**
- * 测试兼容性 页面
+ * 测试兼容性 页面 (此页面存在内存泄漏)
  *
  * @author a_liYa
  * @date 2017/6/23 下午12:50.
@@ -38,25 +36,23 @@ public class TestCompatActivity extends BaseActivity {
         ButterKnife.bind(this);
 
 
-        Resources.Theme theme = getTheme();
+        ContextThemeWrapper contextWrapper = (ContextThemeWrapper) mEtNum.getContext();
 
-        TypedValue value = new TypedValue();
-//        ContextThemeWrapper
-        theme.resolveAttribute(R.attr.module_app_theme, value, true);
+        Log.e("TAG", "context " + contextWrapper);
 
-        Log.e("TAG", "value " + value.type);
+        while (!(contextWrapper instanceof Activity)) {
+            contextWrapper = (ContextThemeWrapper) contextWrapper.getBaseContext();
+            Log.e("TAG", "while " + contextWrapper);
 
-        Log.e("TAG", value.resourceId + " - " + R.style.ModuleAppTheme + " - " + R.style.ModuleAppThemeNight);
+        }
 
-
+        Log.e("TAG", "结束 " + contextWrapper);
     }
 
     @OnClick({R.id.btn_left, R.id.btn_right})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_left:
-
-
                 Log.e("TAG", "");
 
                 break;

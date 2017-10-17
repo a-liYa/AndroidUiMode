@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.os.SystemClock;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -49,11 +50,13 @@ public class UiModeActivity extends BaseActivity {
                 long start = SystemClock.uptimeMillis();
                 ThemeMode.setUiMode(false);
                 Log.e("TAG", "模式切换执行的时间 " + (SystemClock.uptimeMillis() - start) + " ms");
+                test();
                 break;
             case R.id.btn_right:
                 long startMs = SystemClock.uptimeMillis();
                 ThemeMode.setUiMode(true);
                 Log.e("TAG", "模式切换执行的时间 " + (SystemClock.uptimeMillis() - startMs) + " ms");
+                test();
                 break;
             case R.id.iv_mask:
 
@@ -71,5 +74,13 @@ public class UiModeActivity extends BaseActivity {
         mLl.addView(textView, ViewGroup.LayoutParams.MATCH_PARENT, 150);
         UiMode.putUiModeView(textView, Attr.builder().add(Attr.NAME_TC, R.attr.tc_3b424c).build());
 
+    }
+
+    public void test() {
+        TypedValue typedValue = new TypedValue();
+        getTheme().resolveAttribute(R.attr.module_app_theme, typedValue, true);
+        Log.e("TAG", "type " + typedValue.type);
+        Log.e("TAG", "ModuleAppTheme " + R.style.ModuleAppTheme);
+        Log.e("TAG", "ModuleAppThemeNight " + R.style.ModuleAppThemeNight);
     }
 }

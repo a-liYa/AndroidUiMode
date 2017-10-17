@@ -1,7 +1,9 @@
 package com.aliya.uimode.mode;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -64,10 +66,19 @@ public final class UiMode {
     public static void saveView(Context ctx, View v) {
         if (ctx == null || v == null) return;
 
-        if (ctx instanceof Activity) {
-            putView2Map(ctx, v, sActivityViewMap, null);
-        } else {
+        if (ctx instanceof Application) {
             putView2Map(ctx, v, sContextViewMap, queue);
+        } else {
+            while (!(ctx instanceof Activity)) {
+                if (ctx instanceof ContextWrapper) {
+                    ctx = ((ContextWrapper) ctx).getBaseContext();
+                } else {
+                    break;
+                }
+            }
+            if (ctx instanceof Activity) {
+                putView2Map(ctx, v, sActivityViewMap, null);
+            }
         }
     }
 
@@ -92,7 +103,6 @@ public final class UiMode {
         // 1、先执行Activity相关的View
         for (Map.Entry<Context, Set<WeakReference<View>>> entry :
                 sActivityViewMap.entrySet()) {
-//            final Theme theme = entry.getKey().getTheme();
             Set<WeakReference<View>> weakViewSet = entry.getValue();
             onApplyUiMode(policy, weakViewSet);
         }
@@ -103,8 +113,6 @@ public final class UiMode {
             Context key = entry.getKey();
             if (key == null) continue;
             key.setTheme(themeId);
-//            final Theme theme = key.getTheme();
-//            if (theme == null) continue;
             onApplyUiMode(policy, entry.getValue());
         }
 

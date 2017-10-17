@@ -6,7 +6,6 @@
     android:layout_height="match_parent"
     android:background="?attr/bgc_white"
     android:gravity="center_horizontal"
-    android:theme="?attr/module_app_theme"
     android:orientation="vertical"
     tools:context=".MainActivity">
 

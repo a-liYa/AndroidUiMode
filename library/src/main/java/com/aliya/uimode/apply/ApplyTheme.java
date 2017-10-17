@@ -1,5 +1,9 @@
 package com.aliya.uimode.apply;
 
+import android.app.Activity;
+import android.content.Context;
+import android.content.ContextWrapper;
+import android.content.res.Resources;
 import android.support.annotation.AttrRes;
 import android.util.TypedValue;
 import android.view.View;
@@ -14,11 +18,25 @@ public class ApplyTheme extends AbsApply {
 
     @Override
     public boolean onApply(View v, @AttrRes int attrId) {
-        if (argsValid(v, attrId) && getTheme(v).resolveAttribute(attrId, sOutValue, true)) {
+        if (argsValid(v, attrId) && getActivityTheme(v).resolveAttribute(attrId, sOutValue, true)) {
             if (sOutValue.type == TypedValue.TYPE_REFERENCE) {
                 getTheme(v).applyStyle(sOutValue.resourceId, true);
+                return true;
             }
         }
         return false;
     }
+
+    private Resources.Theme getActivityTheme(View v) {
+        Context context = v.getContext();
+        while (!(context instanceof Activity)) {
+            if (context instanceof ContextWrapper) {
+                context = ((ContextWrapper) context).getBaseContext();
+            } else {
+                break;
+            }
+        }
+        return context.getTheme();
+    }
+
 }
