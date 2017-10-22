@@ -20,7 +20,8 @@
         <activity android:name=".TestCompatActivity" />
         <activity android:name=".TestEfficientActivity" />
         <activity android:name=".CycleActivity" />
-        <activity android:name=".UiModeActivity"></activity>
+        <activity android:name=".UiModeActivity" />
+        <activity android:name=".TestThemeActivity"></activity>
     </application>
 
 </manifest>

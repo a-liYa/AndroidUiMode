@@ -24,7 +24,7 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    @OnClick({R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4})
+    @OnClick({R.id.btn_1, R.id.btn_2, R.id.btn_3, R.id.btn_4, R.id.btn_5})
     public void onViewClicked(View view) {
         switch (view.getId()) {
             case R.id.btn_1:
@@ -38,6 +38,9 @@ public class MainActivity extends BaseActivity {
                 break;
             case R.id.btn_4:
                 startActivity(new Intent(this, UiModeActivity.class));
+                break;
+            case R.id.btn_5:
+                startActivity(new Intent(this, TestThemeActivity.class));
                 break;
         }
     }

@@ -9,6 +9,7 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_normal_height"
@@ -50,5 +51,13 @@
         android:layout_marginTop="10dp"
         android:background="?attr/colorAccent"
         android:text="UiMode切换" />
+
+    <Button
+        android:id="@+id/btn_5"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="?attr/colorAccent"
+        android:text="Theme" />
 
 </LinearLayout>

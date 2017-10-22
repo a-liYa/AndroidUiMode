@@ -33,6 +33,7 @@ import com.aliya.uimode.intef.ApplyPolicy;
 import com.aliya.uimode.intef.InflaterSupport;
 import com.aliya.uimode.intef.UiApply;
 import com.aliya.uimode.mode.Attr;
+import com.aliya.uimode.mode.ThemeModule;
 import com.aliya.uimode.mode.UiMode;
 
 import java.util.HashMap;
@@ -179,6 +180,11 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
 
     }
 
+    /**
+     * 切换主题
+     *
+     * @param resId a theme style res id
+     */
     public static void setTheme(int resId) {
         if (sContext == null) {
             Log.e(TAG, "Using the ui mode, you need to initialize");
@@ -200,9 +206,53 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
             }
         }
 
-        // 执行View到对应主题
-        UiMode.applyUiMode(resId, get());
+        // 设置Application的主题
+        sContext.setTheme(resId);
 
+        // 执行View到对应主题
+        UiMode.applyUiMode(get());
+
+    }
+
+    /**
+     * 适配主题组
+     *
+     * @param keyMode key mode
+     */
+    public static void fitTheme(int keyMode) {
+        if (sContext == null) {
+            Log.e(TAG, "Using the ui mode, you need to initialize");
+            return;
+        }
+
+        Set<Integer> themeSet = ThemeModule.getTheme(keyMode);
+
+        if (themeSet == null) return;
+
+        // 设置所有Activity主题
+        Stack<Activity> appStack = AppStack.getAppStack();
+        if (appStack != null) {
+            Iterator<Activity> iterator = appStack.iterator();
+            while (iterator.hasNext()) {
+                Activity next = iterator.next();
+                if (next != null) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        if (next.isDestroyed()) continue;
+                    }
+                    for (int resId : themeSet) {
+                        next.setTheme(resId);
+                    }
+                }
+            }
+        }
+
+        // 设置Application的主题
+        for (int resId : themeSet) {
+            sContext.setTheme(resId);
+        }
+
+        // 执行View到对应主题
+        UiMode.applyUiMode(get());
     }
 
     public static void addSupportAttrIds(int[] attrs) {

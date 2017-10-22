@@ -95,10 +95,9 @@ public final class UiMode {
     /**
      * 执行全部 UiMode
      *
-     * @param themeId theme id
      * @param policy  apply 策略
      */
-    public static void applyUiMode(int themeId, ApplyPolicy policy) {
+    public static void applyUiMode(ApplyPolicy policy) {
 
         // 1、先执行Activity相关的View
         for (Map.Entry<Context, Set<WeakReference<View>>> entry :
@@ -110,9 +109,6 @@ public final class UiMode {
         // 2、在执行ApplicationContext相关的View
         for (Map.Entry<Context, Set<WeakReference<View>>> entry :
                 sContextViewMap.entrySet()) {
-            Context key = entry.getKey();
-            if (key == null) continue;
-            key.setTheme(themeId);
             onApplyUiMode(policy, entry.getValue());
         }
 

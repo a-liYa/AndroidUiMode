@@ -4,11 +4,19 @@
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
 
+        <item name="android:textAllCaps">false</item>
+
+    </style>
+
+    <style name="AppTheme1">
+
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
 
-        <item name="android:textAllCaps">false</item>
+    </style>
+
+    <style name="AppTheme2">
 
         <item name="ui_alpha">@dimen/ui_mode_alpha</item>
         <item name="bgc_white">#ffffff</item>
@@ -20,13 +28,15 @@
         <item name="iv_maskColor">@android:color/transparent</item>
         <item name="iv_useMaskColor">false</item>
 
+    </style>
+
+    <style name="AppTheme3">
+
         <item name="tv_drawable_top">@mipmap/module_user_ic_mytip</item>
 
         <item name="cb_button">@drawable/sl_cb_button</item>
 
         <item name="colorControlHighlight">#1f000000</item>
-
-        <item name="module_app_theme">@style/ModuleAppTheme</item>
 
     </style>
 
@@ -57,49 +67,11 @@
 
         <item name="colorControlHighlight">#33ffffff</item>
 
-        <item name="module_app_theme">@style/ModuleAppThemeNight</item>
-
     </style>
 
     <style name="TestStyle">
         <item name="tc_3b424c">#f00</item>
         <!--<item name="android:textColor">?attr/fgc_color</item>-->
     </style>
-
-    <style name="ModuleAppTheme">
-
-        <item name="ui_alpha">@dimen/ui_mode_alpha</item>
-        <item name="bgc_white">#ffffff</item>
-        <item name="fgc_color">#7ffdc247</item>
-        <item name="tc_white">@color/tc_white</item>
-        <item name="tc_3b424c">@color/tc_3b424c</item>
-        <item name="divider_f0f0f0">@color/divider_f0f0f0</item>
-        <item name="ic_customMaskColor">#7f000000</item>
-        <item name="iv_maskColor">@android:color/transparent</item>
-        <item name="iv_useMaskColor">false</item>
-
-        <item name="tv_drawable_top">@mipmap/module_user_ic_mytip</item>
-
-        <item name="cb_button">@drawable/sl_cb_button</item>
-
-    </style>
-
-    <style name="ModuleAppThemeNight">
-
-        <item name="ui_alpha">0.5</item>
-        <item name="bgc_white">@color/bg_white_night</item>
-        <item name="fgc_color">#7ff70000</item>
-        <item name="tc_white">@color/tc_white_night</item>
-        <item name="tc_3b424c">@color/tc_3b424c_night</item>
-        <item name="divider_f0f0f0">@color/divider_f0f0f0_night</item>
-        <item name="ic_customMaskColor">#7f000000</item>
-        <item name="iv_maskColor">#7f000000</item>
-        <item name="iv_useMaskColor">true</item>
-
-        <item name="tv_drawable_top">@mipmap/module_user_ic_mytip_night</item>
-        <item name="cb_button">@drawable/sl_cb_button_night</item>
-
-    </style>
-
 
 </resources>

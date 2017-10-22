@@ -17,18 +17,8 @@ public class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        ThemeMode.fitActivityTheme(this);
+        ThemeMode.get().fitActivityTheme(this);
         UiModeManager.setInflaterFactor(getLayoutInflater());
-
-//        LayoutInflaterCompat.setFactory(getLayoutInflater(), new LayoutInflaterFactory() {
-//            @Override
-//            public View onCreateView(View parent, String name, Context context, AttributeSet
-//                    attrs) {
-//                Log.e("TAG", "onCreateView at time " + SystemClock.uptimeMillis());
-//                return null;
-//            }
-//        });
-
         super.onCreate(savedInstanceState);
 
     }
