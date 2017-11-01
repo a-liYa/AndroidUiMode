@@ -257,4 +257,15 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
         }
     }
 
+    /**
+     * 设置遮罩颜色
+     *
+     * @param color mask color
+     */
+    public void setApplyMaskColor(int color) {
+        mApplyMaskColor = color;
+        mPaint.setColor(mApplyMaskColor);
+        invalidate();
+    }
+
 }
