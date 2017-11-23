@@ -39,4 +39,18 @@ public class ApplyTheme extends AbsApply {
         return context.getTheme();
     }
 
+    /*
+    优化过的方法，替换 #getActivityTheme(View), 但待验证
+     */
+    private Resources.Theme getActivityTheme1(View v) {
+        Context context = v.getContext();
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return context.getTheme();
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        return context.getTheme();
+    }
+
 }
