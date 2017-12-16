@@ -13,7 +13,7 @@ import android.content.pm.PackageManager;
 final class Log {
 
     private static boolean isDebug = true;
-    private static boolean debuggable = false;
+    private static boolean debuggable = true;
 
     private static String TAG = "UiMode";
 
@@ -26,7 +26,7 @@ final class Log {
     }
 
     /**
-     * 初始化必须调用，否则日志无效
+     * 初始化，无初始化默认日志开启
      *
      * @param context .
      */

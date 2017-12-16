@@ -274,4 +274,13 @@ public final class UiModeManager implements ApplyPolicy {
         return UiModeInflaterFactory.get(get().mInflaterSupport);
     }
 
+    /**
+     * 设置日志 debug模式状态
+     *
+     * @param isDebug : false 强制关闭日志
+     */
+    public static void setLogDebug(boolean isDebug) {
+        Log.setIsDebug(isDebug);
+    }
+
 }
