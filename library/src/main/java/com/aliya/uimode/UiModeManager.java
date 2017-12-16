@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
-import android.util.Log;
 import android.view.LayoutInflater;
 
 import com.aliya.uimode.apply.ApplyAlpha;
@@ -156,6 +155,7 @@ public final class UiModeManager implements ApplyPolicy {
     public static final void init(Context context, int[] attrs) {
 
         sContext = context.getApplicationContext();
+        Log.init(sContext);
 
         addSupportAttrIds(attrs);
 
