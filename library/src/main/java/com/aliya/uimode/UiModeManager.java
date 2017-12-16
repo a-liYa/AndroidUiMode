@@ -7,7 +7,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 
@@ -33,7 +32,7 @@ import com.aliya.uimode.intef.ApplyPolicy;
 import com.aliya.uimode.intef.InflaterSupport;
 import com.aliya.uimode.intef.UiApply;
 import com.aliya.uimode.mode.Attr;
-import com.aliya.uimode.mode.ThemeModule;
+import com.aliya.uimode.mode.ThemeStore;
 import com.aliya.uimode.mode.UiMode;
 
 import java.util.HashMap;
@@ -49,19 +48,17 @@ import java.util.Stack;
  * @author a_liYa
  * @date 2017/6/23 10:51.
  */
-public final class UiModeManager implements ApplyPolicy, InflaterSupport {
+public final class UiModeManager implements ApplyPolicy {
 
     private static final String TAG = "UiMode";
-
-    private static volatile UiModeManager sInstance;
 
     private static Context sContext;
 
     // 指定支持的 R.attr 属性集合
     private static Set<Integer> sSupportAttrIds;
     private static Map<String, UiApply> sSupportApplies = new HashMap<>();
-    public static String NAME_ATTR_MASK_COLOR;
-    public static String NAME_ATTR_INVALIDATE;
+
+    private static volatile UiModeManager sInstance;
 
     static {
         sSupportApplies.put(Attr.NAME_THEME, new ApplyTheme());
@@ -84,7 +81,25 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
         sSupportApplies.put(Attr.INVALIDATE, new ApplyInvalidate());
     }
 
+    private InflaterSupport mInflaterSupport;
+
     private UiModeManager() {
+        mInflaterSupport = new InflaterSupport() {
+            @Override
+            public boolean isSupportApply(String key) {
+                return sSupportApplies.containsKey(key);
+            }
+
+            @Override
+            public boolean isSupportAttrId(Integer attrId) {
+                return sSupportAttrIds != null && sSupportAttrIds.contains(attrId);
+            }
+        };
+    }
+
+    @Override
+    public UiApply obtainApplyPolicy(String key) {
+        return sSupportApplies.get(key);
     }
 
     public static UiModeManager get() {
@@ -132,22 +147,6 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
                 }
             };
 
-
-    @Override
-    public UiApply obtainApplyPolicy(String key) {
-        return sSupportApplies.get(key);
-    }
-
-    @Override
-    public boolean isSupportApply(String key) {
-        return sSupportApplies.containsKey(key);
-    }
-
-    @Override
-    public boolean isSupportAttrId(Integer attrId) {
-        return sSupportAttrIds != null && sSupportAttrIds.contains(attrId);
-    }
-
     /**
      * 初始化： 持有ApplicationContext引用，保存支持的Attr
      *
@@ -160,15 +159,7 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
 
         addSupportAttrIds(attrs);
 
-        if (TextUtils.isEmpty(NAME_ATTR_MASK_COLOR)) {
-            NAME_ATTR_MASK_COLOR = context.getResources().getResourceEntryName(R.attr.iv_maskColor);
-        }
-        if (TextUtils.isEmpty(NAME_ATTR_INVALIDATE)) {
-            NAME_ATTR_INVALIDATE = context.getResources().getResourceEntryName(R.attr.invalidate);
-        }
-
         if (sContext instanceof Application) {
-
             ((Application) sContext).unregisterActivityLifecycleCallbacks(lifecycleCallbacks);
             ((Application) sContext).registerActivityLifecycleCallbacks(lifecycleCallbacks);
 
@@ -215,7 +206,7 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
     }
 
     /**
-     * 适配主题组
+     * 适配主题组，适用于模块化开发
      *
      * @param keyMode key mode
      */
@@ -225,7 +216,7 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
             return;
         }
 
-        Set<Integer> themeSet = ThemeModule.getTheme(keyMode);
+        Set<Integer> themeSet = ThemeStore.getTheme(keyMode);
 
         if (themeSet == null) return;
 
@@ -280,7 +271,7 @@ public final class UiModeManager implements ApplyPolicy, InflaterSupport {
     }
 
     public static LayoutInflaterFactory obtainInflaterFactory() {
-        return UiModeInflaterFactory.get(get());
+        return UiModeInflaterFactory.get(get().mInflaterSupport);
     }
 
 }

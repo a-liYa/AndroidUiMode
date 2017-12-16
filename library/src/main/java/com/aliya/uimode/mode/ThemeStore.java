@@ -7,12 +7,12 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * a theme module
+ * a theme store
  *
  * @author a_liYa
  * @date 2017/10/22 10:36.
  */
-public class ThemeModule {
+public class ThemeStore {
 
     private final static SparseArray<Set<Integer>> themes = new SparseArray();
 

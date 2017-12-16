@@ -17,7 +17,6 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 
 import com.aliya.uimode.R;
-import com.aliya.uimode.UiModeManager;
 import com.aliya.uimode.intef.UiModeChangeListener;
 import com.aliya.uimode.mode.UiMode;
 
@@ -38,6 +37,11 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
 
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
 
+    /**
+     * @see R.attr#iv_maskColor
+     */
+    public static String NAME_ATTR_MASK_COLOR = "iv_maskColor"; // MaskImageView 属性名称
+
     private int mMaskAttrId = UiMode.NO_ATTR_ID;
     private Integer mMaskColor = null;
     private int mApplyMaskColor = NO_COLOR;
@@ -50,6 +54,8 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
 
     private static TypedValue sOutValue = new TypedValue();
     public static final int NO_COLOR = Color.TRANSPARENT;
+
+    // 属性值
     private static final int DEFAULT_MASK_COLOR_ATTR_ID = R.attr.iv_maskColor;
 
     public MaskImageView(Context context) {
@@ -68,11 +74,11 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
 
     private void init(AttributeSet attrs) {
         if (attrs != null) {
-            if (!TextUtils.isEmpty(UiModeManager.NAME_ATTR_MASK_COLOR)) {
+            if (!TextUtils.isEmpty(NAME_ATTR_MASK_COLOR)) {
                 final int N = attrs.getAttributeCount();
                 for (int i = 0; i < N; i++) {
                     String attrName = attrs.getAttributeName(i);
-                    if (UiModeManager.NAME_ATTR_MASK_COLOR.equals(attrName)) {
+                    if (NAME_ATTR_MASK_COLOR.equals(attrName)) {
                         String attrVal = attrs.getAttributeValue(i);
                         if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("?")) {
                             String subStr = attrVal.substring(1, attrVal.length());

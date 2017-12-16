@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.support.annotation.StyleRes;
 
 import com.aliya.uimode.UiModeManager;
-import com.aliya.uimode.mode.ThemeModule;
+import com.aliya.uimode.mode.ThemeStore;
 
 import java.util.Set;
 
@@ -35,12 +35,12 @@ public class ThemeMode {
     }
 
     public ThemeMode putDayTheme(@StyleRes int resId) {
-        ThemeModule.putTheme(KEY_DAY, resId);
+        ThemeStore.putTheme(KEY_DAY, resId);
         return this;
     }
 
     public ThemeMode putNightTheme(@StyleRes int resId) {
-        ThemeModule.putTheme(KEY_NIGHT, resId);
+        ThemeStore.putTheme(KEY_NIGHT, resId);
         return this;
     }
 
@@ -65,7 +65,7 @@ public class ThemeMode {
     public void fitActivityTheme(Activity activity) {
         if (activity == null) return;
 
-        Set<Integer> themeSet = ThemeModule.getTheme(mKeyMode);
+        Set<Integer> themeSet = ThemeStore.getTheme(mKeyMode);
 
         if (themeSet != null) {
             for (int resId : themeSet) {
