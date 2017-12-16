@@ -30,6 +30,9 @@ public class Attr {
     public static final String NAME_DRAWABLE_RIGHT = "drawableRight";
     public static final String NAME_DRAWABLE_LEFT = "drawableLeft";
 
+    /**
+     * @see com.aliya.uimode.R.attr#invalidate
+     */
     public static final String INVALIDATE = "invalidate";
 
     public static final Builder builder() {

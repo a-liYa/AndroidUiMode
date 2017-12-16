@@ -1,7 +1,7 @@
 package com.aliya.uimode.intef;
 
 /**
- * 日夜间模式切换回调
+ * UiMode切换回调 - 接口，自定义控件可实现此接口及时刷新界面
  *
  * @author a_liYa
  * @date 16/11/9 15:40.

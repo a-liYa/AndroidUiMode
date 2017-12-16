@@ -8,8 +8,20 @@ package com.aliya.uimode.intef;
  */
 public interface InflaterSupport {
 
+    /**
+     * 判断是否为支持的类型 {@link UiApply}
+     *
+     * @param key 属性名称 {@link com.aliya.uimode.mode.Attr}
+     * @return true : 支持
+     */
     boolean isSupportApply(String key);
 
+    /**
+     * 判断是否为支持的属性
+     *
+     * @param attrId a attr id
+     * @return true : 支持
+     */
     boolean isSupportAttrId(Integer attrId);
 
 }
