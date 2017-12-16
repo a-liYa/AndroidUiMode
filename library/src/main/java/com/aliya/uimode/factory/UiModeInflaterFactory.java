@@ -9,9 +9,9 @@ import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
 
-import com.aliya.uimode.UiModeManager;
 import com.aliya.uimode.intef.InflaterSupport;
 import com.aliya.uimode.intef.UiModeChangeListener;
+import com.aliya.uimode.mode.Attr;
 import com.aliya.uimode.mode.UiMode;
 import com.aliya.uimode.utils.ViewInflater;
 import com.aliya.uimode.widget.MaskImageView;
@@ -38,14 +38,9 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
     private InflaterSupport mInflaterSupport;
 
     public static UiModeInflaterFactory get(InflaterSupport support) {
-        UiModeInflaterFactory factory = null;
-        if (sSoftInstance != null) {
-            factory = sSoftInstance.get();
-        }
-
-        if (factory == null) {
-            factory = new UiModeInflaterFactory(support);
-            sSoftInstance = new SoftReference<>(factory);
+        UiModeInflaterFactory factory;
+        if (sSoftInstance == null || (factory = sSoftInstance.get()) == null ) {
+            sSoftInstance = new SoftReference<>(factory = new UiModeInflaterFactory(support));
         }
         return factory;
     }
@@ -91,7 +86,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
             for (int i = 0; i < N; i++) {
                 String attrName = attrs.getAttributeName(i);
                 if (mInflaterSupport.isSupportApply(attrName)) {
-                    if (UiModeManager.NAME_ATTR_INVALIDATE.equals(attrName)
+                    if (Attr.INVALIDATE.equals(attrName)
                             && attrs.getAttributeBooleanValue(i, false)) {
                         sAttrIdsMap.put(attrName, UiMode.NO_ATTR_ID);
                         continue;
@@ -109,13 +104,12 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
             final Map<String, Integer> attrIds = new HashMap<>(sAttrIdsMap.size());
             attrIds.putAll(sAttrIdsMap);
 
-            if (view == null) { // 系统没有拦截创建
+            if (view == null) { // 系统没有创建
                 view = ViewInflater.createViewFromTag(context, name, attrs);
             }
 
             if (view != null) {
                 UiMode.saveViewAndAttrIds(context, view, attrIds); // 缓存View
-//                interceptHandler(view, name, context, attrs);
             }
         } else { //  实现UiModeChangeListener接口的View
             if (view != null) {
@@ -141,7 +135,6 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
      * 拦截处理指定的View
      */
     private void interceptHandler(View view, String name, Context context, AttributeSet attrs) {
-
         if (view instanceof SwipeRefreshLayout) { // 适配SwipeRefreshLayout
 //            UiModeManager
 //                    .fitUiModeForSwipeRefreshLayout((SwipeRefreshLayout) view, context.getTheme
