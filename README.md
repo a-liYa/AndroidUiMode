@@ -1,11 +1,15 @@
 # AndroidUiMode
 让日夜间模式实现起来更简单
 
+### 最新版本
+https://bintray.com/a-liya/maven/android-uimode/_latestVersion
+
+
 ### 添加依赖
 
 ```
 dependencies {
-    compile 'com.aliya:android-uimode:0.1.3'
+    compile 'com.aliya:android-uimode:0.2.9'
     compile 'com.android.support:appcompat-v7:x.x.x'
 }  
 ```   
