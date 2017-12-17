@@ -17,8 +17,6 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-//        ThemeMode.init(this);
-
         ThemeMode.get().putDayTheme(R.style.AppTheme);
         ThemeMode.get().putDayTheme(R.style.AppTheme1);
         ThemeMode.get().putDayTheme(R.style.AppTheme2);

@@ -4,9 +4,6 @@ import android.app.Activity;
 import android.support.annotation.StyleRes;
 
 import com.aliya.uimode.UiModeManager;
-import com.aliya.uimode.mode.ThemeStore;
-
-import java.util.Set;
 
 /**
  * 夜间模式 对应主题 配置
@@ -16,12 +13,16 @@ import java.util.Set;
  */
 public class ThemeMode {
 
-    private int mKeyMode;
+    private int mKeyMode = 1;
 
     private static ThemeMode sInstance;
 
     public static final int KEY_DAY = 0;
     public static final int KEY_NIGHT = 1;
+
+    public ThemeMode() {
+        // 在这里初始化，mKeyMode
+    }
 
     public static ThemeMode get() {
         if (sInstance == null) {
@@ -35,12 +36,12 @@ public class ThemeMode {
     }
 
     public ThemeMode putDayTheme(@StyleRes int resId) {
-        ThemeStore.putTheme(KEY_DAY, resId);
+        UiModeManager.addTheme(KEY_DAY, resId);
         return this;
     }
 
     public ThemeMode putNightTheme(@StyleRes int resId) {
-        ThemeStore.putTheme(KEY_NIGHT, resId);
+        UiModeManager.addTheme(KEY_NIGHT, resId);
         return this;
     }
 
@@ -63,15 +64,7 @@ public class ThemeMode {
     }
 
     public void fitActivityTheme(Activity activity) {
-        if (activity == null) return;
-
-        Set<Integer> themeSet = ThemeStore.getTheme(mKeyMode);
-
-        if (themeSet != null) {
-            for (int resId : themeSet) {
-                activity.setTheme(resId);
-            }
-        }
+        UiModeManager.setActivityTheme(activity, mKeyMode);
     }
 
 }

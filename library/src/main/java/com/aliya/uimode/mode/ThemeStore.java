@@ -12,21 +12,21 @@ import java.util.Set;
  * @author a_liYa
  * @date 2017/10/22 10:36.
  */
-public class ThemeStore {
+public final class ThemeStore {
 
-    private final static SparseArray<Set<Integer>> themes = new SparseArray();
+    private final SparseArray<Set<Integer>> mThemes = new SparseArray();
 
-    public static void putTheme(int keyMode, @StyleRes int resId) {
-        Set<Integer> themeSet = themes.get(keyMode);
+    public void putTheme(int keyMode, @StyleRes int resId) {
+        Set<Integer> themeSet = mThemes.get(keyMode);
         if (themeSet == null) {
             themeSet = new HashSet<>();
-            themes.put(keyMode, themeSet);
+            mThemes.put(keyMode, themeSet);
         }
         themeSet.add(resId);
     }
 
-    public static Set<Integer> getTheme(int keyMode) {
-        return themes.get(keyMode);
+    public Set<Integer> getTheme(int keyMode) {
+        return mThemes.get(keyMode);
     }
 
 }

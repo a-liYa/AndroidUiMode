@@ -5,6 +5,7 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.StyleRes;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.text.TextUtils;
@@ -82,8 +83,10 @@ public final class UiModeManager implements ApplyPolicy {
     }
 
     private InflaterSupport mInflaterSupport;
+    private ThemeStore mThemeStore;
 
     private UiModeManager() {
+        mThemeStore = new ThemeStore();
         mInflaterSupport = new InflaterSupport() {
             @Override
             public boolean isSupportApply(String key) {
@@ -179,7 +182,7 @@ public final class UiModeManager implements ApplyPolicy {
     }
 
     /**
-     * 切换主题
+     * 适配切换的主题
      *
      * @param resId a theme style res id
      */
@@ -213,7 +216,7 @@ public final class UiModeManager implements ApplyPolicy {
     }
 
     /**
-     * 适配主题组，适用于模块化开发
+     * 适配切换的主题组，适用于模块化开发
      *
      * @param keyMode key mode
      */
@@ -223,9 +226,11 @@ public final class UiModeManager implements ApplyPolicy {
             return;
         }
 
-        Set<Integer> themeSet = ThemeStore.getTheme(keyMode);
-
-        if (themeSet == null) return;
+        Set<Integer> themeSet = getThemeSet(keyMode);
+        if (themeSet == null) {
+            Log.e(TAG, "keyMode is " + keyMode + " no equivalent theme");
+            return;
+        }
 
         // 设置所有Activity主题
         Stack<Activity> appStack = AppStack.getAppStack();
@@ -251,6 +256,30 @@ public final class UiModeManager implements ApplyPolicy {
 
         // 执行View到对应主题
         UiMode.applyUiMode(get());
+    }
+
+    /**
+     * 设置 Activity theme ，通常在 {@link Activity#onCreate(Bundle)} 方法调用
+     *
+     * @param activity .
+     * @param keyMode  .
+     */
+    public static void setActivityTheme(Activity activity, int keyMode) {
+        if (activity == null) return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+            if (activity.isDestroyed()) return;
+        }
+
+        Set<Integer> themeSet = getThemeSet(keyMode);
+        if (themeSet == null) {
+            Log.e(TAG, "#fitThemeToActivity() keyMode is " + keyMode + " no equivalent theme");
+            return;
+        }
+
+        for (int resId : themeSet) {
+            activity.setTheme(resId);
+        }
+
     }
 
     public static void addSupportAttrIds(int[] attrs) {
@@ -286,6 +315,14 @@ public final class UiModeManager implements ApplyPolicy {
         sSupportApplies.put(key, apply);
     }
 
+    public static void addTheme(int keyMode, @StyleRes int resId) {
+        get().mThemeStore.putTheme(keyMode, resId);
+    }
+
+    public static Set<Integer> getThemeSet(int keyMode) {
+        return get().mThemeStore.getTheme(keyMode);
+    }
+
     public static void setInflaterFactor(LayoutInflater inflater) {
         if (sContext != null) {
             LayoutInflaterCompat.setFactory(inflater, UiModeManager.obtainInflaterFactory());
@@ -295,7 +332,6 @@ public final class UiModeManager implements ApplyPolicy {
     }
 
     /**
-     * @return 返回LayoutInflaterFactory的实例
      * @see #setInflaterFactor(LayoutInflater)
      */
     public static LayoutInflaterFactory obtainInflaterFactory() {
