@@ -90,12 +90,18 @@ public final class UiModeManager implements ApplyPolicy {
             }
 
             @Override
-            public boolean isSupportAttrId(Integer attrId) {
-                return sSupportAttrIds != null && sSupportAttrIds.contains(attrId);
+            public boolean isSupportAttrId(Integer attrId) { // sSupportAttrIds == null 支持所有
+                return sSupportAttrIds == null || sSupportAttrIds.contains(attrId);
             }
         };
     }
 
+    /**
+     * 获取UiApply的实现类
+     *
+     * @param key {@link Attr} 属性名称
+     * @return UiApply，返回null时，说明不支持该属性
+     */
     @Override
     public UiApply obtainApplyPolicy(String key) {
         return sSupportApplies.get(key);
@@ -150,7 +156,7 @@ public final class UiModeManager implements ApplyPolicy {
      * 初始化： 持有ApplicationContext引用，保存支持的Attr
      *
      * @param context Context
-     * @param attrs   支持UiMode的属性数组
+     * @param attrs   支持UiMode的属性数组，为null时表示支持所有的属性
      */
     public static final void init(Context context, int[] attrs) {
 
@@ -247,7 +253,10 @@ public final class UiModeManager implements ApplyPolicy {
     }
 
     public static void addSupportAttrIds(int[] attrs) {
-        if (attrs == null) return;
+        if (attrs == null) {
+            sSupportAttrIds = null;
+            return;
+        }
         // 不存在，创建
         if (sSupportAttrIds == null) {
             synchronized (UiModeManager.class) {
