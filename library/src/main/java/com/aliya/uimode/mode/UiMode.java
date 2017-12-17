@@ -37,7 +37,7 @@ public final class UiMode {
     }
 
     /**
-     * 供外部使用，添加 通过new创建带有夜间模式属性的View
+     * 供外部使用，添加 通过new创建具有UiMode属性的View
      *
      * @param v     a view
      * @param attrs 建议通过 {@link com.aliya.uimode.mode.Attr.Builder} 创建

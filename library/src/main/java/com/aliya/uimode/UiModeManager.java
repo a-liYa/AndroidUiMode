@@ -150,7 +150,7 @@ public final class UiModeManager implements ApplyPolicy {
      * 初始化： 持有ApplicationContext引用，保存支持的Attr
      *
      * @param context Context
-     * @param attrs   支持夜间模式的属性数组
+     * @param attrs   支持UiMode的属性数组
      */
     public static final void init(Context context, int[] attrs) {
 

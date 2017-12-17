@@ -21,7 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 /**
- * 夜间模式拦截器 - Factory
+ * Xml创建View拦截器 - Factory
  *
  * @author a_liYa
  * @date 2016/11/24 19:20.
@@ -39,7 +39,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
 
     public static UiModeInflaterFactory get(InflaterSupport support) {
         UiModeInflaterFactory factory;
-        if (sSoftInstance == null || (factory = sSoftInstance.get()) == null ) {
+        if (sSoftInstance == null || (factory = sSoftInstance.get()) == null) {
             sSoftInstance = new SoftReference<>(factory = new UiModeInflaterFactory(support));
         }
         return factory;
@@ -55,7 +55,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
     }
 
     /**
-     * 日夜间模式 拦截日夜间模式的View, 创建出来然后setTag携带对应的日夜间资源
+     * 拦截创建具有UiMode属性的View, 通过{@link View#setTag(int, Object)}携带属性资源
      *
      * @param parent  parent
      * @param name    class name
