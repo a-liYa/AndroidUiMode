@@ -21,10 +21,6 @@ final class Log {
         throw new UnsupportedOperationException("cannot be instantiated");
     }
 
-    public static void setIsDebug(boolean isDebug) {
-        Log.isDebug = isDebug;
-    }
-
     /**
      * 初始化，无初始化默认日志开启
      *
@@ -39,6 +35,14 @@ final class Log {
         } catch (Exception e) {
             Log.debuggable = false;
         }
+    }
+
+    public static void setIsDebug(boolean isDebug) {
+        Log.isDebug = isDebug;
+    }
+
+    public static boolean isDebuggable() {
+        return debuggable;
     }
 
     // 下面四个是默认tag的函数

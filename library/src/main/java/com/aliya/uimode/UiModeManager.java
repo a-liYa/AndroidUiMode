@@ -7,6 +7,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 
 import com.aliya.uimode.apply.ApplyAlpha;
@@ -271,6 +272,20 @@ public final class UiModeManager implements ApplyPolicy {
         }
     }
 
+    /**
+     * 添加扩展 UiApply
+     *
+     * @param key   属性名称 {@link Attr}
+     * @param apply 执行属性方法的实现类
+     */
+    public static void addSupportUiApply(String key, UiApply apply) {
+        if (TextUtils.isEmpty(key) || apply == null) {
+            Log.e(TAG, "UiApply or key can not be null");
+            return;
+        }
+        sSupportApplies.put(key, apply);
+    }
+
     public static void setInflaterFactor(LayoutInflater inflater) {
         if (sContext != null) {
             LayoutInflaterCompat.setFactory(inflater, UiModeManager.obtainInflaterFactory());
@@ -279,6 +294,10 @@ public final class UiModeManager implements ApplyPolicy {
         }
     }
 
+    /**
+     * @return 返回LayoutInflaterFactory的实例
+     * @see #setInflaterFactor(LayoutInflater)
+     */
     public static LayoutInflaterFactory obtainInflaterFactory() {
         return UiModeInflaterFactory.get(get().mInflaterSupport);
     }
