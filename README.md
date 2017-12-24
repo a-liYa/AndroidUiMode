@@ -11,12 +11,27 @@ https://bintray.com/a-liya/maven/android-uimode/_latestVersion
 dependencies {
     compile 'com.aliya:android-uimode:0.2.9'
     compile 'com.android.support:appcompat-v7:x.x.x'
-}  
-```   
+}
+```
+
+### 代码配置，具体用法参考示例app
+* 初始化 Application#onCreate()
+
+```
+UiModeManager.init(this, R.styleable.SupportUiMode);
+```
+* BaseActivity#onCreate(Bundle),必须在super.onCreate(savedInstanceState);之前调用下面代码
+```
+UiModeManager.setInflaterFactor(getLayoutInflater());
+```
+* 拓展类型
+```
+UiModeManager.addSupportUiApply(String, UiApply);
+```
 
 ### 不支持的
 
-* 1、style样式里面的属性不支持动态更换主题   
+* 1、style样式里面的属性不支持动态更换主题
 
 res/values/styles.xml;
 ```
@@ -42,7 +57,7 @@ res/drawable/bg_test_attr.xml
     <solid android:color="?attr/colorPrimary" />
 </shape>
 ```
-以上写法不兼容低于Android 5.0的系统   
+以上写法不兼容低于Android 5.0的系统
 
 
 ### ImageView夜间模式用法
@@ -51,10 +66,10 @@ res/drawable/bg_test_attr.xml
 <style "AppTheme" parent="...">
     <item name="iv_maskColor">@android:color/transparent</item>
 </style>
-  
+
 <style "NightAppTheme" parent="...">
     <item name="iv_maskColor">#7f000000</item>
-</style> 
+</style>
 ```
 
 * 2、配置单个ImageView，attr/ic_customMaskColor是自定义属性
@@ -77,8 +92,9 @@ res/drawable/bg_test_attr.xml
 
 * 1、iv_maskColor
 
-`ImageView使用PorterDuffXfermode进行遮罩的颜色属性`  
-> 1. 若ImageView没有配iv_maskColor; 跟随当前Activity对应主题配置的iv_maskColor 
+`ImageView使用PorterDuffXfermode进行遮罩的颜色属性`
+1. 若ImageView没有配iv_maskColor; 跟随当前Activity对应主题配置的iv_maskColor
+
 ```
 <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
     ...
@@ -90,12 +106,12 @@ res/drawable/bg_test_attr.xml
     <item name="iv_maskColor">#7f000000</item>
     ...
 </style>
-```  
+```
 
-> 2. app:iv_maskColor="?attr/xxx"; 此时遮罩颜色值对应该ImageView所在Activity对应主题的xxx属性配置的值  
+2. app:iv_maskColor="?attr/xxx"; 此时遮罩颜色值对应该ImageView所在Activity对应主题的xxx属性配置的值
 
- attrs.xml  
-``` 
+ attrs.xml
+```
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="SupportUiMode">
@@ -112,10 +128,10 @@ res/drawable/bg_test_attr.xml
 </style>
 ```
 
-> 3. app:iv_maskColor="#f00"; 遮罩颜色值是#f00，但是不知道什么时候生效；此时需要配合iv_useMaskColor属性，详见iv_useMaskColor解释
+3. app:iv_maskColor="#f00"; 遮罩颜色值是#f00，但是不知道什么时候生效；此时需要配合iv_useMaskColor属性，详见iv_useMaskColor解释
 
+* 2、iv_useMaskColor
 
-*  2、iv_useMaskColor
 ```
 <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
     ...
