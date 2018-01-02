@@ -1,6 +1,7 @@
 package com.aliya.uimode.factory;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
@@ -72,7 +73,11 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                 view = new MaskImageView(context, attrs);
                 break;
             default:
-                // AppCompatDelegateImplV7 -> AppCompatViewInflater 进行拦截View替换AppCompatView
+                /**
+                 * @see android.support.v7.app.AppCompatDelegateImplV9#createView(View, String,
+                 * Context, AttributeSet)
+                 * @see android.support.v7.app.AppCompatViewInflater
+                 */
                 if (context instanceof AppCompatActivity) {
                     AppCompatDelegate delegate = ((AppCompatActivity) context).getDelegate();
                     view = delegate.createView(parent, name, context, attrs);
