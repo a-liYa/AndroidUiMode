@@ -166,7 +166,7 @@ public final class UiMode {
             for (Map.Entry<String, Integer> entry : attrIds.entrySet()) {
                 String key = entry.getKey();
 
-                if (TextUtils.equals(key, Attr.NAME_THEME)) continue; // 主题已被先执行
+                if (TextUtils.equals(key, Attr.NAME_THEME)) continue; // 主题被先执行，此处忽略
 
                 UiApply uiApply = policy.obtainApplyPolicy(key);
                 if (uiApply != null) {
