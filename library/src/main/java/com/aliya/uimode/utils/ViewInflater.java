@@ -14,7 +14,6 @@ import java.util.Map;
  *
  * @author a_liYa
  * @date 2017/1/1 23:23.
- * @see android.support.v7.app.AppCompatViewInflater
  */
 public class ViewInflater {
 

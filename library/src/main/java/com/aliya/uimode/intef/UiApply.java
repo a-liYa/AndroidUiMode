@@ -6,9 +6,10 @@ import android.view.View;
 
 /**
  * 适配UiMode的对应属性执行的方法 - 接口
- * </p>
+ * <p>
  * 具体属性一一对应{@link UiApply}具体实现类
  * </p>
+ * <p>
  * 为了简便开发可继承 {@link com.aliya.uimode.apply.AbsApply}
  * </p>
  *

@@ -332,6 +332,7 @@ public final class UiModeManager implements ApplyPolicy {
     }
 
     /**
+     * @return LayoutInflaterFactory
      * @see #setInflaterFactor(LayoutInflater)
      */
     public static LayoutInflaterFactory obtainInflaterFactory() {
