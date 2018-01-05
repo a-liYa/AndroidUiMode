@@ -9,7 +9,7 @@ https://bintray.com/a-liya/maven/android-uimode/_latestVersion
 
 ```
 dependencies {
-    compile 'com.aliya:android-uimode:0.2.9'
+    compile 'com.aliya:android-uimode:1.0.0'
     compile 'com.android.support:appcompat-v7:x.x.x'
 }
 ```
