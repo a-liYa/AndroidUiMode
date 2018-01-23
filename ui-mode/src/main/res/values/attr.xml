@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="UiMode">
+        <attr name="iv_maskColor" format="color" />
+        <attr name="iv_useMaskColor" format="boolean" />
+        <attr name="invalidate" format="boolean" />
+    </declare-styleable>
+
+    <declare-styleable name="RatioLayout">
+        <attr name="ratio_w2h" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="Radius">
+        <attr name="radius" format="dimension" />
+    </declare-styleable>
+
+</resources>
