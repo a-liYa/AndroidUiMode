@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.aliya.uimode.demo.base.BaseActivity;
 
@@ -15,6 +16,9 @@ public class MainActivity extends BaseActivity {
 
     @BindView(R.id.ll_root)
     LinearLayout mLlRoot;
+
+    @BindView(R.id.tv_title)
+    TextView mTvTitle;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

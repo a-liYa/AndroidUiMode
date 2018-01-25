@@ -11,6 +11,7 @@
 
 
     <TextView
+        android:id="@+id/tv_title"
         android:layout_width="match_parent"
         android:layout_height="@dimen/toolbar_normal_height"
         android:background="?attr/colorPrimary"
