@@ -31,7 +31,7 @@ public final class UiMode {
     private static Map<Context, Set<WeakReference<View>>> sContextViewMap = new HashMap<>();
     private static Map<Context, Set<WeakReference<View>>> sActivityViewMap = new HashMap<>();
     private static ReferenceQueue<View> queue = new ReferenceQueue<>();
-    public static final int NO_ATTR_ID = -1;
+    public static final int NO_ID = -1;
 
     private UiMode() {
     }
@@ -42,17 +42,17 @@ public final class UiMode {
      * @param v     a view
      * @param attrs 建议通过 {@link com.aliya.uimode.mode.Attr.Builder} 创建
      */
-    public static void putUiModeView(View v, Map<String, Integer> attrs) {
+    public static void putUiModeView(View v, Map<String, ResourceEntry> attrs) {
         if (v == null) return;
         saveViewAndAttrIds(v.getContext(), v, attrs);
     }
 
-    public static void saveViewAndAttrIds(Context ctx, View v, Map<String, Integer> attrs) {
+    public static void saveViewAndAttrIds(Context ctx, View v, Map<String, ResourceEntry> attrs) {
         if (v != null && attrs != null) {
-            Map<String, Integer> attrIds;
+            Map<String, ResourceEntry> attrIds;
             Object tag = v.getTag(R.id.tag_ui_mode);
             if (tag instanceof HashMap) {
-                attrIds = (Map<String, Integer>) tag;
+                attrIds = (Map<String, ResourceEntry>) tag;
             } else {
                 attrIds = new HashMap<>(attrs.size());
                 v.setTag(R.id.tag_ui_mode, attrIds);
@@ -147,10 +147,10 @@ public final class UiMode {
     private static void apply(View v, ApplyPolicy policy) {
         if (v == null) return;
 
-        Map<String, Integer> attrIds = null;
+        Map<String, ResourceEntry> attrIds = null;
         Object vTag = v.getTag(R.id.tag_ui_mode);
         if (vTag instanceof Map) {
-            attrIds = (Map<String, Integer>) vTag;
+            attrIds = (Map<String, ResourceEntry>) vTag;
         }
 
         // 1、执行View自带属性
@@ -163,7 +163,7 @@ public final class UiMode {
                 }
             }
 
-            for (Map.Entry<String, Integer> entry : attrIds.entrySet()) {
+            for (Map.Entry<String, ResourceEntry> entry : attrIds.entrySet()) {
                 String key = entry.getKey();
 
                 if (TextUtils.equals(key, Attr.NAME_THEME)) continue; // 主题被先执行，此处忽略
@@ -223,12 +223,12 @@ public final class UiMode {
     }
 
     /**
-     * 校验 attrId 是否有效
+     * 校验 id 是否有效
      *
-     * @param attrId 资源id
+     * @param id 资源id
      * @return true 有效资源, false 无效资源
      */
-    public static boolean attrIdValid(int attrId) {
-        return attrId != NO_ATTR_ID;
+    public static boolean idValid(int id) {
+        return id != NO_ID;
     }
 }

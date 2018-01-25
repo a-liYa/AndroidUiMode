@@ -1,10 +1,12 @@
 package com.aliya.uimode.apply;
 
 import android.content.res.Resources;
-import android.support.annotation.AttrRes;
+import android.text.TextUtils;
+import android.util.TypedValue;
 import android.view.View;
 
 import com.aliya.uimode.intef.UiApply;
+import com.aliya.uimode.mode.ResourceEntry;
 import com.aliya.uimode.mode.UiMode;
 
 /**
@@ -17,16 +19,30 @@ import com.aliya.uimode.mode.UiMode;
  */
 public abstract class AbsApply implements UiApply {
 
+    protected boolean applyAttr(View v, ResourceEntry entry) {
+        return false;
+    }
+
     /**
      * 校验 参数 是否全部合法
      *
-     * @param v      a view
-     * @param attrId attr id
+     * @param v     a view
+     * @param entry 资源实体类
      * @return true ：参数合法
      */
-    protected static boolean argsValid(View v, @AttrRes int attrId) {
-        return v != null && UiMode.attrIdValid(attrId)
-                && v.getContext() != null && getTheme(v) != null;
+    protected static boolean validArgs(View v, ResourceEntry entry) {
+        return v != null && entry != null &&
+                UiMode.idValid(entry.getId()) && !TextUtils.isEmpty(entry.getType());
+    }
+
+    /**
+     * 校验 Theme 是否为null
+     *
+     * @param v a view
+     * @return true : 不为null
+     */
+    protected static boolean validTheme(View v) {
+        return getTheme(v) != null;
     }
 
     /**
@@ -37,6 +53,11 @@ public abstract class AbsApply implements UiApply {
      */
     protected static Resources.Theme getTheme(View v) {
         return v.getContext().getTheme();
+    }
+
+    protected static boolean resolveAttribute(View v, int resId, TypedValue outValue,
+                                              boolean resolveRefs) {
+        return getTheme(v).resolveAttribute(resId, outValue, resolveRefs);
     }
 
 }

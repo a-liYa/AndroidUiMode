@@ -42,7 +42,7 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
      */
     public static String NAME_ATTR_MASK_COLOR = "iv_maskColor"; // MaskImageView 属性名称
 
-    private int mMaskAttrId = UiMode.NO_ATTR_ID;
+    private int mMaskAttrId = UiMode.NO_ID;
     private Integer mMaskColor = null;
     private int mApplyMaskColor = NO_COLOR;
 
@@ -113,7 +113,7 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     }
 
     private void resolveRealMaskColor() {
-        if (mMaskAttrId != UiMode.NO_ATTR_ID) {
+        if (mMaskAttrId != UiMode.NO_ID) {
             resolveColorAttribute(mMaskAttrId);
         } else {
             if (mMaskColor != null) {

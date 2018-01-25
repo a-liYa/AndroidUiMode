@@ -6,6 +6,8 @@ import android.widget.ImageView;
 import com.aliya.uimode.UiModeManager;
 import com.aliya.uimode.intef.UiApply;
 import com.aliya.uimode.mode.Attr;
+import com.aliya.uimode.mode.ResourceEntry;
+import com.aliya.uimode.mode.Type;
 import com.aliya.uimode.mode.UiMode;
 
 /**
@@ -27,8 +29,9 @@ public class UiModeUtils {
 
         UiApply uiApply = UiModeManager.get().obtainApplyPolicy(Attr.NAME_SRC);
         if (uiApply != null) {
-            if (uiApply.onApply(v, attrId)) {
-                UiMode.putUiModeView(v, Attr.builder().add(Attr.NAME_SRC, attrId).build());
+            ResourceEntry entry = new ResourceEntry(attrId, Type.ATTR);
+            if (uiApply.onApply(v, entry)) {
+                UiMode.putUiModeView(v, Attr.builder().add(Attr.NAME_SRC, entry).build());
             }
         }
     }

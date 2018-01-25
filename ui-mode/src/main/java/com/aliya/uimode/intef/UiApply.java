@@ -1,8 +1,9 @@
 package com.aliya.uimode.intef;
 
-import android.support.annotation.AttrRes;
 import android.util.TypedValue;
 import android.view.View;
+
+import com.aliya.uimode.mode.ResourceEntry;
 
 /**
  * 适配UiMode的对应属性执行的方法 - 接口
@@ -24,9 +25,9 @@ public interface UiApply {
      * 应用对应主题的资源
      *
      * @param v      被应用的View
-     * @param attrId 资源id
+     * @param entry 资源实体类
      * @return true:应用成功； false:应用失败
      */
-    boolean onApply(View v, @AttrRes int attrId);
+    boolean onApply(View v, ResourceEntry entry);
 
 }

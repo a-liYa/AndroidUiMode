@@ -2,10 +2,12 @@ package com.aliya.uimode.apply;
 
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.AttrRes;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
+
+import com.aliya.uimode.mode.ResourceEntry;
+import com.aliya.uimode.mode.Type;
 
 /**
  * 应用android:background属性 {@link View}
@@ -16,8 +18,25 @@ import android.view.View;
 public final class ApplyBackground extends AbsApply {
 
     @Override
-    public boolean onApply(View v, @AttrRes int attrId) {
-        if (argsValid(v, attrId) && getTheme(v).resolveAttribute(attrId, sOutValue, true)) {
+    public boolean onApply(View v, ResourceEntry entry) {
+        if (validArgs(v, entry)) {
+            switch (entry.getType()) {
+                case Type.ATTR:
+                    return applyAttr(v, entry);
+                case Type.COLOR:
+                case Type.DRAWABLE:
+                case Type.MIPMAP:
+                    v.setBackgroundResource(entry.getId());
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    protected boolean applyAttr(View v, ResourceEntry entry) {
+        if (validTheme(v) &&
+                getTheme(v).resolveAttribute(entry.getId(), sOutValue, true)) {
             switch (sOutValue.type) {
                 case TypedValue.TYPE_INT_COLOR_ARGB4:
                 case TypedValue.TYPE_INT_COLOR_ARGB8:
@@ -26,7 +45,8 @@ public final class ApplyBackground extends AbsApply {
                     v.setBackgroundColor(sOutValue.data);
                     return true;
                 case TypedValue.TYPE_STRING:
-                    Drawable d = ContextCompat.getDrawable(v.getContext(), sOutValue.resourceId);
+                    Drawable d = ContextCompat.getDrawable(v.getContext(), sOutValue
+                            .resourceId);
                     Drawable old = v.getBackground();
                     if (old != null && d != null) { // 传递 level
                         d.setLevel(old.getLevel());
@@ -41,6 +61,6 @@ public final class ApplyBackground extends AbsApply {
                     return true;
             }
         }
-        return false;
+        return super.applyAttr(v, entry);
     }
 }

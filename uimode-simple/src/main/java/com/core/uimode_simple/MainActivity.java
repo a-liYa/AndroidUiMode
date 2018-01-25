@@ -9,21 +9,22 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.View;
+
+import com.aliya.uimode.UiModeManager;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        UiModeManager.setInflaterFactor(getLayoutInflater());
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
         findViewById(R.id.btn_switch).setOnClickListener(this);
 
-        Log.e("TAG", "onCreate()");
-
+        Log.e("TAG", "" + R.mipmap.ic_launcher);
     }
 
     static boolean night = false;

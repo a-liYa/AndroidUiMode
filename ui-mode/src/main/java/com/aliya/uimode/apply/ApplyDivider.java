@@ -1,11 +1,13 @@
 package com.aliya.uimode.apply;
 
 import android.graphics.drawable.ColorDrawable;
-import android.support.annotation.AttrRes;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ListView;
+
+import com.aliya.uimode.mode.ResourceEntry;
+import com.aliya.uimode.mode.Type;
 
 /**
  * 应用android:divider属性 {@link ListView}
@@ -16,26 +18,43 @@ import android.widget.ListView;
 public final class ApplyDivider extends AbsApply {
 
     @Override
-    public boolean onApply(View v, @AttrRes int attrId) {
-        if (argsValid(v, attrId) && v instanceof ListView) {
-            if (getTheme(v).resolveAttribute(attrId, sOutValue, true)) {
-                int dividerHeight = ((ListView) v).getDividerHeight();
-                switch (sOutValue.type) {
-                    case TypedValue.TYPE_INT_COLOR_ARGB4:
-                    case TypedValue.TYPE_INT_COLOR_ARGB8:
-                    case TypedValue.TYPE_INT_COLOR_RGB4:
-                    case TypedValue.TYPE_INT_COLOR_RGB8:
-                        ((ListView) v).setDivider(new ColorDrawable(sOutValue.data));
-                        ((ListView) v).setDividerHeight(dividerHeight);
-                        return true;
-                    case TypedValue.TYPE_STRING:
-                        ((ListView) v).setDivider(ContextCompat
-                                .getDrawable(v.getContext(), sOutValue.resourceId));
-                        ((ListView) v).setDividerHeight(dividerHeight);
-                        return true;
-                }
+    public boolean onApply(View v, ResourceEntry entry) {
+        if (validArgs(v, entry) && v instanceof ListView) {
+            switch (entry.getType()) {
+                case Type.ATTR:
+                    return applyAttr(v, entry);
+                case Type.COLOR:
+                case Type.DRAWABLE:
+                case Type.MIPMAP:
+                    int dividerHeight = ((ListView) v).getDividerHeight();
+                    ((ListView) v).setDivider(
+                            ContextCompat.getDrawable(v.getContext(), entry.getId()));
+                    ((ListView) v).setDividerHeight(dividerHeight);
+                    return true;
             }
         }
         return false;
+    }
+
+    @Override
+    protected boolean applyAttr(View v, ResourceEntry entry) {
+        if (validTheme(v) && resolveAttribute(v, entry.getId(), sOutValue, true)) {
+            int dividerHeight = ((ListView) v).getDividerHeight();
+            switch (sOutValue.type) {
+                case TypedValue.TYPE_INT_COLOR_ARGB4:
+                case TypedValue.TYPE_INT_COLOR_ARGB8:
+                case TypedValue.TYPE_INT_COLOR_RGB4:
+                case TypedValue.TYPE_INT_COLOR_RGB8:
+                    ((ListView) v).setDivider(new ColorDrawable(sOutValue.data));
+                    ((ListView) v).setDividerHeight(dividerHeight);
+                    return true;
+                case TypedValue.TYPE_STRING:
+                    ((ListView) v).setDivider(ContextCompat
+                            .getDrawable(v.getContext(), sOutValue.resourceId));
+                    ((ListView) v).setDividerHeight(dividerHeight);
+                    return true;
+            }
+        }
+        return super.applyAttr(v, entry);
     }
 }

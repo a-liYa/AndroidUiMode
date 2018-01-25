@@ -7,11 +7,13 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.aliya.uimode.intef.InflaterSupport;
 import com.aliya.uimode.intef.UiModeChangeListener;
 import com.aliya.uimode.mode.Attr;
+import com.aliya.uimode.mode.ResourceEntry;
 import com.aliya.uimode.mode.UiMode;
 import com.aliya.uimode.utils.ViewInflater;
 import com.aliya.uimode.widget.MaskImageView;
@@ -33,7 +35,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
      */
     private static SoftReference<UiModeInflaterFactory> sSoftInstance;
 
-    private static Map<String, Integer> sAttrIdsMap = new HashMap<>();
+    private static Map<String, ResourceEntry> sAttrIdsMap = new HashMap<>();
 
     private InflaterSupport mInflaterSupport;
 
@@ -75,7 +77,6 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                 /**
                  * @see android.support.v7.app.AppCompatDelegateImplV9#createView(View, String,
                  * Context, AttributeSet)
-                 * @see android.support.v7.app.AppCompatViewInflater
                  */
                 if (context instanceof AppCompatActivity) {
                     AppCompatDelegate delegate = ((AppCompatActivity) context).getDelegate();
@@ -90,14 +91,25 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
             for (int i = 0; i < N; i++) {
                 String attrName = attrs.getAttributeName(i);
                 if (mInflaterSupport.isSupportApply(attrName)) {
+
                     if (Attr.INVALIDATE.equals(attrName)
                             && attrs.getAttributeBooleanValue(i, false)) {
-                        sAttrIdsMap.put(attrName, UiMode.NO_ATTR_ID);
+                        sAttrIdsMap.put(attrName, null);
                         continue;
                     }
-                    int attrValue = parseAttrValue(attrs.getAttributeValue(i));
-                    if (UiMode.attrIdValid(attrValue)) {
-                        sAttrIdsMap.put(attrName, attrValue);
+                    String attrValue = attrs.getAttributeValue(i);
+                    int attrId = parseAttrId(attrValue);
+                    if (UiMode.idValid(attrId)) {
+                        String typeName = context.getResources().getResourceTypeName(attrId);
+                        // 这里需要校验 typeName是否支持
+                        sAttrIdsMap.put(attrName, new ResourceEntry(attrId, typeName));
+                        continue;
+                    }
+                    int resId = parseResId(attrValue);
+                    if (UiMode.idValid(resId)) {
+                        String typeName = context.getResources().getResourceTypeName(resId);
+                        sAttrIdsMap.put(attrName, new ResourceEntry(attrId, typeName));
+                        continue;
                     }
                 }
             }
@@ -105,7 +117,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
 
         if (!sAttrIdsMap.isEmpty()) {
 
-            final Map<String, Integer> attrIds = new HashMap<>(sAttrIdsMap.size());
+            final Map<String, ResourceEntry> attrIds = new HashMap<>(sAttrIdsMap.size());
             attrIds.putAll(sAttrIdsMap);
 
             if (view == null) { // 系统没有创建
@@ -160,7 +172,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
         return false;
     }
 
-    private int parseAttrValue(String attrVal) {
+    private int parseAttrId(String attrVal) {
         if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("?")) {
             String subStr = attrVal.substring(1, attrVal.length());
             try {
@@ -172,7 +184,20 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                 e.printStackTrace();
             }
         }
-        return UiMode.NO_ATTR_ID;
+        return UiMode.NO_ID;
+    }
+
+    private int parseResId(String attrVal) {
+        if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("@")) {
+            String subStr = attrVal.substring(1, attrVal.length());
+            try {
+                Integer attrId = Integer.valueOf(subStr);
+                return attrId;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return UiMode.NO_ID;
     }
 
 }

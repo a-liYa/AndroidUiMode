@@ -11,7 +11,7 @@ import java.util.Map;
  * @author a_liYa
  * @date 2017/7/14 23:26.
  */
-public class Attr {
+public final class Attr {
 
     public static final String NAME_THEME = "theme";
     public static final String NAME_BG = "background";
@@ -44,20 +44,36 @@ public class Attr {
      */
     public static final class Builder {
 
-        private Map<String, Integer> mAttrIdsMap;
+        private Map<String, ResourceEntry> mAttrIdsMap;
 
         public Builder() {
             mAttrIdsMap = new HashMap<>();
         }
 
+        /**
+         * 添加属性
+         *
+         * @param key    .
+         * @param attrId .
+         * @return builder this
+         * @see #add(String, ResourceEntry)
+         */
+        @Deprecated
         public Builder add(String key, int attrId) {
             if (!TextUtils.isEmpty(key)) {
-                mAttrIdsMap.put(key, attrId);
+                mAttrIdsMap.put(key, new ResourceEntry(attrId, Type.ATTR));
             }
             return this;
         }
 
-        public Map<String, Integer> build() {
+        public Builder add(String key, ResourceEntry entry) {
+            if (!TextUtils.isEmpty(key) && entry != null) {
+                mAttrIdsMap.put(key, entry);
+            }
+            return this;
+        }
+
+        public Map<String, ResourceEntry> build() {
             return mAttrIdsMap;
         }
     }

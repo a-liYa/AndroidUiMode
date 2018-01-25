@@ -1,11 +1,12 @@
 package com.aliya.uimode.apply;
 
-import android.graphics.drawable.Drawable;
-import android.support.annotation.AttrRes;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AbsSeekBar;
+
+import com.aliya.uimode.mode.ResourceEntry;
+import com.aliya.uimode.mode.Type;
 
 /**
  * 应用android:thumb属性 {@link AbsSeekBar}
@@ -16,18 +17,31 @@ import android.widget.AbsSeekBar;
 public final class ApplyThumb extends AbsApply {
 
     @Override
-    public boolean onApply(View v, @AttrRes int attrId) {
-        if (argsValid(v, attrId) && v instanceof AbsSeekBar) {
-            if (getTheme(v).resolveAttribute(attrId, sOutValue, true)) {
-                switch (sOutValue.type) {
-                    case TypedValue.TYPE_STRING:
-                        Drawable d = ContextCompat.getDrawable(v.getContext(),
-                                sOutValue.resourceId);
-                        ((AbsSeekBar) v).setThumb(d);
-                        return true;
-                }
+    public boolean onApply(View v, ResourceEntry entry) {
+        if (validArgs(v, entry) && v instanceof AbsSeekBar) {
+            switch (entry.getType()) {
+                case Type.ATTR:
+                    return applyAttr(v, entry);
+                case Type.COLOR:
+                case Type.DRAWABLE:
+                    ((AbsSeekBar) v).setThumb(
+                            ContextCompat.getDrawable(v.getContext(), entry.getId()));
             }
         }
         return false;
     }
+
+    @Override
+    protected boolean applyAttr(View v, ResourceEntry entry) {
+        if (validTheme(v) && resolveAttribute(v, entry.getId(), sOutValue, true)) {
+            switch (sOutValue.type) {
+                case TypedValue.TYPE_STRING:
+                    ((AbsSeekBar) v).setThumb(
+                            ContextCompat.getDrawable(v.getContext(), sOutValue.resourceId));
+                    return true;
+            }
+        }
+        return super.applyAttr(v, entry);
+    }
+
 }

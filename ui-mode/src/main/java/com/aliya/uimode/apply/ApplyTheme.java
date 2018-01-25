@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Resources;
-import android.support.annotation.AttrRes;
 import android.util.TypedValue;
 import android.view.View;
+
+import com.aliya.uimode.mode.ResourceEntry;
+import com.aliya.uimode.mode.Type;
 
 /**
  * 应用android:theme {@link View}
@@ -17,14 +19,28 @@ import android.view.View;
 public class ApplyTheme extends AbsApply {
 
     @Override
-    public boolean onApply(View v, @AttrRes int attrId) {
-        if (argsValid(v, attrId) && getActivityTheme(v).resolveAttribute(attrId, sOutValue, true)) {
+    public boolean onApply(View v, ResourceEntry entry) {
+        if (validArgs(v, entry)) {
+            // 此处当子View仍需要主题支持时，可能因为遍历顺序造成不生效问题
+            switch (entry.getType()) {
+                case Type.ATTR:
+                    return applyAttr(v, entry);
+                // TODO: 2018/1/25 此时少 Type.Style;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    protected boolean applyAttr(View v, ResourceEntry entry) {
+        if (validTheme(v) &&
+                getActivityTheme(v).resolveAttribute(entry.getId(), sOutValue, true)) {
             if (sOutValue.type == TypedValue.TYPE_REFERENCE) {
                 getTheme(v).applyStyle(sOutValue.resourceId, true);
                 return true;
             }
         }
-        return false;
+        return super.applyAttr(v, entry);
     }
 
     private Resources.Theme getActivityTheme(View v) {

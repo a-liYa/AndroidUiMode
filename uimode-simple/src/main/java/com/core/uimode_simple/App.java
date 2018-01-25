@@ -3,6 +3,8 @@ package com.core.uimode_simple;
 import android.app.Application;
 import android.support.v7.app.AppCompatDelegate;
 
+import com.aliya.uimode.UiModeManager;
+
 /**
  * Application
  *
@@ -16,6 +18,8 @@ public class App extends Application {
         super.onCreate();
         // 默认设置为日夜间模式
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+
+        UiModeManager.init(this, null);
 
     }
 }

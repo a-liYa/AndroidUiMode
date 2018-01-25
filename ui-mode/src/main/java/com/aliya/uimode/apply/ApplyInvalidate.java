@@ -1,7 +1,8 @@
 package com.aliya.uimode.apply;
 
-import android.support.annotation.AttrRes;
 import android.view.View;
+
+import com.aliya.uimode.mode.ResourceEntry;
 
 /**
  * 调用View.invalidate()方法 {@code android.view.View.invalidate()}
@@ -12,7 +13,7 @@ import android.view.View;
 public final class ApplyInvalidate extends AbsApply {
 
     @Override
-    public boolean onApply(View v, @AttrRes int attrId) {
+    public boolean onApply(View v, ResourceEntry entry) {
         if (v != null) {
             v.invalidate(); // 刷新View
             return true;
