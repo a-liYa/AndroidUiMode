@@ -1,13 +1,13 @@
 package com.aliya.uimode.factory;
 
 import android.content.Context;
+import android.content.res.Resources;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.aliya.uimode.intef.InflaterSupport;
@@ -107,8 +107,12 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                     }
                     int resId = parseResId(attrValue);
                     if (UiMode.idValid(resId)) {
-                        String typeName = context.getResources().getResourceTypeName(resId);
-                        sAttrIdsMap.put(attrName, new ResourceEntry(attrId, typeName));
+                        try {
+                            String typeName = context.getResources().getResourceTypeName(resId);
+                            sAttrIdsMap.put(attrName, new ResourceEntry(attrId, typeName));
+                        } catch (Resources.NotFoundException e) {
+                            // nothing to do
+                        }
                         continue;
                     }
                 }

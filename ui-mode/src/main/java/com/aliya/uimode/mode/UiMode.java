@@ -31,7 +31,7 @@ public final class UiMode {
     private static Map<Context, Set<WeakReference<View>>> sContextViewMap = new HashMap<>();
     private static Map<Context, Set<WeakReference<View>>> sActivityViewMap = new HashMap<>();
     private static ReferenceQueue<View> queue = new ReferenceQueue<>();
-    public static final int NO_ID = -1;
+    public static final int NO_ID = 0;
 
     private UiMode() {
     }
