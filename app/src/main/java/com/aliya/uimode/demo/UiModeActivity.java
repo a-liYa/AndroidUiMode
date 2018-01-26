@@ -47,12 +47,12 @@ public class UiModeActivity extends BaseActivity {
         switch (view.getId()) {
             case R.id.btn_left:
                 long start = SystemClock.uptimeMillis();
-                ThemeMode.get().setUiMode(false);
+                ThemeMode.setUiMode(false);
                 Log.e("TAG", "模式切换执行的时间 " + (SystemClock.uptimeMillis() - start) + " ms");
                 break;
             case R.id.btn_right:
                 long startMs = SystemClock.uptimeMillis();
-                ThemeMode.get().setUiMode(true);
+                ThemeMode.setUiMode(true);
                 Log.e("TAG", "模式切换执行的时间 " + (SystemClock.uptimeMillis() - startMs) + " ms");
                 break;
             case R.id.iv_mask:

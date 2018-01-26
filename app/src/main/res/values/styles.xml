@@ -3,21 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-
-        <item name="android:textAllCaps">false</item>
-
-    </style>
-
-    <style name="AppTheme1">
-
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
-
-    </style>
-
-    <style name="AppTheme2">
-
+        <item name="android:textAllCaps">false</item>
         <item name="ui_alpha">@dimen/ui_mode_alpha</item>
         <item name="bgc_white">#ffffff</item>
         <item name="fgc_color">#7ffdc247</item>
@@ -27,18 +16,13 @@
         <item name="ic_customMaskColor">#7f000000</item>
         <item name="iv_maskColor">@android:color/transparent</item>
         <item name="iv_useMaskColor">false</item>
-
-    </style>
-
-    <style name="AppTheme3">
-
         <item name="tv_drawable_top">@mipmap/module_user_ic_mytip</item>
 
         <item name="cb_button">@drawable/sl_cb_button</item>
 
         <item name="colorControlHighlight">#1f000000</item>
-
     </style>
+
 
     <style name="NightAppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
 

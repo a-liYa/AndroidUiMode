@@ -13,18 +13,25 @@ import com.aliya.uimode.UiModeManager;
  */
 public class ThemeMode {
 
-    private int mKeyMode = 1;
+    private boolean isNightMode;
+
+    private int mDayTheme = NO_VALUE;
+    private int mNightTheme = NO_VALUE;
+
+    private static final int NO_VALUE = -1;
+    private static int default_theme = NO_VALUE;
+    public static final String KEY_UI_MODE = "ui_mode";
 
     private static ThemeMode sInstance;
 
-    public static final int KEY_DAY = 0;
-    public static final int KEY_NIGHT = 1;
-
-    public ThemeMode() {
-        // 在这里初始化，mKeyMode
+    private ThemeMode() {
     }
 
-    public static ThemeMode get() {
+    public static final void initTheme(@StyleRes int dayTheme, @StyleRes int nightTheme) {
+        _get().setDayTheme(dayTheme).setNightTheme(nightTheme);
+    }
+
+    private static ThemeMode _get() {
         if (sInstance == null) {
             synchronized (ThemeMode.class) {
                 if (sInstance == null) {
@@ -35,36 +42,48 @@ public class ThemeMode {
         return sInstance;
     }
 
-    public ThemeMode putDayTheme(@StyleRes int resId) {
-        UiModeManager.addTheme(KEY_DAY, resId);
+    public int getDayTheme() {
+        return mDayTheme;
+    }
+
+    public ThemeMode setDayTheme(int dayTheme) {
+        mDayTheme = dayTheme;
         return this;
     }
 
-    public ThemeMode putNightTheme(@StyleRes int resId) {
-        UiModeManager.addTheme(KEY_NIGHT, resId);
+    public int getNightTheme() {
+        return mNightTheme;
+    }
+
+    public ThemeMode setNightTheme(int nightTheme) {
+        mNightTheme = nightTheme;
         return this;
     }
 
-    public void setUiMode(boolean isNightMode) {
-        if (isNightMode) {
-            if (mKeyMode != KEY_NIGHT) {
-                mKeyMode = KEY_NIGHT;
-                fitTheme();
-            }
-        } else {
-            if (mKeyMode != KEY_DAY) {
-                mKeyMode = KEY_DAY;
-                fitTheme();
+    private final int getCurrentTheme() {
+        return isNightMode ? mNightTheme : mDayTheme;
+    }
+
+    public static final void setUiMode(boolean isNightMode) {
+        if (_get().isNightMode != isNightMode) {
+            _get().isNightMode = isNightMode;
+            int theme = isNightMode ? _get().getNightTheme() : _get().getDayTheme();
+            if (NO_VALUE != theme) {
+                UiModeManager.setTheme(theme);
             }
         }
     }
 
-    private void fitTheme() {
-        UiModeManager.fitTheme(mKeyMode);
+    public static final boolean isNightMode() {
+        return _get().isNightMode;
     }
 
-    public void fitActivityTheme(Activity activity) {
-        UiModeManager.setActivityTheme(activity, mKeyMode);
-    }
+    public static final void fitActivityTheme(Activity activity) {
+        if (activity == null) return;
 
+        int currTheme = _get().getCurrentTheme();
+        if (NO_VALUE != currTheme && default_theme != currTheme) {
+            activity.setTheme(currTheme);
+        }
+    }
 }

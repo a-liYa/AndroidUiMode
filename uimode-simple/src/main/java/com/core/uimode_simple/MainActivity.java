@@ -33,29 +33,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_switch:
-//                getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
-
-//                final int newNightMode = (night = !night)
-//                        ? Configuration.UI_MODE_NIGHT_YES
-//                        : Configuration.UI_MODE_NIGHT_NO;
-
-                // Update the UI Mode to reflect the new night mode
-//                config.uiMode = newNightMode | (config.uiMode & ~Configuration
-// .UI_MODE_NIGHT_MASK);
-//                getResources().updateConfiguration(config, metrics);
-
-
-//                updateNightMode(night = !night);
-
-//                UiModeManager uiModeManager = (UiModeManager) getSystemService(Context.UI_MODE_SERVICE);
-//                uiModeManager.setNightMode((night = !night)
-//                        ? UiModeManager.MODE_NIGHT_YES : UiModeManager.MODE_NIGHT_NO);
 
                 getDelegate().setLocalNightMode((night = !night)
                         ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
 
-//                printConfig("TAG");
-                recreate();
                 break;
         }
     }
@@ -64,7 +45,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         Resources sRes = super.getResources();
         Configuration config = sRes.getConfiguration();
         Log.e(tag, config.hashCode() + " - " + config.uiMode);
-
 
         try {
             final ActivityInfo info = getPackageManager().getActivityInfo(
