@@ -24,7 +24,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         findViewById(R.id.btn_switch).setOnClickListener(this);
 
-        Log.e("TAG", "" + R.mipmap.ic_launcher);
     }
 
     static boolean night = false;
@@ -34,8 +33,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         switch (v.getId()) {
             case R.id.btn_switch:
 
-                getDelegate().setLocalNightMode((night = !night)
+                UiModeManager.setUiMode((night = !night)
                         ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+
+//                getDelegate().setLocalNightMode((night = !night)
+//                        ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
 
                 break;
         }
@@ -49,7 +51,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         try {
             final ActivityInfo info = getPackageManager().getActivityInfo(
                     new ComponentName(this, getClass()), 0);
-                    Log.e("TAG", "theme " + info.theme);
+            Log.e("TAG", "theme " + info.theme);
 
             ApplicationInfo appInfo = getPackageManager().getApplicationInfo(getPackageName(), 0);
             Log.e("TAG", "App theme " + appInfo.theme);

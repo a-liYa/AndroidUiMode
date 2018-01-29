@@ -109,7 +109,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                     if (UiMode.idValid(resId)) {
                         try {
                             String typeName = context.getResources().getResourceTypeName(resId);
-                            sAttrIdsMap.put(attrName, new ResourceEntry(attrId, typeName));
+                            sAttrIdsMap.put(attrName, new ResourceEntry(resId, typeName));
                         } catch (Resources.NotFoundException e) {
                             // nothing to do
                         }

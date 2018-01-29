@@ -3,7 +3,6 @@ package com.aliya.uimode;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
-import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
@@ -181,7 +180,7 @@ public final class UiModeManager implements ApplyPolicy {
     }
 
     public static void setDefaultUiMode(@AppCompatDelegate.NightMode int mode) {
-        AppCompatDelegate.setDefaultNightMode(mode);
+        AppCompatDelegate.setDefaultNightMode(mode); // 默认设置为日夜间模式
     }
 
     public static void setUiMode(@AppCompatDelegate.NightMode int mode) {
