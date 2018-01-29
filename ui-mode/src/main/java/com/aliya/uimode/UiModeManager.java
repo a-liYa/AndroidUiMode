@@ -3,10 +3,13 @@ package com.aliya.uimode;
 import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
+import android.content.res.Configuration;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 
@@ -32,7 +35,6 @@ import com.aliya.uimode.intef.ApplyPolicy;
 import com.aliya.uimode.intef.InflaterSupport;
 import com.aliya.uimode.intef.UiApply;
 import com.aliya.uimode.mode.Attr;
-import com.aliya.uimode.mode.ThemeStore;
 import com.aliya.uimode.mode.UiMode;
 
 import java.util.HashMap;
@@ -82,10 +84,8 @@ public final class UiModeManager implements ApplyPolicy {
     }
 
     private InflaterSupport mInflaterSupport;
-    private ThemeStore mThemeStore;
 
     private UiModeManager() {
-        mThemeStore = new ThemeStore();
         mInflaterSupport = new InflaterSupport() {
             @Override
             public boolean isSupportApply(String key) {
@@ -180,7 +180,56 @@ public final class UiModeManager implements ApplyPolicy {
 
     }
 
+    public static void setDefaultUiMode(@AppCompatDelegate.NightMode int mode) {
+        AppCompatDelegate.setDefaultNightMode(mode);
+    }
 
+    public static void setUiMode(@AppCompatDelegate.NightMode int mode) {
+        if (sContext == null) {
+            Log.e(TAG, "Using the ui mode, you need to initialize");
+            return;
+        }
+
+        setDefaultUiMode(mode);
+
+        int appTheme = 0;
+        // 应用Application
+        if (Utils.hasUiModeChange(mode, sContext)) {
+            appTheme = Utils.getManifestApplicationTheme(sContext);
+            if (appTheme != 0) {
+                sContext.setTheme(appTheme);
+            }
+        }
+
+        // 遍历应用所有Activity
+        Stack<Activity> appStack = AppStack.getAppStack();
+        if (appStack != null) {
+            Iterator<Activity> iterator = appStack.iterator();
+            while (iterator.hasNext()) {
+                Activity next = iterator.next();
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                    if (next.isDestroyed()) continue;
+                }
+
+                if (appTheme != 0) {
+                    next.setTheme(appTheme);
+                }
+
+                if (Utils.hasUiModeChange(mode, next)) {
+                    final int theme = Utils.getManifestActivityTheme(next);
+                    if (theme != 0) {
+                        next.setTheme(theme);
+                    }
+                }
+                if (next instanceof AppCompatActivity) {
+                    ((AppCompatActivity) next).getDelegate().setLocalNightMode(mode);
+                }
+            }
+        }
+
+        // 应用UiMode
+        UiMode.applyUiMode(get());
+    }
 
     /**
      * 适配切换的主题
