@@ -2,6 +2,7 @@ package com.aliya.uimode.apply;
 
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
 import android.support.v4.content.ContextCompat;
 import android.util.TypedValue;
 import android.view.View;
@@ -26,7 +27,7 @@ public final class ApplyBackground extends AbsApply {
                 case Type.COLOR:
                 case Type.DRAWABLE:
                 case Type.MIPMAP:
-                    v.setBackgroundResource(entry.getId());
+                    setCompatBackground(v, entry.getId());
                     return true;
             }
         }
@@ -45,22 +46,25 @@ public final class ApplyBackground extends AbsApply {
                     v.setBackgroundColor(sOutValue.data);
                     return true;
                 case TypedValue.TYPE_STRING:
-                    Drawable d = ContextCompat.getDrawable(v.getContext(), sOutValue
-                            .resourceId);
-                    Drawable old = v.getBackground();
-                    if (old != null && d != null) { // 传递 level
-                        d.setLevel(old.getLevel());
-                    }
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                        v.setBackground(d);
-                    } else {
-                        v.setBackgroundDrawable(d);
-                    }
-                    // 没用以下方法，防止resourceId相等时设置背景无效（resId对应资源里的资源有变化）
-//                        v.setBackgroundResource(sOutValue.resourceId);
+                    setCompatBackground(v, sOutValue.resourceId);
                     return true;
             }
         }
         return super.applyAttr(v, entry);
+    }
+
+    private void setCompatBackground(View v, @DrawableRes int id) {
+        Drawable d = ContextCompat.getDrawable(v.getContext(), id);
+        Drawable old = v.getBackground();
+        if (old != null && d != null) { // 传递 level
+            d.setLevel(old.getLevel());
+        }
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+            v.setBackground(d);
+        } else {
+            v.setBackgroundDrawable(d);
+        }
+        // 没用以下方法，防止resourceId相等时设置背景无效（resId对应资源里的资源有变化）
+        // v.setBackgroundResource(sOutValue.resourceId);
     }
 }

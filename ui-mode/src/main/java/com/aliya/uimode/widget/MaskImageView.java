@@ -21,17 +21,15 @@ import com.aliya.uimode.mode.UiMode;
 /**
  * 遮罩ImageView
  * <ul>
- * <li>
- *      一、实现圆角功能
- * <li/>
- * <li>
- *      二、实现固定宽高比功能
- * <li/>
+ * <li> 一、实现圆角功能 <li/>
+ * <li> 二、实现固定宽高比功能 <li/>
  * <li>
  *      三、实现夜间模式
+ *          1、先获取app:iv_maskColor=""
+ *          2、再获取style <item name="iv_maskColor"></item>
+ *          3、最后
  * <li/>
  * <ul/>
- * <p>
  * 通过调用invalidate()刷新日夜模式
  *
  * @author a_liYa
@@ -155,7 +153,7 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
                     break;
             }
         } else {
-
+            mApplyMaskColor = ContextCompat.getColor(getContext(), R.color.uiMode_maskColor);
         }
     }
 
@@ -186,14 +184,6 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
             super.onDraw(canvas);
         }
     }
-
-    /**
-     * 圆角、clipPath，有锯齿
-     * mRect.set(0, 0, canvas.getWidth(), canvas.getHeight());
-     * mPath.addRoundRect(mRect, radius, radius, Path.Direction.CCW);
-     * canvas.clipPath(mPath, Region.Op.REPLACE);
-     */
-
 
     @Override
     public void onUiModeChange() {
