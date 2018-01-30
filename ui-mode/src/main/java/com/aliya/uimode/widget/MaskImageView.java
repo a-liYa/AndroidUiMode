@@ -1,22 +1,11 @@
 package com.aliya.uimode.widget;
 
 import android.content.Context;
-import android.content.res.Resources;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.PorterDuff;
-import android.graphics.PorterDuffXfermode;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
-import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 
-import com.aliya.uimode.R;
 import com.aliya.uimode.intef.UiModeChangeListener;
-import com.aliya.uimode.mode.UiMode;
 
 /**
  * 遮罩ImageView
@@ -27,7 +16,7 @@ import com.aliya.uimode.mode.UiMode;
  *      三、实现夜间模式
  *          1、先获取app:iv_maskColor=""
  *          2、再获取style <item name="iv_maskColor"></item>
- *          3、最后
+ *          3、最后获取 R.color.uiMode_maskColor
  * <li/>
  * <ul/>
  * 通过调用invalidate()刷新日夜模式
@@ -37,30 +26,9 @@ import com.aliya.uimode.mode.UiMode;
  */
 public class MaskImageView extends AppCompatImageView implements UiModeChangeListener {
 
-    // PorterDuff.Mode.SRC_ATOP 只在图片有颜色的像素加半透明黑色遮罩
-    private PorterDuffXfermode xfermodeMask = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
-
-    private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-
-    // 从属性中获取的 attr id； 来自?attr/
-    private int mMaskAttrId = UiMode.NO_ID;
-    // 从属性中获取的 color； 来自@color/
-    private Integer mMaskColor = null;
-    // 实际需要应用的 color
-    private int mApplyMaskColor = NO_COLOR;
-
+    private MaskHelper mMaskHelper;
     private RatioHelper mRatioHelper;
     private RoundedHelper mRoundedHelper;
-
-    private static TypedValue sOutValue = new TypedValue();
-    public static final int NO_COLOR = Color.TRANSPARENT;
-    /**
-     * @see R.attr#iv_maskColor
-     */
-    public static String NAME_ATTR_MASK_COLOR = "iv_maskColor"; // MaskImageView 属性名称
-
-    // 属性值
-    private static final int DEFAULT_MASK_COLOR_ATTR_ID = R.attr.iv_maskColor;
 
     public MaskImageView(Context context) {
         this(context, null);
@@ -72,34 +40,9 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
 
     public MaskImageView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-        init(attrs);
+        mMaskHelper = new MaskHelper(context, attrs);
         mRatioHelper = new RatioHelper(context, attrs);
         mRoundedHelper = new RoundedHelper(context, attrs);
-    }
-
-    private void init(AttributeSet attrs) {
-        if (attrs != null) {
-            final int N = attrs.getAttributeCount();
-            for (int i = 0; i < N; i++) {
-                String attrName = attrs.getAttributeName(i);
-                if (NAME_ATTR_MASK_COLOR.equals(attrName)) {
-                    String attrVal = attrs.getAttributeValue(i);
-                    if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("?")) {
-                        String subStr = attrVal.substring(1, attrVal.length());
-                        try {
-                            mMaskAttrId = Integer.valueOf(subStr);
-                        } catch (Exception e) {
-                            // no-op
-                        }
-                    } else {
-                        parseAttrMaskColor(attrs);
-                    }
-                    break;
-                }
-            }
-        }
-
-        resolveRealMaskColor();
     }
 
     @Override
@@ -111,74 +54,17 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
                         getLayoutParams()));
     }
 
-    private void resolveRealMaskColor() {
-        if (mMaskAttrId != UiMode.NO_ID) {
-            resolveColorAttribute(mMaskAttrId);
-        } else {
-            if (mMaskColor != null) {
-                Resources.Theme theme = getContext().getTheme();
-                if (theme != null &&
-                        theme.resolveAttribute(R.attr.iv_useMaskColor, sOutValue, true)) {
-                    if (sOutValue.type == TypedValue.TYPE_INT_BOOLEAN) {
-                        if (sOutValue.data == 0) { // data为0:表示false
-                            mApplyMaskColor = NO_COLOR;
-                        } else {
-                            mApplyMaskColor = mMaskColor;
-                        }
-                    }
-                }
-            } else {
-                resolveColorAttribute(DEFAULT_MASK_COLOR_ATTR_ID);
-            }
-        }
-
-        mPaint.setColor(mApplyMaskColor);
-    }
-
-    private void resolveColorAttribute(int attrId) {
-        Resources.Theme theme = getContext().getTheme();
-        if (theme != null && theme.resolveAttribute(attrId, sOutValue, true)) {
-            switch (sOutValue.type) {
-                case TypedValue.TYPE_INT_COLOR_ARGB4:
-                case TypedValue.TYPE_INT_COLOR_ARGB8:
-                case TypedValue.TYPE_INT_COLOR_RGB4:
-                case TypedValue.TYPE_INT_COLOR_RGB8:
-                    mApplyMaskColor = sOutValue.data;
-                    break;
-                case TypedValue.TYPE_STRING:
-                    mApplyMaskColor = ContextCompat.getColor(getContext(), sOutValue.resourceId);
-                    break;
-                default:
-                    mApplyMaskColor = NO_COLOR;
-                    break;
-            }
-        } else {
-            mApplyMaskColor = ContextCompat.getColor(getContext(), R.color.uiMode_maskColor);
-        }
-    }
-
-    private void parseAttrMaskColor(AttributeSet attrs) {
-        TypedArray a = getContext().obtainStyledAttributes(attrs, new int[]{R.attr.iv_maskColor});
-        if (a.hasValue(0)) {
-            mMaskColor = a.getColor(0, NO_COLOR);
-        }
-        a.recycle();
-    }
-
     @Override
     protected void onDraw(Canvas canvas) {
 //        setLayerType(LAYER_TYPE_SOFTWARE, null); // 关闭硬件加速
-        if (mApplyMaskColor != NO_COLOR || mRoundedHelper.validRadius()) {
+        if (mMaskHelper.validMaskColor() || mRoundedHelper.validRadius()) {
             int saveCount = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(),
                     null, Canvas.ALL_SAVE_FLAG);
             super.onDraw(canvas);
-            if (mApplyMaskColor != NO_COLOR) { // 处理遮罩
-                mPaint.setXfermode(xfermodeMask);
-                canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mPaint);
-            }
-            if (mRoundedHelper.validRadius()) { // 处理圆角
-                mRoundedHelper.drawRounded(canvas, this);
-            }
+
+            mMaskHelper.drawMaskColor(canvas);  // 处理遮罩
+            mRoundedHelper.drawRounded(canvas, this);  // 处理圆角
+
             canvas.restoreToCount(saveCount);
         } else {
             super.onDraw(canvas);
@@ -188,19 +74,21 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     @Override
     public void onUiModeChange() {
         if (getDrawable() != null) {
-            resolveRealMaskColor();
+            mMaskHelper.resolveRealMaskColor();
             invalidate();
         }
     }
 
     /**
+     * 此方法不合理，已过时
      * 设置遮罩颜色
      *
      * @param color mask color
      */
+    @Deprecated
     public void setApplyMaskColor(int color) {
-        mApplyMaskColor = color;
-        mPaint.setColor(mApplyMaskColor);
+//        mApplyMaskColor = color;
+//        mPaint.setColor(mApplyMaskColor);
         invalidate();
     }
 

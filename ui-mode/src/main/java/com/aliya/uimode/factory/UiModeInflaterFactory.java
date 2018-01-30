@@ -190,7 +190,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                     return attrId;
                 }
             } catch (Exception e) {
-                e.printStackTrace();
+                // no-op
             }
         }
         return UiMode.NO_ID;
@@ -203,7 +203,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                 Integer attrId = Integer.valueOf(subStr);
                 return attrId;
             } catch (Exception e) {
-                e.printStackTrace();
+                // no-op
             }
         }
         return UiMode.NO_ID;
