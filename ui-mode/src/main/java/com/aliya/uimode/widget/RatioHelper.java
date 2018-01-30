@@ -14,7 +14,7 @@ import com.aliya.uimode.R;
 import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
 
 /**
- * 宽高比 - 助手
+ * 固定宽高比 - 助手
  *
  * @author a_liYa
  * @date 2017/7/18 23:00.
@@ -39,7 +39,7 @@ class RatioHelper {
                         ratio_w2h = Float.parseFloat(split[0].trim())
                                 / Float.parseFloat(split[1].trim());
                     } catch (NumberFormatException e) {
-                        e.printStackTrace();
+                        // no-op
                     }
                 }
             }
