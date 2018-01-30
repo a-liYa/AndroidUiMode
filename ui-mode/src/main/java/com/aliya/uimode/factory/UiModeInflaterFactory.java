@@ -97,7 +97,10 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                         sAttrIdsMap.put(attrName, null);
                         continue;
                     }
+
                     String attrValue = attrs.getAttributeValue(i);
+
+                    // 解析 ?attr
                     int attrId = parseAttrId(attrValue);
                     if (UiMode.idValid(attrId)) {
                         String typeName = context.getResources().getResourceTypeName(attrId);
@@ -105,6 +108,8 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                         sAttrIdsMap.put(attrName, new ResourceEntry(attrId, typeName));
                         continue;
                     }
+
+                    // 解析 @drawable、@color、@theme、@mipmap 等等
                     int resId = parseResId(attrValue);
                     if (UiMode.idValid(resId)) {
                         try {
