@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 
 import com.aliya.uimode.intef.InflaterSupport;
@@ -85,11 +86,16 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                 break;
         }
 
+        String ignoreValue = null;
         sAttrIdsMap.clear();
         if (mInflaterSupport != null) {
             final int N = attrs.getAttributeCount();
             for (int i = 0; i < N; i++) {
                 String attrName = attrs.getAttributeName(i);
+                if (Attr.IGNORE.equals(attrName)) {
+                    ignoreValue = attrs.getAttributeValue(i);
+                    continue;
+                }
                 if (mInflaterSupport.isSupportApply(attrName)) {
 
                     if (Attr.INVALIDATE.equals(attrName)
@@ -120,6 +126,15 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                         }
                         continue;
                     }
+                }
+            }
+        }
+
+        if (!TextUtils.isEmpty(ignoreValue)) {
+            String[] ignores = ignoreValue.split("\\|");
+            for (String ignore : ignores) {
+                if (!TextUtils.isEmpty(ignore = ignore.trim())) {
+                    sAttrIdsMap.remove(ignore);
                 }
             }
         }

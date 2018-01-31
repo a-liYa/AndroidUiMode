@@ -34,6 +34,10 @@ public final class Attr {
      * @see com.aliya.uimode.R.attr#invalidate
      */
     public static final String INVALIDATE = "invalidate";
+    /**
+     * @see com.aliya.uimode.R.attr#invalidate
+     */
+    public static final String IGNORE = "uiMode_ignore";
 
     public static final Builder builder() {
         return new Builder();

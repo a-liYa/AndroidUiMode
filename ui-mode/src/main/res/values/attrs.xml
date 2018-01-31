@@ -5,6 +5,8 @@
         <attr name="iv_maskColor" format="color" />
         <attr name="iv_useMaskColor" format="boolean" />
         <attr name="invalidate" format="boolean" />
+        <!--uiMode忽略的属性，多个属性时属性名之间用'|'分割-->
+        <attr name="uiMode_ignore" format="string" />
     </declare-styleable>
 
     <declare-styleable name="RatioLayout">
