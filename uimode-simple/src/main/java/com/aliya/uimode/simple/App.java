@@ -1,4 +1,4 @@
-package com.core.uimode_simple;
+package com.aliya.uimode.simple;
 
 import android.app.Application;
 import android.support.v7.app.AppCompatDelegate;

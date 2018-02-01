@@ -6,7 +6,7 @@ android {
 
 
     defaultConfig {
-        applicationId "com.core.uimode_simple"
+        applicationId "com.aliya.uimode.simple"
         minSdkVersion 14
         targetSdkVersion 25
         versionCode 1

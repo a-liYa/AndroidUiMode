@@ -1,4 +1,4 @@
-package com.core.uimode_simple;
+package com.aliya.uimode.simple;
 
 /**
  * UiMode
