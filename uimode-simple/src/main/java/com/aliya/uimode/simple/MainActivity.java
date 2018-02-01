@@ -1,10 +1,8 @@
 package com.aliya.uimode.simple;
 
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 
-import com.aliya.uimode.UiModeManager;
 import com.aliya.uimode.simple.base.BaseActivity;
 
 /**
@@ -24,16 +22,12 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
 
     }
 
-    static boolean night = false;
-
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_switch:
 
-                UiModeManager.setUiMode((night = !night)
-                        ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
-
+                UiMode.setNight(!UiMode.isNight());
                 break;
         }
     }

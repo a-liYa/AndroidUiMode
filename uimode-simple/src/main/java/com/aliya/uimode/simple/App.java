@@ -1,9 +1,6 @@
 package com.aliya.uimode.simple;
 
 import android.app.Application;
-import android.support.v7.app.AppCompatDelegate;
-
-import com.aliya.uimode.UiModeManager;
 
 /**
  * Application
@@ -17,8 +14,8 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        UiModeManager.init(this, null);
-        UiModeManager.setDefaultUiMode(AppCompatDelegate.MODE_NIGHT_NO);
+        UiMode.init(this);
+
 
     }
 }
