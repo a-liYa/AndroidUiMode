@@ -2,7 +2,6 @@ package com.aliya.uimode;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager;
 
 /**
  * Log日志类
@@ -29,9 +28,8 @@ final class Log {
     public static void init(Context context) {
         if (context == null) return;
         try {
-            Log.debuggable = (context.getPackageManager()
-                    .getPackageInfo(context.getPackageName(), PackageManager.GET_ACTIVITIES)
-                    .applicationInfo.flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+            Log.debuggable =
+                    (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
         } catch (Exception e) {
             Log.debuggable = false;
         }

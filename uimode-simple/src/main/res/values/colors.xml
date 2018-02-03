@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="colorBackground">#ffffff</color>
+
+    <color name="bg_color">#ffffff</color>
+    <color name="tc_484848">#484848</color>
+    <color name="tc_top_bar_title">#ffffff</color>
+
 </resources>
