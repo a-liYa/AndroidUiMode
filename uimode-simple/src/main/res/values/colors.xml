@@ -7,7 +7,10 @@
     <color name="colorBackground">#ffffff</color>
 
     <color name="bg_color">#ffffff</color>
+
     <color name="tc_484848">#484848</color>
     <color name="tc_top_bar_title">#ffffff</color>
+
+    <color name="dc_dddddd">#dddddd</color>
 
 </resources>

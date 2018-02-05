@@ -4,11 +4,63 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/bg_color"
+    android:orientation="vertical"
     tools:context="com.aliya.uimode.simple.SimpleActivity">
 
     <com.aliya.uimode.simple.view.TopBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:text="TextView的Drawable属性"
+            android:textColor="@color/tc_484848" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:drawableBottom="@mipmap/ic_arrow_bottom"
+            android:drawableLeft="@drawable/ic_arrow_left"
+            android:drawablePadding="0dp"
+            android:drawableRight="@drawable/ic_arrow_right"
+            android:drawableTop="@drawable/ic_arrow_top"
+            android:text="文本"
+            android:textColor="@color/tc_484848" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:text="android:alpha属性"
+            android:textColor="@color/tc_484848" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:alpha="@string/ui_mode_alpha"
+            android:background="@mipmap/ic_me_wechat_no_night" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
 
 </LinearLayout>

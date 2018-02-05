@@ -1,5 +1,6 @@
 package com.aliya.uimode.apply;
 
+import android.content.res.Resources;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -20,6 +21,19 @@ public final class ApplyAlpha extends AbsApply {
             switch (entry.getType()) {
                 case Type.ATTR:
                     return applyAttr(v, entry);
+                case Type.STRING:
+                    float alpha = -1;
+                    try {
+                        alpha = Float.parseFloat(v.getResources().getString(entry.getId()));
+                    } catch (NumberFormatException e) {
+                        // no-op
+                    } catch (Resources.NotFoundException e) {
+                        // no-op
+                    }
+                    if (alpha >= 0 && alpha <= 1) {
+                        v.setAlpha(alpha);
+                    }
+                    return true;
             }
         }
         return false;

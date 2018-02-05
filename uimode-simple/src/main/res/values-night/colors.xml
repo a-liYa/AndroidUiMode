@@ -6,7 +6,10 @@
     <color name="colorBackground">#2b2b2b</color>
 
     <color name="bg_color">#202124</color>
+
     <color name="tc_484848">#7a7b7d</color>
     <color name="tc_top_bar_title">#7a7b7d</color>
+
+    <color name="dc_dddddd">#343434</color>
 
 </resources>

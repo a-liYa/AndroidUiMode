@@ -21,11 +21,14 @@ public final class Type {
 
     public static final String MIPMAP = "mipmap";
 
+    public static final String STRING = "string";
+
     @StringDef(value = {
             COLOR,
             DRAWABLE,
             ATTR,
-            MIPMAP
+            MIPMAP,
+            STRING
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface ResourceType {
