@@ -1,5 +1,6 @@
 package com.aliya.uimode.simple;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -18,16 +19,15 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        findViewById(R.id.btn_switch).setOnClickListener(this);
+        findViewById(R.id.btn_go_simple).setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.btn_switch:
-
-                UiMode.setNight(!UiMode.isNight());
+            case R.id.btn_go_simple:
+                startActivity(new Intent(this, SimpleActivity.class));
                 break;
         }
     }
