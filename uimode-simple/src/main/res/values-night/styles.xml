@@ -8,7 +8,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
         <!--水波纹颜色-->
-        <item name="colorControlHighlight">#1f000000</item>
+        <item name="colorControlHighlight">#33ffffff</item>
 
     </style>
 

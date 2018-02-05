@@ -165,6 +165,11 @@ public final class UiModeManager implements ApplyPolicy {
         sContext = context.getApplicationContext();
         Log.init(sContext);
 
+        final int appTheme = Utils.getManifestApplicationTheme(sContext);
+        if (appTheme != 0) {
+            sContext.getTheme().applyStyle(appTheme, true);
+        }
+
         addSupportAttrIds(attrs);
 
         if (sContext instanceof Application) {
@@ -196,7 +201,7 @@ public final class UiModeManager implements ApplyPolicy {
         if (Utils.hasUiModeChange(mode, sContext)) {
             appTheme = Utils.getManifestApplicationTheme(sContext);
             if (appTheme != 0) {
-                sContext.setTheme(appTheme);
+                sContext.getTheme().applyStyle(appTheme, true);
             }
         }
 
@@ -210,18 +215,19 @@ public final class UiModeManager implements ApplyPolicy {
                     if (next.isDestroyed()) continue;
                 }
 
+                if (next instanceof AppCompatActivity) {
+                    ((AppCompatActivity) next).getDelegate().setLocalNightMode(mode);
+                }
+
                 if (appTheme != 0) {
-                    next.setTheme(appTheme);
+                    next.getTheme().applyStyle(appTheme, true);
                 }
 
                 if (Utils.hasUiModeChange(mode, next)) {
                     final int theme = Utils.getManifestActivityTheme(next);
                     if (theme != 0) {
-                        next.setTheme(theme);
+                        next.getTheme().applyStyle(theme, true);
                     }
-                }
-                if (next instanceof AppCompatActivity) {
-                    ((AppCompatActivity) next).getDelegate().setLocalNightMode(mode);
                 }
             }
         }
