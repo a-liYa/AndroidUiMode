@@ -45,4 +45,5 @@ public final class ApplyProgressDrawable extends AbsApply {
         }
         return super.applyAttr(v, entry);
     }
+
 }

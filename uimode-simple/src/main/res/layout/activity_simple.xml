@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -21,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
-            android:text="TextView的Drawable属性"
+            android:text="TextView - android:drawableLeft"
             android:textColor="@color/tc_484848" />
 
         <TextView
@@ -49,7 +50,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
-            android:text="android:alpha属性"
+            android:text="View - android:alpha"
             android:textColor="@color/tc_484848" />
 
         <FrameLayout
@@ -60,6 +61,85 @@
             android:background="@mipmap/ic_me_wechat_no_night" />
 
     </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:text="CheckBox - android:button"
+            android:textColor="@color/tc_484848" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:button="@drawable/sl_star" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:text="Toolbar - app:navigationIcon"
+            android:textColor="@color/tc_484848" />
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical|right"
+            app:navigationIcon="@mipmap/ic_nav_bar_back_dark" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="CheckBox - android:button"
+            android:textColor="@color/tc_484848" />
+
+        <SeekBar
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:indeterminateOnly="false"
+            android:max="1000"
+            android:maxHeight="1dp"
+            android:minHeight="1dp"
+            android:paddingEnd="6dp"
+            android:paddingStart="6dp"
+            android:progressDrawable="@drawable/seek_bar_drawable"
+            android:secondaryProgress="800"
+            android:splitTrack="false"
+            android:thumb="@drawable/seek_bar_thumb" />
+
+    </LinearLayout>
 
     <include layout="@layout/layout_divider_line" />
 

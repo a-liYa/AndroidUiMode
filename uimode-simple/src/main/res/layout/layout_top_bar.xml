@@ -11,7 +11,7 @@
         android:layout_gravity="left|center_vertical"
         android:foreground="?attr/actionBarItemBackground"
         android:scaleType="center"
-        android:src="@mipmap/ic_top_bar_back"
+        android:src="@mipmap/ic_nav_bar_back"
         app:iv_maskColor="@android:color/transparent" />
 
     <TextView
