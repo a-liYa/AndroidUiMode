@@ -121,7 +121,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                             String typeName = context.getResources().getResourceTypeName(resId);
                             sAttrIdsMap.put(attrName, new ResourceEntry(resId, typeName));
                         } catch (Resources.NotFoundException e) {
-                            // nothing to do
+                            // no-op
                         }
                         continue;
                     }
@@ -162,7 +162,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                         UiMode.saveView(context, view); // 缓存View
                     }
                 } catch (Exception e) {
-                    // nothing to do
+                    // no-op
                 }
             }
         }

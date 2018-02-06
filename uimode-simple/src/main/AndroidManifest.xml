@@ -24,6 +24,7 @@
             android:name=".SimpleActivity"
             android:configChanges="uiMode"
             android:label="示例页" />
+        <activity android:name=".ThemeSimpleActivity"></activity>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package com.aliya.uimode.simple;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.aliya.uimode.simple.base.BaseActivity;
 
@@ -17,4 +18,22 @@ public class SimpleActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_simple);
     }
+
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tv_tab:
+                if (v.isSelected()) {
+                    v.setSelected(false);
+                    v.setEnabled(false);
+                } else {
+                    if (v.isEnabled()) {
+                        v.setSelected(true);
+                    } else {
+                        v.setEnabled(true);
+                    }
+                }
+                break;
+        }
+    }
+
 }

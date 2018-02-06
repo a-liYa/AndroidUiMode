@@ -143,4 +143,52 @@
 
     <include layout="@layout/layout_divider_line" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:text="TextView - android:color"
+            android:textColor="@color/tc_484848" />
+
+        <TextView
+            android:id="@+id/tv_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:onClick="onClick"
+            android:text="文本"
+            android:textColor="@color/tc_tab" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:text="TextView - android:textColorHint"
+            android:textColor="@color/tc_484848" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:hint="hint文本"
+            android:textColorHint="@color/tc_484848" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
 </LinearLayout>

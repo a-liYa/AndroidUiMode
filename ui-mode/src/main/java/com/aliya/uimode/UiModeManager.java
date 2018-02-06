@@ -87,8 +87,8 @@ public final class UiModeManager implements ApplyPolicy {
     private UiModeManager() {
         mInflaterSupport = new InflaterSupport() {
             @Override
-            public boolean isSupportApply(String key) {
-                return sSupportApplies.containsKey(key);
+            public boolean isSupportApply(String name) {
+                return sSupportApplies.containsKey(name);
             }
 
             @Override

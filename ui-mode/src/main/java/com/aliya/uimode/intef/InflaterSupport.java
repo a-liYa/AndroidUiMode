@@ -11,10 +11,12 @@ public interface InflaterSupport {
     /**
      * 判断是否为支持的类型 {@link UiApply}
      *
-     * @param key 属性名称 {@link com.aliya.uimode.mode.Attr}
+     * @param name 属性名称 {@link com.aliya.uimode.mode.Attr}
      * @return true : 支持
      */
-    boolean isSupportApply(String key);
+    boolean isSupportApply(String name);
+
+//    boolean isSupportApplyType(String name, String type);
 
     /**
      * 判断是否为支持的属性

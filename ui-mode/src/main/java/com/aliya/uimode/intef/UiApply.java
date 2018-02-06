@@ -22,12 +22,20 @@ public interface UiApply {
     TypedValue sOutValue = new TypedValue();
 
     /**
-     * 应用对应主题的资源
+     * apply对应主题的资源
      *
-     * @param v      被应用的View
+     * @param v     被应用的View
      * @param entry 资源实体类
      * @return true:应用成功； false:应用失败
      */
     boolean onApply(View v, ResourceEntry entry);
+
+    /**
+     * 是否为当前属性支持的类型 {@link android.content.res.Resources#getResourceTypeName(int)}
+     *
+     * @param type A string holding the type name of the resource
+     * @return true:支持
+     */
+//    boolean isSupportType(String type);
 
 }
