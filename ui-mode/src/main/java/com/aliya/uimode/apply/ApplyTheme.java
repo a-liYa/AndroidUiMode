@@ -25,7 +25,9 @@ public class ApplyTheme extends AbsApply {
             switch (entry.getType()) {
                 case Type.ATTR:
                     return applyAttr(v, entry);
-                // TODO: 2018/1/25 此时少 Type.Style;
+                case Type.STYLE:
+                    getTheme(v).applyStyle(entry.getId(), true);
+                    return true;
             }
         }
         return false;

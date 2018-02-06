@@ -16,6 +16,17 @@
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimaryScarlet</item>
         <item name="colorPrimaryDark">@color/colorPrimaryScarletDark</item>
+
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <!--水波纹颜色-->
+        <item name="colorControlHighlight">#1f000000</item>
+
+    </style>
+
+    <style name="ViewTheme">
+        <!--水波纹颜色-->
+        <item name="colorControlHighlight">#33fdc247</item>
     </style>
 
 </resources>

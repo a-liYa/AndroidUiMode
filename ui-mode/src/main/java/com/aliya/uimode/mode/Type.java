@@ -23,12 +23,15 @@ public final class Type {
 
     public static final String STRING = "string";
 
+    public static final String STYLE = "style";
+
     @StringDef(value = {
             COLOR,
             DRAWABLE,
             ATTR,
             MIPMAP,
-            STRING
+            STRING,
+            STYLE
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface ResourceType {
