@@ -20,6 +20,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         setContentView(R.layout.activity_main);
 
         findViewById(R.id.btn_go_simple).setOnClickListener(this);
+        findViewById(R.id.btn_go_theme_simple).setOnClickListener(this);
 
     }
 
@@ -29,6 +30,10 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
             case R.id.btn_go_simple:
                 startActivity(new Intent(this, SimpleActivity.class));
                 break;
+            case R.id.btn_go_theme_simple:
+                startActivity(new Intent(this, ThemeSimpleActivity.class));
+                break;
+
         }
     }
 

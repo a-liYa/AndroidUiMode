@@ -1,7 +1,8 @@
 package com.aliya.uimode.simple;
 
-import android.app.Activity;
 import android.os.Bundle;
+
+import com.aliya.uimode.simple.base.BaseActivity;
 
 /**
  * theme 示例
@@ -9,11 +10,12 @@ import android.os.Bundle;
  * @author a_liYa
  * @date 2018/2/6 下午2:34.
  */
-public class ThemeSimpleActivity extends Activity {
+public class ThemeSimpleActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_theme_simple);
     }
+
 }

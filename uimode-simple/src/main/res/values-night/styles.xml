@@ -12,4 +12,10 @@
 
     </style>
 
+    <style name="AppThemeScarlet" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimaryScarlet</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryScarletDark</item>
+    </style>
+
 </resources>
