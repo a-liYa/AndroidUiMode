@@ -31,11 +31,13 @@ public final class ApplyForeground extends AbsApply {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         v.setForeground(
                                 ContextCompat.getDrawable(v.getContext(), entry.getId()));
+                        return true;
                     } else if (v instanceof FrameLayout) {
                         ((FrameLayout) v).setForeground(
                                 ContextCompat.getDrawable(v.getContext(), entry.getId()));
+                        return true;
                     }
-                    return true;
+                    break;
             }
         }
         return false;
