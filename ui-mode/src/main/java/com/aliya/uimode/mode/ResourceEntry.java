@@ -11,7 +11,7 @@ public class ResourceEntry {
     private int id;
     private String type;
 
-    public ResourceEntry(int id, @Type.ResourceType String type) {
+    public ResourceEntry(int id, String type) {
         this.id = id;
         this.type = type;
     }
@@ -28,7 +28,7 @@ public class ResourceEntry {
         return type;
     }
 
-    public void setType(@Type.ResourceType String type) {
+    public void setType(String type) {
         this.type = type;
     }
 

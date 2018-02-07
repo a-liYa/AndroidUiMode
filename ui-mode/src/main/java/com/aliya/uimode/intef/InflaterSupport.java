@@ -16,7 +16,14 @@ public interface InflaterSupport {
      */
     boolean isSupportApply(String name);
 
-//    boolean isSupportApplyType(String name, String type);
+    /**
+     * 判断name属性是否支持type类型
+     *
+     * @param name 属性名称 {@link com.aliya.uimode.mode.Attr}
+     * @param type 类型 {@link android.content.res.Resources#getResourceTypeName(int)}
+     * @return true : 支持
+     */
+    boolean isSupportApplyType(String name, String type);
 
     /**
      * 判断是否为支持的属性

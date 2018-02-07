@@ -3,7 +3,6 @@ package com.aliya.uimode.factory;
 import android.content.Context;
 import android.content.res.Resources;
 import android.support.v4.view.LayoutInflaterFactory;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
@@ -108,9 +107,14 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                     // 解析 ?attr
                     int attrId = parseAttrId(attrValue);
                     if (UiMode.idValid(attrId)) {
-                        String typeName = context.getResources().getResourceTypeName(attrId);
-                        // 这里需要校验 typeName是否支持
-                        sAttrIdsMap.put(attrName, new ResourceEntry(attrId, typeName));
+                        try {
+                            String attrType = context.getResources().getResourceTypeName(attrId);
+                            if (mInflaterSupport.isSupportApplyType(attrName, attrType)) {
+                                sAttrIdsMap.put(attrName, new ResourceEntry(attrId, attrType));
+                            }
+                        } catch (Resources.NotFoundException e) {
+                            // no-op
+                        }
                         continue;
                     }
 
@@ -118,8 +122,10 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                     int resId = parseResId(attrValue);
                     if (UiMode.idValid(resId)) {
                         try {
-                            String typeName = context.getResources().getResourceTypeName(resId);
-                            sAttrIdsMap.put(attrName, new ResourceEntry(resId, typeName));
+                            String attrType = context.getResources().getResourceTypeName(resId);
+                            if (mInflaterSupport.isSupportApplyType(attrName, attrType)) {
+                                sAttrIdsMap.put(attrName, new ResourceEntry(resId, attrType));
+                            }
                         } catch (Resources.NotFoundException e) {
                             // no-op
                         }
@@ -173,12 +179,12 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
     /**
      * 拦截处理指定的View
      */
-    private void interceptHandler(View view, String name, Context context, AttributeSet attrs) {
-        if (view instanceof SwipeRefreshLayout) { // 适配SwipeRefreshLayout
+//    private void interceptHandler(View view, String name, Context context, AttributeSet attrs) {
+//        if (view instanceof SwipeRefreshLayout) { // 适配SwipeRefreshLayout
 //            UiModeManager
 //                    .fitUiModeForSwipeRefreshLayout((SwipeRefreshLayout) view, context.getTheme
-        }
-    }
+//        }
+//    }
 
     /**
      * 是否需要拦截创建
@@ -186,15 +192,14 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
      * @param name XML中的标签名即View的类名
      * @return true 需要拦截
      */
-    private boolean isNeedInterceptByName(String name) {
-        if (TextUtils.isEmpty(name)) return false;
-        switch (name) {
-            case "android.support.v4.widget.SwipeRefreshLayout":
-                return true;
-        }
-        return false;
-    }
-
+//    private boolean isNeedInterceptByName(String name) {
+//        if (TextUtils.isEmpty(name)) return false;
+//        switch (name) {
+//            case "android.support.v4.widget.SwipeRefreshLayout":
+//                return true;
+//        }
+//        return false;
+//    }
     private int parseAttrId(String attrVal) {
         if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("?")) {
             String subStr = attrVal.substring(1, attrVal.length());

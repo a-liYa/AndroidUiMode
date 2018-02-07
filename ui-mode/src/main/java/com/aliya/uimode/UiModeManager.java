@@ -92,6 +92,12 @@ public final class UiModeManager implements ApplyPolicy {
             }
 
             @Override
+            public boolean isSupportApplyType(String name, String type) {
+                UiApply uiApply = sSupportApplies.get(name);
+                return uiApply != null ? uiApply.isSupportType(type) : false;
+            }
+
+            @Override
             public boolean isSupportAttrId(Integer attrId) { // sSupportAttrIds == null 支持所有
                 return sSupportAttrIds == null || sSupportAttrIds.contains(attrId);
             }
