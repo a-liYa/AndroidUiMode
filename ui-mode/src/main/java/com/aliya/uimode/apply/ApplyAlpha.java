@@ -23,18 +23,22 @@ public final class ApplyAlpha extends AbsApply {
                 case Type.ATTR:
                     return applyAttr(v, entry);
                 case Type.STRING:
+                case Type.DIMEN:
                     float alpha = -1;
                     try {
-                        alpha = Float.parseFloat(v.getResources().getString(entry.getId()));
-                    } catch (NumberFormatException e) {
-                        // no-op
+                        v.getResources().getValue(entry.getId(), sOutValue, true);
+                        if (sOutValue.type == TypedValue.TYPE_FLOAT) {
+                            alpha = sOutValue.getFloat();
+                        }
                     } catch (Resources.NotFoundException e) {
                         // no-op
                     }
                     if (alpha >= 0 && alpha <= 1) {
                         v.setAlpha(alpha);
+                        return true;
+                    } else {
+                        return true;
                     }
-                    return true;
             }
         }
         return false;
@@ -57,6 +61,7 @@ public final class ApplyAlpha extends AbsApply {
             switch (type) {
                 case Type.ATTR:
                 case Type.STRING:
+                case Type.DIMEN:
                     return true;
             }
         }

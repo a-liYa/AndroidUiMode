@@ -2,5 +2,6 @@
 <resources>
 
     <item name="ui_mode_alpha" format="float" type="string">0.5</item>
+    <item name="ui_mode_alpha_dimen" format="float" type="dimen">0.5</item>
 
 </resources>

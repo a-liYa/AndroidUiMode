@@ -25,13 +25,16 @@ public final class Type {
 
     public static final String STYLE = "style";
 
+    public static final String DIMEN = "dimen";
+
     @StringDef(value = {
             COLOR,
             DRAWABLE,
             ATTR,
             MIPMAP,
             STRING,
-            STYLE
+            STYLE,
+            DIMEN
     })
     @Retention(RetentionPolicy.SOURCE)
     public @interface ResourceType {
