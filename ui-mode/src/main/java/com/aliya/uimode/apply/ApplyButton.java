@@ -2,6 +2,7 @@ package com.aliya.uimode.apply;
 
 import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.CompoundButton;
@@ -27,6 +28,20 @@ public final class ApplyButton extends AbsApply {
                 case Type.DRAWABLE:
                 case Type.MIPMAP:
                     ((CompoundButton) v).setButtonDrawable(entry.getId());
+                    return true;
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public boolean isSupportType(String type) {
+        if (!TextUtils.isEmpty(type)) {
+            switch (type) {
+                case Type.ATTR:
+                case Type.COLOR:
+                case Type.DRAWABLE:
+                case Type.MIPMAP:
                     return true;
             }
         }

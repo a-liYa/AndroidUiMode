@@ -1,6 +1,7 @@
 package com.aliya.uimode.apply;
 
 import android.graphics.drawable.ColorDrawable;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ImageView;
@@ -48,6 +49,20 @@ public final class ApplySrc extends AbsApply {
             }
         }
         return super.applyAttr(v, entry);
+    }
+
+    @Override
+    public boolean isSupportType(String type) {
+        if (!TextUtils.isEmpty(type)) {
+            switch (type) {
+                case Type.ATTR:
+                case Type.COLOR:
+                case Type.DRAWABLE:
+                case Type.MIPMAP:
+                    return true;
+            }
+        }
+        return false;
     }
 
 }

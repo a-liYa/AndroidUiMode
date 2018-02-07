@@ -21,4 +21,9 @@ public final class ApplyInvalidate extends AbsApply {
         return false;
     }
 
+    @Override
+    public boolean isSupportType(String type) {
+        return true;
+    }
+
 }

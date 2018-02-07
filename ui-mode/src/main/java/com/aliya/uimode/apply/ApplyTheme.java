@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -43,6 +44,18 @@ public class ApplyTheme extends AbsApply {
             }
         }
         return super.applyAttr(v, entry);
+    }
+
+    @Override
+    public boolean isSupportType(String type) {
+        if (!TextUtils.isEmpty(type)) {
+            switch (type) {
+                case Type.ATTR:
+                case Type.STYLE:
+                    return true;
+            }
+        }
+        return false;
     }
 
     private Resources.Theme getActivityTheme(View v) {

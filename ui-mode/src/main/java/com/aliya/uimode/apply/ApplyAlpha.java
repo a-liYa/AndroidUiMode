@@ -1,6 +1,7 @@
 package com.aliya.uimode.apply;
 
 import android.content.res.Resources;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 
@@ -49,4 +50,17 @@ public final class ApplyAlpha extends AbsApply {
         }
         return super.applyAttr(v, entry);
     }
+
+    @Override
+    public boolean isSupportType(String type) {
+        if (!TextUtils.isEmpty(type)) {
+            switch (type) {
+                case Type.ATTR:
+                case Type.STRING:
+                    return true;
+            }
+        }
+        return false;
+    }
+
 }

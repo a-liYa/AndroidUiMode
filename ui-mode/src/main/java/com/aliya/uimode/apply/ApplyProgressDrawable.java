@@ -1,6 +1,7 @@
 package com.aliya.uimode.apply;
 
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -44,6 +45,20 @@ public final class ApplyProgressDrawable extends AbsApply {
             }
         }
         return super.applyAttr(v, entry);
+    }
+
+    @Override
+    public boolean isSupportType(String type) {
+        if (!TextUtils.isEmpty(type)) {
+            switch (type) {
+                case Type.ATTR:
+                case Type.COLOR:
+                case Type.DRAWABLE:
+                case Type.MIPMAP:
+                    return true;
+            }
+        }
+        return false;
     }
 
 }

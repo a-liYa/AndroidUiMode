@@ -36,6 +36,6 @@ public interface UiApply {
      * @param type A string holding the type name of the resource
      * @return true:支持
      */
-//    boolean isSupportType(String type);
+    boolean isSupportType(String type);
 
 }

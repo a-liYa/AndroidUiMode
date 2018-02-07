@@ -1,6 +1,7 @@
 package com.aliya.uimode.apply;
 
 import android.support.v4.content.ContextCompat;
+import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
 import android.widget.AbsSeekBar;
@@ -26,6 +27,7 @@ public final class ApplyThumb extends AbsApply {
                 case Type.DRAWABLE:
                     ((AbsSeekBar) v).setThumb(
                             ContextCompat.getDrawable(v.getContext(), entry.getId()));
+                    return true;
             }
         }
         return false;
@@ -44,4 +46,16 @@ public final class ApplyThumb extends AbsApply {
         return super.applyAttr(v, entry);
     }
 
+    @Override
+    public boolean isSupportType(String type) {
+        if (!TextUtils.isEmpty(type)) {
+            switch (type) {
+                case Type.ATTR:
+                case Type.COLOR:
+                case Type.DRAWABLE:
+                    return true;
+            }
+        }
+        return false;
+    }
 }
