@@ -15,4 +15,8 @@
 
     <color name="dc_dddddd">#dddddd</color>
 
+    <color name="iv_adjustMaskColor">#3f0000ff</color>
+
+    <color name="color_fdc247">#fdc247</color>
+
 </resources>
