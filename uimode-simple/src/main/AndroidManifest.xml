@@ -33,6 +33,10 @@
             android:name=".ImageViewSimpleActivity"
             android:configChanges="uiMode"
             android:label="ImageView示例页" />
+        <activity
+            android:name=".ListViewSimpleActivity"
+            android:configChanges="uiMode"
+            android:label="ListView示例页" />
     </application>
 
 </manifest>
