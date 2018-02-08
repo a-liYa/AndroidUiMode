@@ -1,5 +1,7 @@
-# AndroidUiMode v2.x
+# AndroidUiMode v1.x
 让日夜间模式实现起来更简单
+
+v1.x对于模块化配置比较繁琐，v2.x使用的新的方案并兼容v1.x的机制，建议使用 [v2.x](../README.md "v2.x")
 
 ### 最新版本
 https://bintray.com/a-liya/maven/android-uimode/_latestVersion
