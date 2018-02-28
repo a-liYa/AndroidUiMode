@@ -10,15 +10,15 @@ import com.aliya.uimode.intef.UiModeChangeListener;
 /**
  * 遮罩ImageView
  * <ul>
- * <li> 一、实现圆角功能 <li/>
- * <li> 二、实现固定宽高比功能 <li/>
+ * <li> 一、实现圆角功能 </li>
+ * <li> 二、实现固定宽高比功能 </li>
  * <li>
  *      三、实现夜间模式
  *          1、先获取app:iv_maskColor=""
- *          2、再获取style <item name="iv_maskColor"></item>
+ *          2、再获取style &lt;item name="iv_maskColor"&gt; &lt;/item&gt;
  *          3、最后获取 R.color.uiMode_maskColor
- * <li/>
- * <ul/>
+ * </li>
+ * </ul>
  * 通过调用invalidate()刷新日夜模式
  *
  * @author a_liYa

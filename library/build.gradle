@@ -36,4 +36,4 @@ ext {
     publishWebsite = 'https://github.com/a-liYa/AndroidUiMode'
 }
 
-apply from: "${rootDir}/publish.gradle"
+//apply from: "${rootDir}/publish.gradle"

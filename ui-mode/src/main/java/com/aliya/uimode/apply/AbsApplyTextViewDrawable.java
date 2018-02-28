@@ -13,10 +13,10 @@ import com.aliya.uimode.mode.Type;
 /**
  * 应用{@link TextView}的以下4个属性
  * <ul>
- * <li>android:drawableLeft<li/>
- * <li>android:drawableTop<li/>
- * <li>android:drawableRight<li/>
- * <li>android:drawableBottom<li/>
+ * <li>android:drawableLeft</li>
+ * <li>android:drawableTop</li>
+ * <li>android:drawableRight</li>
+ * <li>android:drawableBottom</li>
  * </ul>
  *
  * @author a_liYa
