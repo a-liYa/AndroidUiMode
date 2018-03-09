@@ -1,1 +1,1 @@
-include ':app', ':library', ':uimode-simple', ':ui-mode'
+include ':app', ':ui-mode-1.x', ':uimode-simple', ':ui-mode'
