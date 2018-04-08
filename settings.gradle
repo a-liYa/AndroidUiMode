@@ -1,1 +1,1 @@
-include ':ui-mode-1.x-simple', ':ui-mode-1.x', ':ui-mode-2.x-simple', ':ui-mode'
+include  ':ui-mode-1.x', ':ui-mode-1.x-simple', ':ui-mode-2.x', ':ui-mode-2.x-simple'
