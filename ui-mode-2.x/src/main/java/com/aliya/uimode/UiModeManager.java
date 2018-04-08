@@ -191,7 +191,7 @@ public final class UiModeManager implements ApplyPolicy {
     }
 
     public static void setDefaultUiMode(@AppCompatDelegate.NightMode int mode) {
-        AppCompatDelegate.setDefaultNightMode(mode); // 默认设置为日夜间模式
+        AppCompatDelegate.setDefaultNightMode(mode); // 设置默认的日夜间模式
     }
 
     public static void setUiMode(@AppCompatDelegate.NightMode int mode) {

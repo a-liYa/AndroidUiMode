@@ -73,8 +73,8 @@ class MaskHelper {
                         } catch (Exception e) {
                             // no-op
                         }
-                    } else {
-                        parseAttrMaskColor(attrs);
+                    } else { // "#000000"
+                        parseHexMaskColor(attrs);
                     }
                     break;
                 }
@@ -141,7 +141,7 @@ class MaskHelper {
         }
     }
 
-    private void parseAttrMaskColor(AttributeSet attrs) {
+    private void parseHexMaskColor(AttributeSet attrs) {
         TypedArray a = mContext.obtainStyledAttributes(attrs, new int[]{R.attr.iv_maskColor});
         if (a.hasValue(0)) {
             mMaskColorHex = a.getColor(0, Color.TRANSPARENT);
