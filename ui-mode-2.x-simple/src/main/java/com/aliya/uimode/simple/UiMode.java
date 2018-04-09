@@ -27,7 +27,7 @@ public final class UiMode {
         uiMode = sharedPreferences.getInt(KEY_UI_MODE, AppCompatDelegate.MODE_NIGHT_NO);
     }
 
-    public void setUiMode(@AppCompatDelegate.NightMode int uiMode) {
+    private void setUiMode(@AppCompatDelegate.NightMode int uiMode) {
         if (this.uiMode != uiMode) {
             this.uiMode = uiMode;
             sharedPreferences.edit().putInt(KEY_UI_MODE, uiMode).apply();

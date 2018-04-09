@@ -176,9 +176,9 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
         return view;
     }
 
-    /**
-     * 拦截处理指定的View
-     */
+//    /**
+//     * 拦截处理指定的View
+//     */
 //    private void interceptHandler(View view, String name, Context context, AttributeSet attrs) {
 //        if (view instanceof SwipeRefreshLayout) { // 适配SwipeRefreshLayout
 //            UiModeManager
@@ -186,12 +186,12 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
 //        }
 //    }
 
-    /**
-     * 是否需要拦截创建
-     *
-     * @param name XML中的标签名即View的类名
-     * @return true 需要拦截
-     */
+//    /**
+//     * 是否需要拦截创建
+//     *
+//     * @param name XML中的标签名即View的类名
+//     * @return true 需要拦截
+//     */
 //    private boolean isNeedInterceptByName(String name) {
 //        if (TextUtils.isEmpty(name)) return false;
 //        switch (name) {

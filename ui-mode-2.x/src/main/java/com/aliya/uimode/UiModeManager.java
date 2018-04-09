@@ -194,6 +194,7 @@ public final class UiModeManager implements ApplyPolicy {
         AppCompatDelegate.setDefaultNightMode(mode); // 设置默认的日夜间模式
     }
 
+
     public static void setUiMode(@AppCompatDelegate.NightMode int mode) {
         if (sContext == null) {
             Log.e(TAG, "Using the ui mode, you need to initialize");
@@ -244,6 +245,8 @@ public final class UiModeManager implements ApplyPolicy {
      * 适配切换的主题
      *
      * @param resId a theme style res id
+     * @see #setUiMode(int)
+     * @deprecated 为兼容v1.x版本保留的方法
      */
     public static void setTheme(int resId) {
         if (sContext == null) {
