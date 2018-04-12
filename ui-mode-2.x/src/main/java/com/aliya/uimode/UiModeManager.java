@@ -33,6 +33,7 @@ import com.aliya.uimode.factory.UiModeInflaterFactory;
 import com.aliya.uimode.intef.ApplyPolicy;
 import com.aliya.uimode.intef.InflaterSupport;
 import com.aliya.uimode.intef.UiApply;
+import com.aliya.uimode.intef.UiModeChangeListener;
 import com.aliya.uimode.mode.Attr;
 import com.aliya.uimode.mode.UiMode;
 
@@ -234,6 +235,11 @@ public final class UiModeManager implements ApplyPolicy {
                         next.getTheme().applyStyle(appTheme, true);
                     }
                 }
+
+                if (next instanceof UiModeChangeListener) {
+                    ((UiModeChangeListener) next).onUiModeChange();
+                }
+
             }
         }
 
