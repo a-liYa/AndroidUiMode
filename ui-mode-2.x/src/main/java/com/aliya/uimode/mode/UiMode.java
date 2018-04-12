@@ -2,8 +2,11 @@ package com.aliya.uimode.mode;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.ContextWrapper;
+import android.content.pm.ActivityInfo;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.view.View;
 
@@ -95,13 +98,17 @@ public final class UiMode {
     /**
      * 执行全部 UiMode
      *
-     * @param policy  apply 策略
+     * @param policy apply 策略
      */
     public static void applyUiMode(ApplyPolicy policy) {
 
         // 1、先执行Activity相关的View
         for (Map.Entry<Context, Set<WeakReference<View>>> entry :
                 sActivityViewMap.entrySet()) {
+            if (isRecreateOnNightModeChange(entry.getKey())) {
+                // Activity#recreate()会调用，无需动态替换
+                continue;
+            }
             Set<WeakReference<View>> weakViewSet = entry.getValue();
             onApplyUiMode(policy, weakViewSet);
         }
@@ -112,6 +119,28 @@ public final class UiMode {
             onApplyUiMode(policy, entry.getValue());
         }
 
+    }
+
+    /**
+     * 夜间模式切换时是否执行了 {@link Activity#recreate()}
+     *
+     * @param context .
+     * @return true表示执行了
+     */
+    private static boolean isRecreateOnNightModeChange(Context context) {
+        if (context instanceof Activity) {
+            final PackageManager pm = context.getPackageManager();
+            try {
+                final ActivityInfo info = pm.getActivityInfo(
+                        new ComponentName(context, context.getClass()), 0);
+                // We should return true (to recreate) if configChanges does not want to handle
+                // uiMode
+                return (info.configChanges & ActivityInfo.CONFIG_UI_MODE) == 0;
+            } catch (PackageManager.NameNotFoundException e) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
