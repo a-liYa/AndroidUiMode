@@ -1,12 +1,14 @@
 package com.aliya.uimode.factory;
 
 import android.content.Context;
+import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.DisplayMetrics;
 import android.view.View;
 
 import com.aliya.uimode.intef.InflaterSupport;
@@ -20,6 +22,8 @@ import com.aliya.uimode.widget.MaskImageView;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
+
+import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_YES;
 
 /**
  * Xml创建View拦截器 - Factory
@@ -65,6 +69,8 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
      * @return 返回创建的View
      */
     private View uiModeCreateView(View parent, String name, Context context, AttributeSet attrs) {
+
+        correctConfigUiMode(context);
 
         View view = null;
         switch (name) { // 拦截所有的ImageView、AppCompatImageView
@@ -176,30 +182,31 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
         return view;
     }
 
-//    /**
-//     * 拦截处理指定的View
-//     */
-//    private void interceptHandler(View view, String name, Context context, AttributeSet attrs) {
-//        if (view instanceof SwipeRefreshLayout) { // 适配SwipeRefreshLayout
-//            UiModeManager
-//                    .fitUiModeForSwipeRefreshLayout((SwipeRefreshLayout) view, context.getTheme
-//        }
-//    }
+    /**
+     * 纠正 {@link Configuration#uiMode} 的值.
+     * 在xml中遇到WeView时会被改成 {@link Configuration#UI_MODE_NIGHT_NO}, 导致后续View出现问题.
+     *
+     * @param context .
+     */
+    private void correctConfigUiMode(Context context) {
+        /**
+         * 代码参考自 {@link android.support.v7.app.AppCompatDelegateImplV14#updateForNightMode(int)}
+         */
+        final Resources res = context.getResources();
+        final Configuration conf = res.getConfiguration();
+        final int uiMode = (AppCompatDelegate.getDefaultNightMode() == MODE_NIGHT_YES)
+                ? Configuration.UI_MODE_NIGHT_YES
+                : Configuration.UI_MODE_NIGHT_NO;
+        if ((conf.uiMode & Configuration.UI_MODE_NIGHT_MASK) != uiMode) {
+            final Configuration config = new Configuration(conf);
+            final DisplayMetrics metrics = res.getDisplayMetrics();
 
-//    /**
-//     * 是否需要拦截创建
-//     *
-//     * @param name XML中的标签名即View的类名
-//     * @return true 需要拦截
-//     */
-//    private boolean isNeedInterceptByName(String name) {
-//        if (TextUtils.isEmpty(name)) return false;
-//        switch (name) {
-//            case "android.support.v4.widget.SwipeRefreshLayout":
-//                return true;
-//        }
-//        return false;
-//    }
+            // Update the UI Mode to reflect the new night mode
+            config.uiMode = uiMode | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
+            res.updateConfiguration(config, metrics);
+        }
+    }
+
     private int parseAttrId(String attrVal) {
         if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("?")) {
             String subStr = attrVal.substring(1, attrVal.length());
