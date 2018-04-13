@@ -69,4 +69,18 @@
 
     <include layout="@layout/layout_divider_line" />
 
+    <TextView
+        android:id="@+id/btn_go_web_view_simple"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="?selectableItemBackground"
+        android:drawableRight="@drawable/ic_arrow_right"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="25dp"
+        android:text="WebView示例页"
+        android:textColor="@color/tc_484848"
+        android:textSize="16sp" />
+
+    <include layout="@layout/layout_divider_line" />
+
 </LinearLayout>

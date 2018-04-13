@@ -37,6 +37,10 @@
             android:name=".ListViewSimpleActivity"
             android:configChanges="uiMode"
             android:label="ListView示例页" />
+        <activity
+            android:name=".WebViewSimpleActivity"
+            android:configChanges="uiMode"
+            android:label="WebView示例页" />
     </application>
 
 </manifest>
