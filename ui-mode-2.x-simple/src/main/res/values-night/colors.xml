@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <color name="colorPrimary">#3F5182</color>
     <color name="colorPrimaryDark">#303F6c</color>
     <color name="colorPrimaryScarlet">#520d0d</color>
@@ -13,6 +14,7 @@
     <color name="tc_top_bar_title">#7a7b7d</color>
 
     <color name="dc_dddddd">#343434</color>
+    <color name="divider_f0f0f0">#2d2d2f</color>
 
     <color name="iv_adjustMaskColor">#3f00ff00</color>
 

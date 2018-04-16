@@ -191,4 +191,23 @@
 
     <include layout="@layout/layout_divider_line" />
 
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/ll_test"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:onClick="onClick"
+            android:background="@drawable/bg_fillet"
+            android:orientation="vertical" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
 </LinearLayout>

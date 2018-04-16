@@ -1,6 +1,8 @@
 package com.aliya.uimode.simple;
 
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.view.View;
 
 import com.aliya.uimode.simple.base.BaseActivity;
@@ -19,6 +21,7 @@ public class SimpleActivity extends BaseActivity {
         setContentView(R.layout.activity_simple);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tv_tab:
@@ -32,6 +35,9 @@ public class SimpleActivity extends BaseActivity {
                         v.setEnabled(true);
                     }
                 }
+                break;
+            case R.id.ll_test:
+                v.setBackgroundResource(R.drawable.bg_fillet);
                 break;
         }
     }

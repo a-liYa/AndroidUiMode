@@ -243,6 +243,13 @@ public final class UiModeManager implements ApplyPolicy {
             }
         }
 
+        if (Build.VERSION.SDK_INT == Build.VERSION_CODES.KITKAT) {
+            /**
+             * 参考来自 {@link android.support.v7.app.ResourcesFlusher}
+             */
+            Utils.flushResourcesKitkats(sContext.getResources());
+        }
+
         // 应用UiMode
         UiMode.applyUiMode(get());
     }
