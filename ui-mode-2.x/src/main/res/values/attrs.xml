@@ -13,8 +13,16 @@
         <attr name="ratio_w2h" format="string" />
     </declare-styleable>
 
-    <declare-styleable name="Radius">
+    <declare-styleable name="Round">
         <attr name="radius" format="dimension" />
+        <attr name="radius_leftTop" format="dimension" />
+        <attr name="radius_leftBottom" format="dimension" />
+        <attr name="radius_rightTop" format="dimension" />
+        <attr name="radius_rightBottom" format="dimension" />
+        <attr name="radius_oval" format="boolean" />
+        <attr name="border_width" format="dimension" />
+        <attr name="border_color" format="color" />
+        <!--<attr name="border_overlay" format="boolean" />-->
     </declare-styleable>
 
 </resources>

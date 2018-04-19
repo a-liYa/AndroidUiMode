@@ -19,5 +19,6 @@
     <color name="iv_adjustMaskColor">#3f00ff00</color>
 
     <color name="color_fdc247">#7e6023</color>
+    <color name="color_border_color">#2e2f34</color>
 
 </resources>

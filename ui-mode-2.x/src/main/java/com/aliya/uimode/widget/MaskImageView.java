@@ -13,10 +13,10 @@ import com.aliya.uimode.intef.UiModeChangeListener;
  * <li> 一、实现圆角功能 </li>
  * <li> 二、实现固定宽高比功能 </li>
  * <li>
- *      三、实现夜间模式
- *          1、先获取app:iv_maskColor=""
- *          2、再获取style &lt;item name="iv_maskColor"&gt; &lt;/item&gt;
- *          3、最后获取 R.color.uiMode_maskColor
+ * 三、实现夜间模式
+ * 1、先获取app:iv_maskColor=""
+ * 2、再获取style &lt;item name="iv_maskColor"&gt; &lt;/item&gt;
+ * 3、最后获取 R.color.uiMode_maskColor
  * </li>
  * </ul>
  * 通过调用invalidate()刷新日夜模式
@@ -28,7 +28,7 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
 
     private MaskHelper mMaskHelper;
     private RatioHelper mRatioHelper;
-    private RoundedHelper mRoundedHelper;
+    private RoundHelper mRoundHelper;
 
     public MaskImageView(Context context) {
         this(context, null);
@@ -42,7 +42,7 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
         super(context, attrs, defStyleAttr);
         mMaskHelper = new MaskHelper(context, attrs);
         mRatioHelper = new RatioHelper(context, attrs);
-        mRoundedHelper = new RoundedHelper(context, attrs);
+        mRoundHelper = new RoundHelper(context, attrs);
     }
 
     @Override
@@ -57,13 +57,14 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     @Override
     protected void onDraw(Canvas canvas) {
 //        setLayerType(LAYER_TYPE_SOFTWARE, null); // 关闭硬件加速
-        if (mMaskHelper.validMaskColor() || mRoundedHelper.validRadius()) {
-            int saveCount = canvas.saveLayer(0, 0, canvas.getWidth(), canvas.getHeight(),
+        if (mMaskHelper.validMaskColor() || mRoundHelper.validNeedDraw()) {
+            int saveCount = canvas.saveLayer(0, 0,
+                    canvas.getWidth(), canvas.getHeight(),
                     null, Canvas.ALL_SAVE_FLAG);
             super.onDraw(canvas);
 
             mMaskHelper.drawMaskColor(canvas);  // 处理遮罩
-            mRoundedHelper.drawRounded(canvas, this);  // 处理圆角
+            mRoundHelper.drawRounded(canvas, this);  // 处理圆角
 
             canvas.restoreToCount(saveCount);
         } else {
@@ -75,21 +76,9 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     public void onUiModeChange() {
         if (getDrawable() != null) {
             mMaskHelper.resolveRealMaskColor();
+            mRoundHelper.refreshBorderColor();
             invalidate();
         }
-    }
-
-    /**
-     * 此方法不合理，已过时
-     * 设置遮罩颜色
-     *
-     * @param color mask color
-     */
-    @Deprecated
-    public void setApplyMaskColor(int color) {
-//        mApplyMaskColor = color;
-//        mPaint.setColor(mApplyMaskColor);
-        invalidate();
     }
 
 }
