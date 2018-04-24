@@ -106,12 +106,15 @@ class RoundHelper {
      * @return true:需要
      */
     public boolean validNeedDraw() {
-        return radiusLeftTop > 0 || radiusLeftBottom > 0 ||
-                radiusRightTop > 0 || radiusRightBottom > 0 ||
+        return radiusOval ||
+                radiusLeftTop > 0 ||
+                radiusLeftBottom > 0 ||
+                radiusRightTop > 0 ||
+                radiusRightBottom > 0 ||
                 (borderWidth > 0 && borderColor != Color.TRANSPARENT);
     }
 
-    public void drawRounded(@NonNull Canvas canvas, @NonNull View v) {
+    public void onDraw(@NonNull Canvas canvas, @NonNull View v) {
         if (!validNeedDraw()) return;
 
         if (mRect == null) mRect = new RectF();

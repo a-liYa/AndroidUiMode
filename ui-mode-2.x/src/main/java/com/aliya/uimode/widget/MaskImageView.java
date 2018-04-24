@@ -64,7 +64,7 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
             super.onDraw(canvas);
 
             mMaskHelper.drawMaskColor(canvas);  // 处理遮罩
-            mRoundHelper.drawRounded(canvas, this);  // 处理圆角
+            mRoundHelper.onDraw(canvas, this);  // 处理圆角
 
             canvas.restoreToCount(saveCount);
         } else {
