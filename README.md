@@ -191,3 +191,21 @@ app:iv_maskColor="@android:color/transparent"
     android:layout_height="wrap_content"
     app:ratio_w2h="1:1" />
 ```
+
+#### 6.3 夜间模式遮罩规则
+* 属性声明
+```xml
+<declare-styleable name="MaskImageView">
+    <attr name="iv_maskColor" format="color" />
+    <!--true:遮罩层与原始图片取交集; false:取并集-->
+    <attr name="mask_union" format="boolean" />
+</declare-styleable>
+```
+
+* xml配置，默认为false
+```xml
+<ImageView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:mask_union="true" />
+```
