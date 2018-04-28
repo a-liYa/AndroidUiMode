@@ -2,7 +2,6 @@
 <resources>
 
     <declare-styleable name="UiMode">
-        <attr name="iv_maskColor" format="color" />
         <attr name="iv_useMaskColor" format="boolean" />
         <attr name="invalidate" format="boolean" />
         <!--uiMode忽略的属性，多个属性时属性名之间用'|'分割-->
@@ -11,6 +10,12 @@
 
     <declare-styleable name="RatioLayout">
         <attr name="ratio_w2h" format="string" />
+    </declare-styleable>
+
+    <declare-styleable name="MaskImageView">
+        <attr name="iv_maskColor" format="color" />
+        <!--true:遮罩层与原始图片取交集; false:取并集-->
+        <attr name="mask_union" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="Round">

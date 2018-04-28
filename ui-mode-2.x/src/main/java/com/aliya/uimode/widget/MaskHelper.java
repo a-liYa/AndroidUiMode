@@ -26,8 +26,7 @@ import com.aliya.uimode.mode.UiMode;
  */
 class MaskHelper {
 
-    // PorterDuff.Mode.SRC_ATOP 只在图片有颜色的像素加半透明黑色遮罩
-    private PorterDuffXfermode xfermodeMask = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
+    private PorterDuffXfermode xfermodeMask;
 
     // 从属性中获取的 attr id; 来自 ?attr/
     private int mMaskAttrId = UiMode.NO_ID;
@@ -35,6 +34,9 @@ class MaskHelper {
     private int mMaskColorResId = UiMode.NO_ID;
     // 从属性中获取的 color; 来自 #xxxxxx
     private Integer mMaskColorHex = null;
+
+    // true:遮罩层与原始图片取交集; false:取并集
+    private boolean maskUnion;
 
     private Context mContext;
     // 实际需要应用的 color
@@ -54,6 +56,10 @@ class MaskHelper {
     public MaskHelper(@NonNull Context context, @Nullable AttributeSet attrs) {
         mContext = context;
         if (attrs != null) {
+            TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MaskImageView);
+            maskUnion = a.getBoolean(R.styleable.MaskImageView_mask_union, false);
+            a.recycle();
+
             final int N = attrs.getAttributeCount();
             for (int i = 0; i < N; i++) {
                 String attrName = attrs.getAttributeName(i);
@@ -80,14 +86,25 @@ class MaskHelper {
                 }
             }
         }
+
         resolveRealMaskColor();
     }
 
     public void drawMaskColor(Canvas canvas) {
         if (validMaskColor()) {
-            mPaint.setXfermode(xfermodeMask);
+            mPaint.setXfermode(getXfermodeMask());
             canvas.drawRect(0, 0, canvas.getWidth(), canvas.getHeight(), mPaint);
         }
+    }
+
+    private PorterDuffXfermode getXfermodeMask() {
+        if (xfermodeMask == null) {
+            xfermodeMask = maskUnion ?
+                    new PorterDuffXfermode(PorterDuff.Mode.SRC_OVER)    // 遮罩层与原始图片取并集
+                    :
+                    new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);   // 遮罩层与原始图片取交集
+        }
+        return xfermodeMask;
     }
 
     public boolean validMaskColor() {
@@ -100,12 +117,13 @@ class MaskHelper {
         } else if (mMaskColorResId != UiMode.NO_ID) {
             mApplyMaskColor = ContextCompat.getColor(mContext, mMaskColorResId);
         } else if (mMaskColorHex != null) {
-            mApplyMaskColor = Color.TRANSPARENT; // 先除色
+            mApplyMaskColor = mMaskColorHex; // 先赋值
             Resources.Theme theme = mContext.getTheme();
             if (theme != null &&
                     theme.resolveAttribute(R.attr.iv_useMaskColor, sOutValue, true)) {
                 if (sOutValue.type == TypedValue.TYPE_INT_BOOLEAN) {
-                    if (sOutValue.data == 0) { // data为0:表示false
+                    if (sOutValue.data == 0) { // data为0:表示false.
+                        // 当前theme配置属性 iv_useMaskColor = false
                         mApplyMaskColor = Color.TRANSPARENT;
                     } else {
                         mApplyMaskColor = mMaskColorHex;
