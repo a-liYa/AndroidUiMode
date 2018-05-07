@@ -7,8 +7,8 @@ https://bintray.com/a-liya/maven/android-uimode/_latestVersion
 #### 简介
 
 为了方便升级过度，v2.x目前完全兼容v1.x的方案；v2.x是结合官方v7包日夜主题实现的(参考AppCompatDelegate.NightMode)。  
-src/main/res目录文件夹规则：
 
+src/main/res目录文件夹规则：
 ```
 res
 |____color
@@ -49,6 +49,12 @@ protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
 }
 ```
+* 实现日夜模式切换的Activity必须是AppCompatActivity的子类
+```java
+public class BaseActivity extends AppCompatActivity {
+    
+}
+```
 * 拓展类型
 ```
 UiModeManager.addSupportUiApply(String, UiApply);
@@ -60,7 +66,7 @@ UiModeManager.addSupportUiApply(String, UiApply);
 
 > res  
   |____values  
-  |  |____colors.xml
+  |&nbsp;&nbsp;&nbsp;&nbsp;|____colors.xml
 
 ```xml
 <resources>
@@ -70,7 +76,7 @@ UiModeManager.addSupportUiApply(String, UiApply);
       
 > res  
   |____values-night  
-  |  |____colors.xml
+  |&nbsp;&nbsp;&nbsp;&nbsp;|____colors.xml
 ```xml
 <resources>
     <color name="uiMode_maskColor">#7f000000</color>
@@ -208,4 +214,37 @@ app:iv_maskColor="@android:color/transparent"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:mask_union="true" />
+```
+
+### 七、自定义View日夜模式切换的实现
+
+* 实现接口UiModeChangeListener，模版如下
+```java
+public class CustomView extends View implements UiModeChangeListener {
+    
+     @Override
+     public void onUiModeChange() {
+        // UiMode切换，在此处刷新属性
+     }
+    
+}
+
+```
+* 参考自定义控件[MaskImageView](ui-mode-2.x/src/main/java/com/aliya/uimode/widget/MaskImageView.java)
+
+### 八、其他相关用法
+
+#### 8.1 Activity监听UiMode切换
+
+Activity实现接口UiModeChangeListener
+```java
+public class MainActivity extends AppCompatActivity implements UiModeChangeListener {
+    
+     @Override
+     public void onUiModeChange() {
+        // UiMode切换在此回调
+     }
+     
+}
+
 ```
