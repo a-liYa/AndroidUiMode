@@ -66,7 +66,7 @@ UiModeManager.addSupportUiApply(String, UiApply);
 
 > res  
   |____values  
-  |&nbsp;&nbsp;&nbsp;&nbsp;|____colors.xml
+  |&nbsp;&nbsp;&nbsp;|____colors.xml
 
 ```xml
 <resources>
@@ -76,7 +76,7 @@ UiModeManager.addSupportUiApply(String, UiApply);
       
 > res  
   |____values-night  
-  |&nbsp;&nbsp;&nbsp;&nbsp;|____colors.xml
+  |&nbsp;&nbsp;&nbsp;|____colors.xml
 ```xml
 <resources>
     <color name="uiMode_maskColor">#7f000000</color>

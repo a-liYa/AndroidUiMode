@@ -53,7 +53,7 @@ final class Utils {
     private static Field sDrawableCacheField;
     private static boolean sDrawableCacheFieldFetched;
 
-    public static boolean flushResourcesKitkats(@NonNull final Resources resources) {
+    public static boolean flushResourcesVersion_4_x(@NonNull final Resources resources) {
         if (!sDrawableCacheFieldFetched) {
             try {
                 sDrawableCacheField = Resources.class.getDeclaredField("mDrawableCache");
