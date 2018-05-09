@@ -35,7 +35,7 @@ public class Attr {
      */
     public static final String INVALIDATE = "invalidate";
 
-    public static final Builder builder() {
+    public static Builder builder() {
         return new Builder();
     }
 
@@ -44,7 +44,7 @@ public class Attr {
      */
     public static final class Builder {
 
-        private Map<String, Integer> mAttrIdsMap;
+        private final Map<String, Integer> mAttrIdsMap;
 
         public Builder() {
             mAttrIdsMap = new HashMap<>();

@@ -19,15 +19,14 @@ public class ThemeMode {
     private int mNightTheme = NO_VALUE;
 
     private static final int NO_VALUE = -1;
-    private static int default_theme = NO_VALUE;
-    public static final String KEY_UI_MODE = "ui_mode";
+    private static final int DEFAULT_THEME = NO_VALUE;
 
     private static ThemeMode sInstance;
 
     private ThemeMode() {
     }
 
-    public static final void initTheme(@StyleRes int dayTheme, @StyleRes int nightTheme) {
+    public static void initTheme(@StyleRes int dayTheme, @StyleRes int nightTheme) {
         _get().setDayTheme(dayTheme).setNightTheme(nightTheme);
     }
 
@@ -60,11 +59,11 @@ public class ThemeMode {
         return this;
     }
 
-    private final int getCurrentTheme() {
+    private int getCurrentTheme() {
         return isNightMode ? mNightTheme : mDayTheme;
     }
 
-    public static final void setUiMode(boolean isNightMode) {
+    public static void setUiMode(boolean isNightMode) {
         if (_get().isNightMode != isNightMode) {
             _get().isNightMode = isNightMode;
             int theme = isNightMode ? _get().getNightTheme() : _get().getDayTheme();
@@ -74,15 +73,15 @@ public class ThemeMode {
         }
     }
 
-    public static final boolean isNightMode() {
+    public static boolean isNightMode() {
         return _get().isNightMode;
     }
 
-    public static final void fitActivityTheme(Activity activity) {
+    public static void fitActivityTheme(Activity activity) {
         if (activity == null) return;
 
         int currTheme = _get().getCurrentTheme();
-        if (NO_VALUE != currTheme && default_theme != currTheme) {
+        if (NO_VALUE != currTheme && DEFAULT_THEME != currTheme) {
             activity.setTheme(currTheme);
         }
     }

@@ -39,7 +39,6 @@ import com.aliya.uimode.mode.UiMode;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
@@ -95,7 +94,7 @@ public final class UiModeManager implements ApplyPolicy {
             @Override
             public boolean isSupportApplyType(String name, String type) {
                 UiApply uiApply = sSupportApplies.get(name);
-                return uiApply != null ? uiApply.isSupportType(type) : false;
+                return uiApply != null && uiApply.isSupportType(type);
             }
 
             @Override
@@ -167,7 +166,7 @@ public final class UiModeManager implements ApplyPolicy {
      * @param context Context
      * @param attrs   支持UiMode的属性数组，为null时表示支持所有的属性
      */
-    public static final void init(Context context, int[] attrs) {
+    public static void init(Context context, int[] attrs) {
 
         sContext = context.getApplicationContext();
         Log.init(sContext);
@@ -216,9 +215,7 @@ public final class UiModeManager implements ApplyPolicy {
         // 遍历应用所有Activity
         Stack<Activity> appStack = AppStack.getAppStack();
         if (appStack != null) {
-            Iterator<Activity> iterator = appStack.iterator();
-            while (iterator.hasNext()) {
-                Activity next = iterator.next();
+            for (Activity next : appStack) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                     if (next.isDestroyed()) continue;
                 }
@@ -271,9 +268,7 @@ public final class UiModeManager implements ApplyPolicy {
         // 设置所有Activity主题
         Stack<Activity> appStack = AppStack.getAppStack();
         if (appStack != null) {
-            Iterator<Activity> iterator = appStack.iterator();
-            while (iterator.hasNext()) {
-                Activity next = iterator.next();
+            for (Activity next : appStack) {
                 if (next != null) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
                         if (next.isDestroyed()) continue;

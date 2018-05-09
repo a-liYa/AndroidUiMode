@@ -39,7 +39,7 @@ public final class Attr {
      */
     public static final String IGNORE = "uiMode_ignore";
 
-    public static final Builder builder() {
+    public static Builder builder() {
         return new Builder();
     }
 

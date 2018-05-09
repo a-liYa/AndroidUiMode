@@ -38,7 +38,7 @@ class RoundHelper {
     private float radiusRightTop;
     private float radiusRightBottom;
     private boolean radiusOval; // 是否为椭圆
-    public float[] radii = new float[8];   // left-top, top-right, bottom-right, bottom-left
+    private float[] radii = new float[8];   // left-top, top-right, bottom-right, bottom-left
 
     private int borderColor;
     private float borderWidth;
@@ -50,7 +50,7 @@ class RoundHelper {
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
     final private Xfermode PDX_DST_IN = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
 
-    public static String NAME_ATTR_BORDER_COLOR = "border_color"; // MaskImageView 属性名称
+    private static final String NAME_ATTR_BORDER_COLOR = "border_color"; // MaskImageView 属性名称
 
     public RoundHelper(@NonNull Context context, @Nullable AttributeSet attrs) {
         mContext = context;

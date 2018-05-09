@@ -35,11 +35,13 @@ dependencies {
 * 初始化 Application#onCreate(); 参考示例代码 [UiMode.init(context)](./ui-mode-2.x-simple/src/main/java/com/aliya/uimode/simple/UiMode.java)
 
 ```java
-public static void init(Context context) {
-    sContext = context.getApplicationContext();
-    UiModeManager.init(sContext, null);
-    UiModeManager.setDefaultUiMode(_get().uiMode);
-}
+/*
+ * public static void init(Context context) {
+ *     sContext = context.getApplicationContext();
+ *     UiModeManager.init(sContext, null);
+ *     UiModeManager.setDefaultUiMode(_get().uiMode);
+ * }
+ */
 ```
 
 * BaseActivity#onCreate(Bundle);

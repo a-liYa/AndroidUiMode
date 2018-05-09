@@ -89,7 +89,7 @@ public final class UiMode {
             weakViewSet = new HashSet<>();
             map.put(ctx, weakViewSet);
         }
-        weakViewSet.add((queue == null) ? new WeakReference<>(v) : new WeakReference(v, queue));
+        weakViewSet.add((queue == null) ? new WeakReference<>(v) : new WeakReference<>(v, queue));
     }
 
     /**

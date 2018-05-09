@@ -50,7 +50,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
         return factory;
     }
 
-    public UiModeInflaterFactory(InflaterSupport support) {
+    private UiModeInflaterFactory(InflaterSupport support) {
         mInflaterSupport = support;
     }
 
@@ -135,7 +135,6 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                         } catch (Resources.NotFoundException e) {
                             // no-op
                         }
-                        continue;
                     }
                 }
             }
@@ -226,8 +225,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
         if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("@")) {
             String subStr = attrVal.substring(1, attrVal.length());
             try {
-                Integer attrId = Integer.valueOf(subStr);
-                return attrId;
+                return Integer.valueOf(subStr);
             } catch (Exception e) {
                 // no-op
             }

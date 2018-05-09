@@ -1,9 +1,7 @@
 package com.aliya.uimode.factory;
 
 import android.content.Context;
-import android.support.annotation.NonNull;
 import android.support.v4.view.LayoutInflaterFactory;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
@@ -140,10 +138,10 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
      * 拦截处理指定的View
      */
     private void interceptHandler(View view, String name, Context context, AttributeSet attrs) {
-        if (view instanceof SwipeRefreshLayout) { // 适配SwipeRefreshLayout
+//        if (view instanceof SwipeRefreshLayout) { // 适配SwipeRefreshLayout
 //            UiModeManager
 //                    .fitUiModeForSwipeRefreshLayout((SwipeRefreshLayout) view, context.getTheme
-        }
+//        }
     }
 
     /**

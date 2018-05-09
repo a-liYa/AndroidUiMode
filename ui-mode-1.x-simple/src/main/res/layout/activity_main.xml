@@ -9,7 +9,6 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-
     <TextView
         android:id="@+id/tv_title"
         android:layout_width="match_parent"
@@ -19,7 +18,7 @@
         android:text="@string/app_name"
         android:textColor="?attr/tc_white"
         android:textSize="18sp"
-        android:textStyle="bold"></TextView>
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/btn_1"

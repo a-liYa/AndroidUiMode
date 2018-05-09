@@ -14,7 +14,7 @@ import java.util.Set;
  */
 public final class ThemeStore {
 
-    private final SparseArray<Set<Integer>> mThemes = new SparseArray();
+    private final SparseArray<Set<Integer>> mThemes = new SparseArray<>();
 
     public void putTheme(int keyMode, @StyleRes int resId) {
         Set<Integer> themeSet = mThemes.get(keyMode);

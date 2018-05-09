@@ -3,7 +3,7 @@ package com.aliya.uimode.demo;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.util.Log;
-import android.util.SparseArray;
+import android.util.SparseIntArray;
 import android.view.View;
 
 import com.aliya.uimode.demo.base.BaseActivity;
@@ -45,10 +45,10 @@ public class TestEfficientActivity extends BaseActivity {
         startMs = SystemClock.uptimeMillis();
 
         for (int i = 0; i < num; i++) {
-            SparseArray<Integer> attrArrays = new SparseArray<>();
-            attrArrays.put(i, new Integer(i));
-            attrArrays.put(i + 1, new Integer(i));
-            attrArrays.put(i + 2, new Integer(i));
+            SparseIntArray attrArrays = new SparseIntArray();
+            attrArrays.put(i, i);
+            attrArrays.put(i + 1, i);
+            attrArrays.put(i + 2, i);
 //                    sAttrArrays.clear();
         }
         Log.e("TAG", "创建 次数: " + num + "; 时长：" + (SystemClock.uptimeMillis() - startMs));
@@ -57,12 +57,12 @@ public class TestEfficientActivity extends BaseActivity {
     private void testReuse(long num) {
         long startMs;
         startMs = SystemClock.uptimeMillis();
-        SparseArray<Integer> sAttrArrays = new SparseArray<>();
+        SparseIntArray sAttrArrays = new SparseIntArray();
 
         for (int i = 0; i < num; i++) {
-            sAttrArrays.put(i, new Integer(i));
-            sAttrArrays.put(i + 1, new Integer(i));
-            sAttrArrays.put(i + 2, new Integer(i));
+            sAttrArrays.put(i, i);
+            sAttrArrays.put(i + 1, i);
+            sAttrArrays.put(i + 2, i);
             sAttrArrays.clear();
         }
         Log.e("TAG", "复用 次数: " + num + "; 时长：" + (SystemClock.uptimeMillis() - startMs));

@@ -21,10 +21,10 @@ import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
  */
 class RatioHelper {
 
-    private float ratio_w2h = NO_VALUE;
-
     private static final String RATIO_SYMBOL = ":";
-    static final int NO_VALUE = -1;
+    private static final int NO_VALUE = -1;
+
+    private float ratio_w2h = NO_VALUE;
 
     public RatioHelper(@NonNull Context context, @Nullable AttributeSet attrs) {
         if (attrs == null) return;

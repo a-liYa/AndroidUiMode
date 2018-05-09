@@ -73,19 +73,17 @@ public abstract class AbsApplyTextViewDrawable extends AbsApply {
     protected void setCompoundDrawables(TextView v, Drawable left, Drawable top, Drawable right,
                                         Drawable bottom) {
         Drawable[] drawables = v.getCompoundDrawables();
-        if (drawables != null) {
-            if (left == null) {
-                left = drawables[0];
-            }
-            if (top == null) {
-                top = drawables[1];
-            }
-            if (right == null) {
-                right = drawables[2];
-            }
-            if (bottom == null) {
-                bottom = drawables[3];
-            }
+        if (left == null) {
+            left = drawables[0];
+        }
+        if (top == null) {
+            top = drawables[1];
+        }
+        if (right == null) {
+            right = drawables[2];
+        }
+        if (bottom == null) {
+            bottom = drawables[3];
         }
         v.setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
     }

@@ -13,7 +13,7 @@ import com.aliya.uimode.demo.ThemeMode;
  * @author a_liYa
  * @date 2017/6/26 17:21.
  */
-public class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

@@ -21,7 +21,7 @@
         <activity android:name=".TestEfficientActivity" />
         <activity android:name=".CycleActivity" />
         <activity android:name=".UiModeActivity" />
-        <activity android:name=".TestThemeActivity"></activity>
+        <activity android:name=".TestThemeActivity" />
     </application>
 
 </manifest>

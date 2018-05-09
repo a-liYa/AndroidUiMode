@@ -14,7 +14,7 @@ final class Log {
     private static boolean isDebug = true;
     private static boolean debuggable = true;
 
-    private static String TAG = "UiMode";
+    private static final String TAG = "UiMode";
 
     private Log() {
         throw new UnsupportedOperationException("cannot be instantiated");

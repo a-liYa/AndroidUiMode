@@ -40,7 +40,7 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     /**
      * @see R.attr#iv_maskColor
      */
-    public static String NAME_ATTR_MASK_COLOR = "iv_maskColor"; // MaskImageView 属性名称
+    private static final String NAME_ATTR_MASK_COLOR = "iv_maskColor"; // MaskImageView 属性名称
 
     private int mMaskAttrId = UiMode.NO_ATTR_ID;
     private Integer mMaskColor = null;
@@ -53,7 +53,7 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     private RatioHelper helper;
 
     private static TypedValue sOutValue = new TypedValue();
-    public static final int NO_COLOR = Color.TRANSPARENT;
+    private static final int NO_COLOR = Color.TRANSPARENT;
 
     // 属性值
     private static final int DEFAULT_MASK_COLOR_ATTR_ID = R.attr.iv_maskColor;

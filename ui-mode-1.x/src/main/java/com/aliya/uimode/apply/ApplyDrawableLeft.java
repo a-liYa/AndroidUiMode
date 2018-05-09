@@ -33,12 +33,8 @@ public final class ApplyDrawableLeft extends AbsApply {
 
     private void setCompoundDrawables(TextView v, Drawable left) {
         Drawable[] drawables = v.getCompoundDrawables();
-        if (drawables == null) {
-            v.setCompoundDrawablesWithIntrinsicBounds(left, null, null, null);
-        } else {
-            v.setCompoundDrawablesWithIntrinsicBounds(left, drawables[1], drawables[2],
-                    drawables[3]);
-        }
+        v.setCompoundDrawablesWithIntrinsicBounds(left, drawables[1], drawables[2],
+                drawables[3]);
     }
 
 }
