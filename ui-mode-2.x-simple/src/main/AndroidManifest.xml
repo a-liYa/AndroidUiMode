@@ -41,6 +41,10 @@
             android:name=".WebViewSimpleActivity"
             android:configChanges="uiMode"
             android:label="WebView示例页" />
+        <activity
+            android:name=".RecyclerSimpleActivity"
+            android:configChanges="uiMode"
+            android:label="RecyclerView" />
     </application>
 
 </manifest>
