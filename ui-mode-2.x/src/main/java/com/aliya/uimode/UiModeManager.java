@@ -169,7 +169,7 @@ public final class UiModeManager implements ApplyPolicy {
     public static void init(Context context, int[] attrs) {
 
         sContext = context.getApplicationContext();
-        Log.init(sContext);
+        HideLog.init(sContext);
 
         final int appTheme = Utils.getManifestApplicationTheme(sContext);
         if (appTheme != 0) {
@@ -197,7 +197,7 @@ public final class UiModeManager implements ApplyPolicy {
 
     public static void setUiMode(@AppCompatDelegate.NightMode int mode) {
         if (sContext == null) {
-            Log.e(TAG, "Using the ui mode, you need to initialize");
+            HideLog.e(TAG, "Using the ui mode, you need to initialize");
             return;
         }
 
@@ -261,7 +261,7 @@ public final class UiModeManager implements ApplyPolicy {
      */
     public static void setTheme(int resId) {
         if (sContext == null) {
-            Log.e(TAG, "Using the ui mode, you need to initialize");
+            HideLog.e(TAG, "Using the ui mode, you need to initialize");
             return;
         }
 
@@ -313,7 +313,7 @@ public final class UiModeManager implements ApplyPolicy {
      */
     public static void addSupportUiApply(String key, UiApply apply) {
         if (TextUtils.isEmpty(key) || apply == null) {
-            Log.e(TAG, "UiApply or key can not be null");
+            HideLog.e(TAG, "UiApply or key can not be null");
             return;
         }
         sSupportApplies.put(key, apply);
@@ -323,7 +323,7 @@ public final class UiModeManager implements ApplyPolicy {
         if (sContext != null) {
             LayoutInflaterCompat.setFactory(inflater, UiModeManager.obtainInflaterFactory());
         } else {
-            Log.e(TAG, "Using the ui mode, you need to initialize");
+            HideLog.e(TAG, "Using the ui mode, you need to initialize");
         }
     }
 
@@ -341,7 +341,7 @@ public final class UiModeManager implements ApplyPolicy {
      * @param isDebug : false 强制关闭日志
      */
     public static void setLogDebug(boolean isDebug) {
-        Log.setIsDebug(isDebug);
+        HideLog.setIsDebug(isDebug);
     }
 
 }
