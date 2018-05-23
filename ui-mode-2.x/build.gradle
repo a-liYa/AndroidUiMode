@@ -1,7 +1,7 @@
 apply plugin: 'com.android.library'
 
-def vCode = 203
-def vName = '2.0.3'
+def vCode = 204
+def vName = '2.0.4'
 
 android {
     compileSdkVersion 25
