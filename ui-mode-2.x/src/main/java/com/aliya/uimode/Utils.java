@@ -23,9 +23,9 @@ final class Utils {
 
     public static int getManifestActivityTheme(Activity activity) {
         try {
-            return activity.getPackageManager().getActivityInfo(
-                    new ComponentName(activity, activity.getClass()), 0).theme;
-        } catch (PackageManager.NameNotFoundException e) {
+            return activity.getPackageManager().getActivityInfo(new ComponentName(activity,
+                    activity.getClass()), PackageManager.MATCH_DEFAULT_ONLY).theme;
+        } catch (Exception e) {
             // no-op
         }
         return 0;
@@ -34,8 +34,8 @@ final class Utils {
     public static int getManifestApplicationTheme(Context context) {
         try {
             return context.getPackageManager().getApplicationInfo(
-                    context.getPackageName(), 0).theme;
-        } catch (PackageManager.NameNotFoundException e) {
+                    context.getPackageName(), PackageManager.GET_SHARED_LIBRARY_FILES).theme;
+        } catch (Exception e) {
             // no-op
         }
         return 0;
