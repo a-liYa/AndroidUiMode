@@ -85,16 +85,16 @@ UiModeManager.addSupportUiApply(String, UiApply);
 </resources>
 ```
 
-* 2. 通过app:iv_maskColor自定义属性配置遮罩颜色
+* 2. 通过app:maskColor自定义属性配置遮罩颜色
 
 ```
 <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:iv_maskColor="@color/ic_color" />  
+        app:maskColor="@color/ic_color" />
         
 去掉遮罩
-app:iv_maskColor="@android:color/transparent"
+app:maskColor="@android:color/transparent"
 
 ```
 
@@ -204,9 +204,9 @@ app:iv_maskColor="@android:color/transparent"
 * 属性声明
 ```xml
 <declare-styleable name="MaskImageView">
-    <attr name="iv_maskColor" format="color" />
+    <attr name="maskColor" format="color" />
     <!--false:遮罩层与原始图片取并集; true:取交集; 默认值false -->
-    <attr name="mask_union" format="boolean" />
+    <attr name="maskUnion" format="boolean" />
 </declare-styleable>
 ```
 
@@ -215,7 +215,7 @@ app:iv_maskColor="@android:color/transparent"
 <ImageView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    app:mask_union="true" />
+    app:maskUnion="true" />
 ```
 
 ### 七、自定义View日夜模式切换的实现

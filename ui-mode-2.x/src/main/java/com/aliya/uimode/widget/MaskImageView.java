@@ -14,8 +14,8 @@ import com.aliya.uimode.intef.UiModeChangeListener;
  * <li> 二、实现固定宽高比功能 </li>
  * <li>
  * 三、实现夜间模式
- * 1、先获取app:iv_maskColor=""
- * 2、再获取style &lt;item name="iv_maskColor"&gt; &lt;/item&gt;
+ * 1、先获取app:maskColor=""
+ * 2、再获取style &lt;item name="maskColor"&gt; &lt;/item&gt;
  * 3、最后获取 R.color.uiMode_maskColor
  * </li>
  * </ul>

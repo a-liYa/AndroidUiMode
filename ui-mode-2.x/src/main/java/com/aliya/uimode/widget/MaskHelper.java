@@ -47,7 +47,7 @@ class MaskHelper {
     /**
      * @see R.attr#maskColor
      */
-    private static final String NAME_ATTR_MASK_COLOR = "iv_maskColor"; // MaskImageView 属性名称
+    private static final String NAME_ATTR_MASK_COLOR = "maskColor"; // MaskImageView 属性名称
 
     // 属性值
     private static final int DEFAULT_MASK_COLOR_ATTR_ID = R.attr.maskColor;

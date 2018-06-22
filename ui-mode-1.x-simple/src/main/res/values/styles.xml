@@ -14,7 +14,7 @@
         <item name="tc_3b424c">@color/tc_3b424c</item>
         <item name="divider_f0f0f0">@color/divider_f0f0f0</item>
         <item name="ic_customMaskColor">#7f000000</item>
-        <item name="iv_maskColor">@android:color/transparent</item>
+        <item name="maskColor">@android:color/transparent</item>
         <item name="iv_useMaskColor">false</item>
         <item name="tv_drawable_top">@mipmap/module_user_ic_mytip</item>
 
@@ -43,7 +43,7 @@
         <item name="tc_3b424c">@color/tc_3b424c_night</item>
         <item name="divider_f0f0f0">@color/divider_f0f0f0_night</item>
         <item name="ic_customMaskColor">#7f000000</item>
-        <item name="iv_maskColor">#7f000000</item>
+        <item name="maskColor">#7f000000</item>
         <item name="iv_useMaskColor">true</item>
 
         <item name="tv_drawable_top">@mipmap/module_user_ic_mytip_night</item>
