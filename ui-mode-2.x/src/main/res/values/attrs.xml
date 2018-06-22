@@ -14,7 +14,7 @@
 
     <declare-styleable name="MaskImageView">
         <attr name="iv_maskColor" format="color" />
-        <!--true:遮罩层与原始图片取交集; false:取并集-->
+        <!--false:遮罩层与原始图片取并集; true:取交集; 默认值false -->
         <attr name="mask_union" format="boolean" />
     </declare-styleable>
 
