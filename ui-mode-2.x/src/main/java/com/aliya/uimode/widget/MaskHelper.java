@@ -45,19 +45,19 @@ class MaskHelper {
 
     private static TypedValue sOutValue = new TypedValue();
     /**
-     * @see R.attr#iv_maskColor
+     * @see R.attr#maskColor
      */
     private static final String NAME_ATTR_MASK_COLOR = "iv_maskColor"; // MaskImageView 属性名称
 
     // 属性值
-    private static final int DEFAULT_MASK_COLOR_ATTR_ID = R.attr.iv_maskColor;
+    private static final int DEFAULT_MASK_COLOR_ATTR_ID = R.attr.maskColor;
 
 
     public MaskHelper(@NonNull Context context, @Nullable AttributeSet attrs) {
         mContext = context;
         if (attrs != null) {
             TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.MaskImageView);
-            maskUnion = a.getBoolean(R.styleable.MaskImageView_mask_union, false);
+            maskUnion = a.getBoolean(R.styleable.MaskImageView_maskUnion, false);
             a.recycle();
 
             final int N = attrs.getAttributeCount();
@@ -160,7 +160,7 @@ class MaskHelper {
     }
 
     private void parseHexMaskColor(AttributeSet attrs) {
-        TypedArray a = mContext.obtainStyledAttributes(attrs, new int[]{R.attr.iv_maskColor});
+        TypedArray a = mContext.obtainStyledAttributes(attrs, new int[]{R.attr.maskColor});
         if (a.hasValue(0)) {
             mMaskColorHex = a.getColor(0, Color.TRANSPARENT);
         }

@@ -62,7 +62,7 @@
                         android:adjustViewBounds="true"
                         android:scaleType="fitXY"
                         android:src="@mipmap/ic_rabbit"
-                        app:iv_maskColor="@android:color/transparent"
+                        app:maskColor="@android:color/transparent"
                         app:ratio_w2h="192:120" />
 
                     <TextView
@@ -89,7 +89,7 @@
                         android:adjustViewBounds="true"
                         android:scaleType="fitXY"
                         android:src="@mipmap/ic_rabbit"
-                        app:iv_maskColor="@color/iv_adjustMaskColor"
+                        app:maskColor="@color/iv_adjustMaskColor"
                         app:ratio_w2h="192:120" />
 
                     <TextView
@@ -135,7 +135,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dp"
                         android:src="@mipmap/ic_nav_bar_back_dark"
-                        app:iv_maskColor="@color/color_fdc247"
+                        app:maskColor="@color/color_fdc247"
                         app:uiMode_ignore="src" />
 
                 </LinearLayout>
@@ -214,8 +214,8 @@
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@mipmap/ic_foodie"
-                    app:iv_maskColor="#7f000000"
-                    app:mask_union="true"
+                    app:maskColor="#7f000000"
+                    app:maskUnion="true"
                     app:radius="10dp" />
 
             </LinearLayout>

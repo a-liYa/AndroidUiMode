@@ -12,7 +12,7 @@
         android:foreground="?attr/actionBarItemBackground"
         android:scaleType="center"
         android:src="@mipmap/ic_nav_bar_back"
-        app:iv_maskColor="@android:color/transparent" />
+        app:maskColor="@android:color/transparent" />
 
     <TextView
         android:id="@+id/tv_title"
