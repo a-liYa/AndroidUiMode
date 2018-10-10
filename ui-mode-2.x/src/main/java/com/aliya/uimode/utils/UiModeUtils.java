@@ -50,11 +50,10 @@ public class UiModeUtils {
      * 在xml中遇到WeView时会被改成 {@link Configuration#UI_MODE_NIGHT_NO}, 导致后续View出现问题.
      *
      * @param context .
+     * @see android.support.v7.app.AppCompatDelegateImplV14#updateForNightMode(int) 代码参考自
      */
     public static void correctConfigUiMode(Context context) {
-        /**
-         * 代码参考自 {@link android.support.v7.app.AppCompatDelegateImplV14#updateForNightMode(int)}
-         */
+
         final Resources res = context.getResources();
         final Configuration conf = res.getConfiguration();
         final int uiMode = (AppCompatDelegate.getDefaultNightMode() == MODE_NIGHT_YES)
