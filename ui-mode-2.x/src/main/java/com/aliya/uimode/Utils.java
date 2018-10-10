@@ -8,6 +8,7 @@ import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.os.Build;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.LongSparseArray;
 
@@ -53,7 +54,15 @@ final class Utils {
     private static Field sDrawableCacheField;
     private static boolean sDrawableCacheFieldFetched;
 
-    public static boolean flushResourcesVersion_4_x(@NonNull final Resources resources) {
+    /**
+     * 强制刷新 Resources 资源缓存
+     *
+     * @param resources .
+     * @return .
+     * @see android.support.v7.app.ResourcesFlusher 参考自
+     */
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
+    public static boolean flushResourcesV16(@NonNull final Resources resources) {
         if (!sDrawableCacheFieldFetched) {
             try {
                 sDrawableCacheField = Resources.class.getDeclaredField("mDrawableCache");

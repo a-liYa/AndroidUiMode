@@ -13,9 +13,9 @@ import java.lang.ref.WeakReference;
  */
 final class KeyedWeakReference extends WeakReference<View> {
 
-    static final int NO_KEY = 0;
+    private static final int NO_KEY = 0;
 
-    final int key;
+    private final int key;
 
     KeyedWeakReference(View referent, ReferenceQueue<? super View> q) {
         super(referent, q);

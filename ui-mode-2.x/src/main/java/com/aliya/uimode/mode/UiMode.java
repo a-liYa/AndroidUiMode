@@ -217,23 +217,20 @@ public final class UiMode {
 //        Log.e("TAG", "结束时个数 " + num());
     }
 
-    private static int num() {
-        int count = 0;
-
-        for (Set set : sContextViewMap.values()) {
-            if (set != null) {
-                count += set.size();
-            }
-        }
-
-        for (Set set : sActivityViewMap.values()) {
-            if (set != null) {
-                count += set.size();
-            }
-        }
-
-        return count;
-    }
+//    private static int num() {
+//        int count = 0;
+//        for (Set set : sContextViewMap.values()) {
+//            if (set != null) {
+//                count += set.size();
+//            }
+//        }
+//        for (Set set : sActivityViewMap.values()) {
+//            if (set != null) {
+//                count += set.size();
+//            }
+//        }
+//        return count;
+//    }
 
     private static void clearUselessContextViews() {
         WeakReference<View> ref;

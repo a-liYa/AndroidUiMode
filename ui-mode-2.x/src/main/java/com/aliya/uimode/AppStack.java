@@ -34,13 +34,6 @@ final class AppStack {
         return sStack;
     }
 
-    public static Activity peekTop() {
-        if (sStack != null && !sStack.isEmpty()) {
-            return sStack.peek();
-        }
-        return null;
-    }
-
     private static void createStack() {
         synchronized (AppStack.class) {
             if (sStack == null) {

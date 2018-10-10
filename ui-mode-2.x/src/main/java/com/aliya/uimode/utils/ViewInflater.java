@@ -41,8 +41,8 @@ public class ViewInflater {
             mConstructorArgs[1] = attrs;
 
             if (-1 == name.indexOf('.')) {
-                for (int i = 0; i < sClassPrefixList.length; i++) {
-                    final View view = createView(context, name, sClassPrefixList[i]);
+                for (String classPrefix : sClassPrefixList) {
+                    final View view = createView(context, name, classPrefix);
                     if (view != null) {
                         return view;
                     }
@@ -65,7 +65,7 @@ public class ViewInflater {
      * 通过反射创建View
      */
     private static View createView(Context context, String name, String prefix)
-            throws ClassNotFoundException, InflateException {
+            throws InflateException {
 
         Constructor<? extends View> constructor = sConstructorMap.get(name);
 

@@ -47,15 +47,6 @@ class RatioHelper {
         ta.recycle();
     }
 
-    public float getRatio() {
-        return ratio_w2h;
-    }
-
-    public RatioHelper setRatio(float w2h) {
-        this.ratio_w2h = w2h;
-        return this;
-    }
-
     public int widthMeasureSpec(int widthMeasureSpec, int heightMeasureSpec,
                                 LayoutParams params) {
         if (ratio_w2h > 0) {
