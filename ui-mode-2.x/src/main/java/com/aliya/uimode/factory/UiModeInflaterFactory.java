@@ -36,7 +36,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
      */
     private static SoftReference<UiModeInflaterFactory> sSoftInstance;
 
-    private static ThreadLocal<Map<String, ResourceEntry>> sAttrIdsLocal = new ThreadLocal();
+    private static ThreadLocal<Map<String, ResourceEntry>> sAttrIdsLocal = new ThreadLocal<>();
 
     private InflaterSupport mInflaterSupport;
 
@@ -92,7 +92,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
 
         Map<String, ResourceEntry> attrIdsMap = sAttrIdsLocal.get();
         if (attrIdsMap == null) {
-            sAttrIdsLocal.set(attrIdsMap = new HashMap());
+            sAttrIdsLocal.set(attrIdsMap = new HashMap<>());
         }
         attrIdsMap.clear();
 
@@ -156,7 +156,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
         if (!attrIdsMap.isEmpty()) {
 
             // view == null, 必须在 view 创建之前复制数据
-            final Map<String, ResourceEntry> attrIdsCopy = new HashMap(attrIdsMap);
+            final Map<String, ResourceEntry> attrIdsCopy = new HashMap<>(attrIdsMap);
             attrIdsMap.clear();
 
             if (view == null) { // 系统没有创建

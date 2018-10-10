@@ -39,7 +39,7 @@ public final class ApplyDivider extends AbsApply {
 
     @Override
     protected boolean applyAttr(View v, ResourceEntry entry) {
-        if (validTheme(v) && resolveAttribute(v, entry.getId(), sOutValue, true)) {
+        if (validTheme(v) && resolveAttribute(v, entry.getId())) {
             int dividerHeight = ((ListView) v).getDividerHeight();
             switch (sOutValue.type) {
                 case TypedValue.TYPE_INT_COLOR_ARGB4:

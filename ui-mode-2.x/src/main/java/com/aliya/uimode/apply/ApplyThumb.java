@@ -35,7 +35,7 @@ public final class ApplyThumb extends AbsApply {
 
     @Override
     protected boolean applyAttr(View v, ResourceEntry entry) {
-        if (validTheme(v) && resolveAttribute(v, entry.getId(), sOutValue, true)) {
+        if (validTheme(v) && resolveAttribute(v, entry.getId())) {
             switch (sOutValue.type) {
                 case TypedValue.TYPE_STRING:
                     ((AbsSeekBar) v).setThumb(

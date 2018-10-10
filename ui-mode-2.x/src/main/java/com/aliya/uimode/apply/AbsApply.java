@@ -60,15 +60,12 @@ public abstract class AbsApply implements UiApply {
      *
      * @param v           a view.
      * @param resId       The resource identifier of the desired theme attribute.
-     * @param outValue    Filled in with the ultimate resource value supplied by the attribute.
-     * @param resolveRefs .
      * @return boolean Returns true if the attribute was found and <var>outValue</var>
      * is valid, else false.
      * @see android.content.res.Resources.Theme#resolveAttribute(int, TypedValue, boolean)
      */
-    protected static boolean resolveAttribute(View v, int resId, TypedValue outValue, boolean
-            resolveRefs) {
-        return getTheme(v).resolveAttribute(resId, outValue, resolveRefs);
+    protected static boolean resolveAttribute(View v, int resId) {
+        return getTheme(v).resolveAttribute(resId, sOutValue, true);
     }
 
 }
