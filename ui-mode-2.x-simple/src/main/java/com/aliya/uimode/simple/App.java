@@ -14,8 +14,7 @@ public class App extends Application {
     public void onCreate() {
         super.onCreate();
 
-        UiMode.init(this);
-
+        UiMode.init(App.this);
 
     }
 }

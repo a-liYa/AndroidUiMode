@@ -36,7 +36,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
      */
     private static SoftReference<UiModeInflaterFactory> sSoftInstance;
 
-    private static Map<String, ResourceEntry> sAttrIdsMap = new HashMap<>();
+    private static ThreadLocal<Map<String, ResourceEntry>> sAttrIdsLocal = new ThreadLocal();
 
     private InflaterSupport mInflaterSupport;
 
@@ -89,7 +89,13 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
         }
 
         String ignoreValue = null;
-        sAttrIdsMap.clear();
+
+        Map<String, ResourceEntry> attrIdsMap = sAttrIdsLocal.get();
+        if (attrIdsMap == null) {
+            sAttrIdsLocal.set(attrIdsMap = new HashMap());
+        }
+        attrIdsMap.clear();
+
         if (mInflaterSupport != null) {
             final int N = attrs.getAttributeCount();
             for (int i = 0; i < N; i++) {
@@ -102,7 +108,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
 
                     if (Attr.INVALIDATE.equals(attrName)
                             && attrs.getAttributeBooleanValue(i, false)) {
-                        sAttrIdsMap.put(attrName, null);
+                        attrIdsMap.put(attrName, null);
                         continue;
                     }
 
@@ -114,7 +120,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                         try {
                             String attrType = context.getResources().getResourceTypeName(attrId);
                             if (mInflaterSupport.isSupportApplyType(attrName, attrType)) {
-                                sAttrIdsMap.put(attrName, new ResourceEntry(attrId, attrType));
+                                attrIdsMap.put(attrName, new ResourceEntry(attrId, attrType));
                             }
                         } catch (Resources.NotFoundException e) {
                             // no-op
@@ -128,7 +134,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                         try {
                             String attrType = context.getResources().getResourceTypeName(resId);
                             if (mInflaterSupport.isSupportApplyType(attrName, attrType)) {
-                                sAttrIdsMap.put(attrName, new ResourceEntry(resId, attrType));
+                                attrIdsMap.put(attrName, new ResourceEntry(resId, attrType));
                             }
                         } catch (Resources.NotFoundException e) {
                             // no-op
@@ -142,22 +148,23 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
             String[] ignores = ignoreValue.split("\\|");
             for (String ignore : ignores) {
                 if (!TextUtils.isEmpty(ignore = ignore.trim())) {
-                    sAttrIdsMap.remove(ignore);
+                    attrIdsMap.remove(ignore);
                 }
             }
         }
 
-        if (!sAttrIdsMap.isEmpty()) {
+        if (!attrIdsMap.isEmpty()) {
 
-            final Map<String, ResourceEntry> attrIds = new HashMap<>(sAttrIdsMap.size());
-            attrIds.putAll(sAttrIdsMap);
+            // view == null, 必须在 view 创建之前复制数据
+            final Map<String, ResourceEntry> attrIdsCopy = new HashMap(attrIdsMap);
+            attrIdsMap.clear();
 
             if (view == null) { // 系统没有创建
                 view = ViewInflater.createViewFromTag(context, name, attrs);
             }
 
             if (view != null) {
-                UiMode.saveViewAndAttrIds(context, view, attrIds); // 缓存View
+                UiMode.saveViewAndAttrIds(context, view, attrIdsCopy); // 缓存View
             }
         } else { //  实现UiModeChangeListener接口的View
             if (view != null) {
