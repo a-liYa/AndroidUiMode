@@ -54,12 +54,17 @@ protected void onCreate(Bundle savedInstanceState) {
 * 实现日夜模式切换的Activity必须是AppCompatActivity的子类
 ```java
 public class BaseActivity extends AppCompatActivity {
-    
 }
 ```
 * 拓展类型
 ```
 UiModeManager.addSupportUiApply(String, UiApply);
+```
+* AndroidManifest.xml 配置 configChanges="uiMode", 不然会调用Activity#recreate()
+```
+<activity
+    android:name=".xx"
+    android:configChanges="uiMode" />
 ```
 
 ### 三、ImageView夜间模式用法
