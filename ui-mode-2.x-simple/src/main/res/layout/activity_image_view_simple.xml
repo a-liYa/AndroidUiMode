@@ -142,6 +142,14 @@
 
             </FrameLayout>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="20dp"
+                android:text="圆角示例"
+                android:textColor="@color/tc_484848" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -200,22 +208,46 @@
                     app:border_width="2dp"
                     app:radius_oval="true"
                     app:ratio_w2h="1:1" />
+
             </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="30dp"
+                android:gravity="center"
+                android:text="属性：maskUnion\napp:maskUnion='true' \t\t\t app:maskUnion='false'"
+                android:textColor="@color/tc_484848" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:layout_width="match_parent"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_margin="100dp"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
                     android:adjustViewBounds="true"
                     android:scaleType="fitXY"
                     android:src="@mipmap/ic_foodie"
                     app:maskColor="#7f000000"
                     app:maskUnion="true"
+                    app:radius="10dp" />
+
+                <ImageView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="20dp"
+                    android:layout_weight="1"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitXY"
+                    android:src="@mipmap/ic_foodie"
+                    app:maskColor="#7f000000"
+                    app:maskUnion="false"
                     app:radius="10dp" />
 
             </LinearLayout>
