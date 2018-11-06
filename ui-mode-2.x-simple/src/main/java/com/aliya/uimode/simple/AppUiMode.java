@@ -8,22 +8,22 @@ import android.support.v7.app.AppCompatDelegate;
 import com.aliya.uimode.UiModeManager;
 
 /**
- * UiMode
+ * AppUiMode
  *
  * @author a_liYa
  * @date 2018/1/26 16:47.
  */
-public final class UiMode {
+public final class AppUiMode {
 
     private static Context sContext;
-    private static volatile UiMode sInstance;
+    private static volatile AppUiMode sInstance;
     private static final String KEY_UI_MODE = "ui_mode";
 
     private int uiMode;
     private SharedPreferences sharedPreferences;
 
-    private UiMode() {
-        sharedPreferences = sContext.getSharedPreferences("UiMode", Activity.MODE_PRIVATE);
+    private AppUiMode() {
+        sharedPreferences = sContext.getSharedPreferences("AppUiMode", Activity.MODE_PRIVATE);
         uiMode = sharedPreferences.getInt(KEY_UI_MODE, AppCompatDelegate.MODE_NIGHT_NO);
     }
 
@@ -34,11 +34,11 @@ public final class UiMode {
         }
     }
 
-    private static UiMode _get() {
+    private static AppUiMode _get() {
         if (sInstance == null) {
-            synchronized (UiMode.class) {
+            synchronized (AppUiMode.class) {
                 if (sInstance == null) {
-                    sInstance = new UiMode();
+                    sInstance = new AppUiMode();
                 }
             }
         }

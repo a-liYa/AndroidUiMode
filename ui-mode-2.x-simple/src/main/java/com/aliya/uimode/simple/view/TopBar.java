@@ -14,9 +14,9 @@ import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.aliya.uimode.simple.AppUiMode;
 import com.aliya.uimode.simple.MainActivity;
 import com.aliya.uimode.simple.R;
-import com.aliya.uimode.simple.UiMode;
 
 /**
  * top bar
@@ -66,7 +66,7 @@ public class TopBar extends FrameLayout implements View.OnClickListener {
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_switch:
-                UiMode.setNight(!UiMode.isNight());
+                AppUiMode.setNight(!AppUiMode.isNight());
                 break;
             case R.id.btn_back:
                 if (getContext() instanceof Activity) {
