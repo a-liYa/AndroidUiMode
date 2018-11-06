@@ -39,28 +39,17 @@ public final class UiMode {
     private UiMode() {
     }
 
-    /**
-     * 供外部使用，添加 通过new创建具有UiMode属性的View
-     *
-     * @param v     a view
-     * @param attrs 建议通过 {@link com.aliya.uimode.mode.Attr.Builder} 创建
-     */
-    public static void putUiModeView(View v, Map<String, ResourceEntry> attrs) {
-        if (v == null) return;
-        saveViewAndAttrIds(v.getContext(), v, attrs);
-    }
-
-    public static void saveViewAndAttrIds(Context ctx, View v, Map<String, ResourceEntry> attrs) {
+    public static void saveViewAndAttrs(Context ctx, View v, Map<String, ResourceEntry> attrs) {
         if (v != null && attrs != null) {
-            Map<String, ResourceEntry> attrIds;
+            Map<String, ResourceEntry> attrsMap;
             Object tag = v.getTag(R.id.tag_ui_mode);
             if (tag instanceof HashMap) {
-                attrIds = (Map<String, ResourceEntry>) tag;
+                attrsMap = (Map<String, ResourceEntry>) tag;
             } else {
-                attrIds = new HashMap<>(attrs.size());
-                v.setTag(R.id.tag_ui_mode, attrIds);
+                attrsMap = new HashMap<>(attrs.size());
+                v.setTag(R.id.tag_ui_mode, attrsMap);
             }
-            attrIds.putAll(attrs);
+            attrsMap.putAll(attrs);
 
             saveView(ctx, v);
         }
@@ -69,6 +58,7 @@ public final class UiMode {
     public static void saveView(Context ctx, View v) {
         if (ctx == null || v == null) return;
 
+        // 寻找 context 装饰器对应的 activity 或 application
         if (ctx instanceof Application) {
             putView2Map(ctx, v, sContextViewMap, queue);
         } else {
@@ -216,21 +206,6 @@ public final class UiMode {
         clearUselessContextViews();
 //        Log.e("TAG", "结束时个数 " + num());
     }
-
-//    private static int num() {
-//        int count = 0;
-//        for (Set set : sContextViewMap.values()) {
-//            if (set != null) {
-//                count += set.size();
-//            }
-//        }
-//        for (Set set : sActivityViewMap.values()) {
-//            if (set != null) {
-//                count += set.size();
-//            }
-//        }
-//        return count;
-//    }
 
     private static void clearUselessContextViews() {
         WeakReference<View> ref;

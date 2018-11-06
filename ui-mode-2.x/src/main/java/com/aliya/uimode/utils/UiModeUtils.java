@@ -3,9 +3,11 @@ package com.aliya.uimode.utils;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.support.annotation.AnyRes;
 import android.support.annotation.AttrRes;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.aliya.uimode.UiModeManager;
@@ -14,6 +16,8 @@ import com.aliya.uimode.mode.Attr;
 import com.aliya.uimode.mode.ResourceEntry;
 import com.aliya.uimode.mode.Type;
 import com.aliya.uimode.mode.UiMode;
+
+import java.util.Map;
 
 import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_YES;
 
@@ -30,19 +34,59 @@ public class UiModeUtils {
      *
      * @param v      ImageView
      * @param attrId .
+     * @see #applySave(View, String, int)
      * @deprecated 过时方法，2.x版本不推荐使用 ATTR
      */
     @Deprecated
     public static void applyImageSrc(ImageView v, @AttrRes int attrId) {
-        if (v == null || v.getContext() == null) return;
+        if (v == null) return;
 
         UiApply uiApply = UiModeManager.get().obtainApplyPolicy(Attr.NAME_SRC);
         if (uiApply != null) {
             ResourceEntry entry = new ResourceEntry(attrId, Type.ATTR);
             if (uiApply.onApply(v, entry)) {
-                UiMode.putUiModeView(v, Attr.builder().add(Attr.NAME_SRC, entry).build());
+                saveViewUiMode(v, Attr.builder().add(Attr.NAME_SRC, entry).build());
             }
         }
+    }
+
+    /**
+     * 应用属性，并加入到UiMode列表
+     *
+     * @param v        a view
+     * @param attrName attr name {@link Attr}
+     * @param resId    resource reference, such as R.color.x or R.mipmap.x or R.drawable.x
+     *                 or R.string.x or R.attr.x or R.style.x or R.dimen.x, etc.
+     */
+    public static void applySave(View v, String attrName, @AnyRes int resId) {
+        if (v == null) return;
+
+        UiApply uiApply = UiModeManager.get().obtainApplyPolicy(attrName);
+        if (uiApply != null) {
+            try {
+                String attrType = v.getContext().getResources().getResourceTypeName(resId);
+                if (uiApply.isSupportType(attrType)) {
+                    ResourceEntry entry = new ResourceEntry(resId, attrType);
+                    if (uiApply.onApply(v, entry)) {
+                        UiMode.saveViewAndAttrs(
+                                v.getContext(), v, Attr.builder().add(attrName, entry).build());
+                    }
+                }
+            } catch (Resources.NotFoundException e) {
+                // no-op
+            }
+        }
+    }
+
+    /**
+     * 供外部使用，添加 通过new创建具有UiMode属性的View
+     *
+     * @param v     a view
+     * @param attrs 建议通过 {@link Attr#builder()} 创建
+     */
+    public static void saveViewUiMode(View v, Map<String, ResourceEntry> attrs) {
+        if (v == null) return;
+        UiMode.saveViewAndAttrs(v.getContext(), v, attrs);
     }
 
     /**

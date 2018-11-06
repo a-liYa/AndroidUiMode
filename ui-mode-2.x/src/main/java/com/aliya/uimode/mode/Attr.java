@@ -57,22 +57,22 @@ public final class Attr {
         /**
          * 添加属性
          *
-         * @param key    .
-         * @param attrId .
+         * @param attrName .
+         * @param attrId   .
          * @return builder this
          * @see #add(String, ResourceEntry)
          */
         @Deprecated
-        public Builder add(String key, int attrId) {
-            if (!TextUtils.isEmpty(key)) {
-                mAttrIdsMap.put(key, new ResourceEntry(attrId, Type.ATTR));
+        public Builder add(String attrName, int attrId) {
+            if (!TextUtils.isEmpty(attrName)) {
+                mAttrIdsMap.put(attrName, new ResourceEntry(attrId, Type.ATTR));
             }
             return this;
         }
 
-        public Builder add(String key, ResourceEntry entry) {
-            if (!TextUtils.isEmpty(key) && entry != null) {
-                mAttrIdsMap.put(key, entry);
+        public Builder add(String attrName, ResourceEntry entry) {
+            if (!TextUtils.isEmpty(attrName) && entry != null) {
+                mAttrIdsMap.put(attrName, entry);
             }
             return this;
         }

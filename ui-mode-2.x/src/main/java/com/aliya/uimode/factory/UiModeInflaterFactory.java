@@ -164,7 +164,7 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
             }
 
             if (view != null) {
-                UiMode.saveViewAndAttrIds(context, view, attrIdsCopy); // 缓存View
+                UiMode.saveViewAndAttrs(context, view, attrIdsCopy); // 缓存View
             }
         } else { //  实现UiModeChangeListener接口的View
             if (view != null) {
