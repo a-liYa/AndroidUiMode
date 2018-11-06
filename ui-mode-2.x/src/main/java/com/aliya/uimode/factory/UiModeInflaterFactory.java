@@ -1,7 +1,6 @@
 package com.aliya.uimode.factory;
 
 import android.content.Context;
-import android.content.res.Resources;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -117,13 +116,9 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                     // 解析 ?attr
                     int attrId = parseAttrId(attrValue);
                     if (UiMode.idValid(attrId)) {
-                        try {
-                            String attrType = context.getResources().getResourceTypeName(attrId);
-                            if (mInflaterSupport.isSupportApplyType(attrName, attrType)) {
-                                attrIdsMap.put(attrName, new ResourceEntry(attrId, attrType));
-                            }
-                        } catch (Resources.NotFoundException e) {
-                            // no-op
+                        ResourceEntry entry = new ResourceEntry(attrId, context);
+                        if (mInflaterSupport.isSupportApplyType(attrName, entry.getType())) {
+                            attrIdsMap.put(attrName, entry);
                         }
                         continue;
                     }
@@ -131,14 +126,11 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
                     // 解析 @drawable、@color、@theme、@mipmap 等等
                     int resId = parseResId(attrValue);
                     if (UiMode.idValid(resId)) {
-                        try {
-                            String attrType = context.getResources().getResourceTypeName(resId);
-                            if (mInflaterSupport.isSupportApplyType(attrName, attrType)) {
-                                attrIdsMap.put(attrName, new ResourceEntry(resId, attrType));
-                            }
-                        } catch (Resources.NotFoundException e) {
-                            // no-op
+                        ResourceEntry entry = new ResourceEntry(resId, context);
+                        if (mInflaterSupport.isSupportApplyType(attrName, entry.getType())) {
+                            attrIdsMap.put(attrName, entry);
                         }
+                        continue;
                     }
                 }
             }

@@ -63,17 +63,12 @@ public class UiModeUtils {
 
         UiApply uiApply = UiModeManager.get().obtainApplyPolicy(attrName);
         if (uiApply != null) {
-            try {
-                String attrType = v.getContext().getResources().getResourceTypeName(resId);
-                if (uiApply.isSupportType(attrType)) {
-                    ResourceEntry entry = new ResourceEntry(resId, attrType);
-                    if (uiApply.onApply(v, entry)) {
-                        UiMode.saveViewAndAttrs(
-                                v.getContext(), v, Attr.builder().add(attrName, entry).build());
-                    }
+            ResourceEntry entry = new ResourceEntry(resId, v.getContext());
+            if (uiApply.isSupportType(entry.getType())) {
+                if (uiApply.onApply(v, entry)) {
+                    UiMode.saveViewAndAttrs(
+                            v.getContext(), v, Attr.builder().add(attrName, entry).build());
                 }
-            } catch (Resources.NotFoundException e) {
-                // no-op
             }
         }
     }

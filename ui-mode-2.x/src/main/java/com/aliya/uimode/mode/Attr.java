@@ -57,7 +57,7 @@ public final class Attr {
         /**
          * 添加属性
          *
-         * @param attrName .
+         * @param attrName attr name.
          * @param attrId   .
          * @return builder this
          * @see #add(String, ResourceEntry)
@@ -70,6 +70,13 @@ public final class Attr {
             return this;
         }
 
+        /**
+         * 添加属性
+         *
+         * @param attrName attr name
+         * @param entry    资源实体类
+         * @return builder this
+         */
         public Builder add(String attrName, ResourceEntry entry) {
             if (!TextUtils.isEmpty(attrName) && entry != null) {
                 mAttrIdsMap.put(attrName, entry);
