@@ -12,7 +12,7 @@ import android.widget.TextView;
 
 import com.aliya.uimode.demo.base.BaseActivity;
 import com.aliya.uimode.mode.Attr;
-import com.aliya.uimode.mode.UiMode;
+import com.aliya.uimode.utils.UiModeUtils;
 import com.aliya.uimode.widget.MaskImageView;
 
 import butterknife.BindView;
@@ -69,7 +69,7 @@ public class UiModeActivity extends BaseActivity {
         textView.setGravity(Gravity.CENTER);
         textView.setTextColor(ContextCompat.getColor(this, R.color.tc_3b424c));
         mLl.addView(textView, ViewGroup.LayoutParams.MATCH_PARENT, 150);
-        UiMode.putUiModeView(textView, Attr.builder().add(Attr.NAME_TC, R.attr.tc_3b424c).build());
+        UiModeUtils.saveViewUiMode(textView, Attr.builder().add(Attr.NAME_TC, R.attr.tc_3b424c).build());
 
     }
 

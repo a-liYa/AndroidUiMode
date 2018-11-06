@@ -251,6 +251,17 @@
                     app:radius="10dp" />
 
             </LinearLayout>
+
+            <ImageView
+                android:id="@+id/iv_word"
+                android:layout_width="100dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="10dp"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                app:maskColor="@android:color/transparent" />
+
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

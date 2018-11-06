@@ -1,8 +1,11 @@
 package com.aliya.uimode.simple;
 
 import android.os.Bundle;
+import android.widget.ImageView;
 
+import com.aliya.uimode.mode.Attr;
 import com.aliya.uimode.simple.base.BaseActivity;
+import com.aliya.uimode.utils.UiModeUtils;
 
 /**
  * ImageView相关的UiMode使用示例页
@@ -12,10 +15,16 @@ import com.aliya.uimode.simple.base.BaseActivity;
  */
 public class ImageViewSimpleActivity extends BaseActivity {
 
+    ImageView ivWord;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_image_view_simple);
+
+        ivWord = (ImageView) findViewById(R.id.iv_word);
+        UiModeUtils.applySave(ivWord, Attr.NAME_SRC, R.mipmap.ic_ui_mode_word);
+
     }
 
 }
