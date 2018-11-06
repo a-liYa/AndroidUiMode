@@ -26,7 +26,7 @@ res
 
 ```
 dependencies {
-    compile 'com.aliya:android-uimode:2.0.7'
+    compile 'com.aliya:android-uimode:2.0.8'
     compile 'com.android.support:appcompat-v7:x.x.x'
 }
 ```
