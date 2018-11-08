@@ -1,24 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <color name="colorPrimary">#3F5182</color>
-    <color name="colorPrimaryDark">#303F6c</color>
-    <color name="colorPrimaryScarlet">#520d0d</color>
-    <color name="colorPrimaryScarletDark">#520d0d</color>
-    <color name="colorAccent">#aa4081</color>
-    <color name="colorBackground">#2b2b2b</color>
 
-    <color name="bg_color">#202124</color>
+    <color name="_ffffff_202124">#202124</color>
+    <color name="_484848_7a7b7d">#7a7b7d</color>
+    <color name="_ffffff_7a7b7d">#7a7b7d</color>
+    <color name="_dddddd_343434">#343434</color>
+    <color name="_f0f0f0_2d2d2f">#2d2d2f</color>
+    <color name="_fdc247_7e6023">#7e6023</color>
+    <color name="_e4e4e4_2e2f34">#2e2f34</color>
+    <color name="_3f51b5_3f5182">#3f5182</color>
+    <color name="_303f9f_303f6c">#303f6c</color>
+    <color name="_d12324_520d0d">#520d0d</color>
+    <color name="_ff4081_aa4081">#aa4081</color>
 
-    <color name="tc_484848">#7a7b7d</color>
-    <color name="tc_top_bar_title">#7a7b7d</color>
-
-    <color name="dc_dddddd">#343434</color>
-    <color name="divider_f0f0f0">#2d2d2f</color>
-
-    <color name="iv_adjustMaskColor">#3f00ff00</color>
-
-    <color name="color_fdc247">#7e6023</color>
-    <color name="color_border_color">#2e2f34</color>
-
+    <color name="_3f0000ff_3f00ff00">#3f00ff00</color>
 </resources>
