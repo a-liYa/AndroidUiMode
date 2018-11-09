@@ -70,8 +70,8 @@ public abstract class AbsApplyTextViewDrawable extends AbsApply {
         return false;
     }
 
-    protected void setCompoundDrawables(TextView v, Drawable left, Drawable top, Drawable right,
-                                        Drawable bottom) {
+    protected void setCompoundDrawablesPolicy(TextView v, Drawable left, Drawable top, Drawable
+            right, Drawable bottom) {
         Drawable[] drawables = v.getCompoundDrawables();
         if (left == null) {
             left = drawables[0];

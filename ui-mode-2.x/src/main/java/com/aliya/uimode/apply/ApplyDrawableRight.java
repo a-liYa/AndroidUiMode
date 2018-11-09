@@ -13,7 +13,7 @@ public final class ApplyDrawableRight extends AbsApplyTextViewDrawable {
 
     @Override
     protected void setDrawablePolicy(TextView v, Drawable drawable) {
-        setCompoundDrawables(v, null, null, drawable, null);
+        setCompoundDrawablesPolicy(v, null, null, drawable, null);
     }
 
 }
