@@ -8,7 +8,7 @@ import android.support.v7.app.AppCompatDelegate;
 import com.aliya.uimode.UiModeManager;
 
 /**
- * AppUiMode
+ * UiMode 相关信息存储以及切换封装
  *
  * @author a_liYa
  * @date 2018/1/26 16:47.
