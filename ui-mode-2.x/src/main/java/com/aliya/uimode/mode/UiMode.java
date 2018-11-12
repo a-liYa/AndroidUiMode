@@ -95,7 +95,7 @@ public final class UiMode {
         // 1、先执行Activity相关的View
         for (Map.Entry<Context, Set<WeakReference<View>>> entry :
                 sActivityViewMap.entrySet()) {
-            if (isRecreateOnNightModeChange(entry.getKey())) {
+            if (isRecreateOnUiModeChange(entry.getKey())) {
                 // Activity#recreate()会调用，无需动态替换
                 continue;
             }
@@ -115,9 +115,9 @@ public final class UiMode {
      * 夜间模式切换时是否执行了 {@link Activity#recreate()}
      *
      * @param context .
-     * @return true表示执行了
+     * @return true : 表示执行了
      */
-    private static boolean isRecreateOnNightModeChange(Context context) {
+    private static boolean isRecreateOnUiModeChange(Context context) {
         if (context instanceof Activity) {
             final PackageManager pm = context.getPackageManager();
             try {
