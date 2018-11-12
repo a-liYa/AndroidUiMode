@@ -2,5 +2,6 @@
 <resources>
 
     <item name="tag_ui_mode" type="id" />
+    <item name="tag_ui_mode_mask_drawable" type="id" />
 
 </resources>

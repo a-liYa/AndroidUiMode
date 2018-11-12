@@ -1,19 +1,24 @@
 package com.aliya.uimode.factory;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.View;
+import android.widget.TextView;
 
+import com.aliya.uimode.R;
 import com.aliya.uimode.intef.InflaterSupport;
 import com.aliya.uimode.intef.UiModeChangeListener;
 import com.aliya.uimode.mode.Attr;
 import com.aliya.uimode.mode.ResourceEntry;
 import com.aliya.uimode.mode.UiMode;
 import com.aliya.uimode.utils.ViewInflater;
+import com.aliya.uimode.widget.MaskDrawable;
+import com.aliya.uimode.widget.MaskHelper;
 import com.aliya.uimode.widget.MaskImageView;
 
 import java.lang.ref.SoftReference;
@@ -175,6 +180,26 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
             }
         }
 
+        return onInterceptView(context, attrs, view);
+    }
+
+    private View onInterceptView(Context context, AttributeSet attrs, View view) {
+        if (view instanceof TextView) {
+            MaskHelper maskHelper = new MaskHelper(context, attrs);
+            view.setTag(R.id.tag_ui_mode_mask_drawable, maskHelper);
+            Drawable[] drawables = ((TextView) view).getCompoundDrawables();
+            boolean ifTrue = false;
+            for (int i = 0; i < drawables.length; i++) {
+                if (drawables[i] != null) {
+                    drawables[i] = new MaskDrawable(drawables[i], maskHelper);
+                    ifTrue = true;
+                }
+            }
+            if (ifTrue) {
+                ((TextView) view).setCompoundDrawablesWithIntrinsicBounds(
+                        drawables[0], drawables[1], drawables[2], drawables[3]);
+            }
+        }
         return view;
     }
 

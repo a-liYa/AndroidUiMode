@@ -7,8 +7,11 @@ import android.util.TypedValue;
 import android.view.View;
 import android.widget.TextView;
 
+import com.aliya.uimode.R;
 import com.aliya.uimode.mode.ResourceEntry;
 import com.aliya.uimode.mode.Type;
+import com.aliya.uimode.widget.MaskDrawable;
+import com.aliya.uimode.widget.MaskHelper;
 
 /**
  * 应用{@link TextView}的以下4个属性
@@ -73,19 +76,33 @@ public abstract class AbsApplyTextViewDrawable extends AbsApply {
     protected void setCompoundDrawablesPolicy(TextView v, Drawable left, Drawable top, Drawable
             right, Drawable bottom) {
         Drawable[] drawables = v.getCompoundDrawables();
-        if (left == null) {
-            left = drawables[0];
-        }
-        if (top == null) {
-            top = drawables[1];
-        }
-        if (right == null) {
-            right = drawables[2];
-        }
-        if (bottom == null) {
-            bottom = drawables[3];
-        }
+        if (left == null)left = drawables[0];
+        else left = wrapMaskDrawable(v, left);
+
+        if (top == null) top = drawables[1];
+        else top = wrapMaskDrawable(v, top);
+
+        if (right == null) right = drawables[2];
+        else right = wrapMaskDrawable(v, right);
+
+        if (bottom == null) bottom = drawables[3];
+        else bottom = wrapMaskDrawable(v, bottom);
+
         v.setCompoundDrawablesWithIntrinsicBounds(left, top, right, bottom);
+    }
+
+    private Drawable wrapMaskDrawable(TextView v, Drawable drawable) {
+        if (drawable != null && v != null) {
+            if (drawable instanceof MaskDrawable) {
+                ((MaskDrawable) drawable).onUiModeChange();
+            } else {
+                Object tag = v.getTag(R.id.tag_ui_mode_mask_drawable);
+                if (tag instanceof MaskHelper) {
+                    drawable = new MaskDrawable(drawable, (MaskHelper) tag);
+                }
+            }
+        }
+        return drawable;
     }
 
 }
