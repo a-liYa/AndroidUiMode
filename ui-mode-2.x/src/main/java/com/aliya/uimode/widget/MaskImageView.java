@@ -58,9 +58,8 @@ public class MaskImageView extends AppCompatImageView implements UiModeChangeLis
     protected void onDraw(Canvas canvas) {
 //        setLayerType(LAYER_TYPE_SOFTWARE, null); // 关闭硬件加速
         if (mMaskHelper.validMaskColor() || mRoundHelper.validNeedDraw()) {
-            int saveCount = canvas.saveLayer(0, 0,
-                    canvas.getWidth(), canvas.getHeight(),
-                    null, Canvas.ALL_SAVE_FLAG);
+            final int saveCount = canvas.saveLayer(0, 0,
+                    canvas.getWidth(), canvas.getHeight(), null, Canvas.ALL_SAVE_FLAG);
             super.onDraw(canvas);
 
             mMaskHelper.drawMaskColor(canvas);  // 处理遮罩

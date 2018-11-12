@@ -50,9 +50,9 @@ public final class UiMode {
                 v.setTag(R.id.tag_ui_mode, attrsMap);
             }
             attrsMap.putAll(attrs);
-
-            saveView(ctx, v);
         }
+        // attrs == null 时也要保存 v.
+        saveView(ctx, v);
     }
 
     public static void saveView(Context ctx, View v) {

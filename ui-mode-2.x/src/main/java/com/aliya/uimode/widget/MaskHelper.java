@@ -24,7 +24,7 @@ import com.aliya.uimode.mode.UiMode;
  * @author a_liYa
  * @date 2018/1/30 16:22.
  */
-class MaskHelper {
+public class MaskHelper {
 
     private PorterDuffXfermode xfermodeMask;
 
