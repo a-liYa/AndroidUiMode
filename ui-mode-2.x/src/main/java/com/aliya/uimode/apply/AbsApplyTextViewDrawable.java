@@ -93,15 +93,17 @@ public abstract class AbsApplyTextViewDrawable extends AbsApply {
 
     private Drawable wrapMaskDrawable(TextView v, Drawable drawable) {
         if (drawable != null && v != null) {
-            if (drawable instanceof MaskDrawable) {
-                ((MaskDrawable) drawable).onUiModeChange();
-            } else {
+            if (!(drawable instanceof MaskDrawable)) {
                 Object tag = v.getTag(R.id.tag_ui_mode_mask_drawable);
                 if (tag instanceof MaskHelper) {
                     drawable = new MaskDrawable(drawable, (MaskHelper) tag);
                 }
             }
         }
+        if (drawable instanceof MaskDrawable){
+            ((MaskDrawable) drawable).onUiModeChange();
+        }
+
         return drawable;
     }
 
