@@ -9,7 +9,7 @@
 
     <color name="bg_color">@color/_ffffff_202124</color>
     <color name="text_color">@color/_484848_7a7b7d</color>
-    <color name="tc_top_bar_title">#ffffff</color>
+    <color name="tc_top_bar_title">@color/_ffffff_202124</color>
 
     <color name="_520d0d">#520d0d</color>
     <color name="_ffffff_202124">#ffffff</color>

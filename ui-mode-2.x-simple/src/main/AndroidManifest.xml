@@ -45,6 +45,10 @@
             android:name=".RecyclerSimpleActivity"
             android:configChanges="uiMode"
             android:label="RecyclerView" />
+        <activity
+            android:name=".TextViewSimpleActivity"
+            android:configChanges="uiMode"
+            android:label="TextView示例页" />
     </application>
 
 </manifest>

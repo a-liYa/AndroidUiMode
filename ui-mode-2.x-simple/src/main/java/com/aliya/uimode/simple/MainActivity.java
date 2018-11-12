@@ -25,6 +25,7 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.btn_go_list_view_simple).setOnClickListener(this);
         findViewById(R.id.btn_go_recycler_view_simple).setOnClickListener(this);
         findViewById(R.id.btn_go_web_view_simple).setOnClickListener(this);
+        findViewById(R.id.btn_go_text_view_simple).setOnClickListener(this);
 
     }
 
@@ -48,6 +49,9 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
                 break;
             case R.id.btn_go_web_view_simple:
                 startActivity(new Intent(this, WebViewSimpleActivity.class));
+                break;
+            case R.id.btn_go_text_view_simple:
+                startActivity(new Intent(this, TextViewSimpleActivity.class));
                 break;
 
         }

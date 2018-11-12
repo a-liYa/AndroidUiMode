@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -17,13 +18,14 @@
         android:id="@+id/btn_go_simple"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="?selectableItemBackground"
+        android:background="?android:selectableItemBackground"
         android:drawableRight="@drawable/ic_arrow_right"
         android:gravity="left|center_vertical"
         android:paddingLeft="25dp"
         android:text="示例页"
         android:textColor="@color/text_color"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:maskColor="@android:color/transparent" />
 
     <include layout="@layout/layout_divider_line" />
 
@@ -31,13 +33,14 @@
         android:id="@+id/btn_go_theme_simple"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="?selectableItemBackground"
+        android:background="?android:selectableItemBackground"
         android:drawableRight="@drawable/ic_arrow_right"
         android:gravity="left|center_vertical"
         android:paddingLeft="25dp"
         android:text="Theme示例页"
         android:textColor="@color/text_color"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:maskColor="@android:color/transparent" />
 
     <include layout="@layout/layout_divider_line" />
 
@@ -45,13 +48,14 @@
         android:id="@+id/btn_go_image_view_simple"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="?selectableItemBackground"
+        android:background="?android:selectableItemBackground"
         android:drawableRight="@drawable/ic_arrow_right"
         android:gravity="left|center_vertical"
         android:paddingLeft="25dp"
         android:text="ImageView示例页"
         android:textColor="@color/text_color"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:maskColor="@android:color/transparent" />
 
     <include layout="@layout/layout_divider_line" />
 
@@ -59,13 +63,14 @@
         android:id="@+id/btn_go_list_view_simple"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="?selectableItemBackground"
+        android:background="?android:selectableItemBackground"
         android:drawableRight="@drawable/ic_arrow_right"
         android:gravity="left|center_vertical"
         android:paddingLeft="25dp"
         android:text="ListView示例页"
         android:textColor="@color/text_color"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:maskColor="@android:color/transparent" />
 
     <include layout="@layout/layout_divider_line" />
 
@@ -73,13 +78,14 @@
         android:id="@+id/btn_go_recycler_view_simple"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="?selectableItemBackground"
+        android:background="?android:selectableItemBackground"
         android:drawableRight="@drawable/ic_arrow_right"
         android:gravity="left|center_vertical"
         android:paddingLeft="25dp"
         android:text="RecyclerView示例页"
         android:textColor="@color/text_color"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:maskColor="@android:color/transparent" />
 
     <include layout="@layout/layout_divider_line" />
 
@@ -87,11 +93,26 @@
         android:id="@+id/btn_go_web_view_simple"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="?selectableItemBackground"
+        android:background="?android:selectableItemBackground"
         android:drawableRight="@drawable/ic_arrow_right"
         android:gravity="left|center_vertical"
         android:paddingLeft="25dp"
         android:text="WebView示例页"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        app:maskColor="@android:color/transparent" />
+
+    <include layout="@layout/layout_divider_line" />
+
+    <TextView
+        android:id="@+id/btn_go_text_view_simple"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="?android:selectableItemBackground"
+        android:drawableRight="@drawable/ic_arrow_right"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="25dp"
+        android:text="TextView示例页"
         android:textColor="@color/text_color"
         android:textSize="16sp" />
 

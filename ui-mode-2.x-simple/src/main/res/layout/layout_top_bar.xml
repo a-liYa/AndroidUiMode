@@ -9,7 +9,7 @@
         android:layout_width="45dp"
         android:layout_height="match_parent"
         android:layout_gravity="left|center_vertical"
-        android:foreground="?attr/actionBarItemBackground"
+        android:foreground="?android:actionBarItemBackground"
         android:scaleType="center"
         android:src="@mipmap/ic_nav_bar_back"
         app:maskColor="@android:color/transparent" />

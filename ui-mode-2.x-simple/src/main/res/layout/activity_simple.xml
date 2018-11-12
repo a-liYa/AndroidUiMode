@@ -35,7 +35,8 @@
             android:drawableRight="@drawable/ic_arrow_right"
             android:drawableTop="@drawable/ic_arrow_top"
             android:text="文本"
-            android:textColor="@color/text_color" />
+            android:textColor="@color/text_color"
+            app:maskColor="@android:color/transparent" />
 
     </FrameLayout>
 
@@ -202,8 +203,8 @@
             android:layout_height="45dp"
             android:layout_gravity="center_horizontal"
             android:layout_margin="8dp"
-            android:onClick="onClick"
             android:background="@drawable/bg_fillet"
+            android:onClick="onClick"
             android:orientation="vertical" />
 
     </FrameLayout>
