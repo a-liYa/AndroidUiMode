@@ -6,13 +6,9 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
-import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatDelegate;
-import android.util.LongSparseArray;
-
-import java.lang.reflect.Field;
+import android.support.v7.app.ResourcesFlusherCompat;
+import android.util.DisplayMetrics;
 
 /**
  * 工具类
@@ -42,51 +38,36 @@ final class Utils {
         return 0;
     }
 
-    public static boolean hasUiModeChange(int mode, Context context) {
-        final Configuration config = context.getResources().getConfiguration();
-        final int currentUiMode = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+    /**
+     * update UiMode
+     *
+     * @param mode    ui mode type
+     * @param context context
+     * @return true : 刷新成功
+     * @see android.support.v7.app.AppCompatDelegateImplV14#updateForNightMode(int)
+     */
+    public static boolean updateUiModeForApplication(int mode, Context context) {
+        final Resources res = context.getResources();
+        final Configuration conf = res.getConfiguration();
+        final int currentUiMode = conf.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+
         final int newUiMode = (mode == AppCompatDelegate.MODE_NIGHT_YES)
                 ? Configuration.UI_MODE_NIGHT_YES
                 : Configuration.UI_MODE_NIGHT_NO;
+
+        if (currentUiMode != newUiMode) {
+            final Configuration config = new Configuration(conf);
+            final DisplayMetrics metrics = res.getDisplayMetrics();
+
+            // Update the UI Mode to reflect the new night mode
+            config.uiMode = newUiMode | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
+            res.updateConfiguration(config, metrics);
+
+            // We may need to flush the Resources' drawable cache due to framework bugs..
+            ResourcesFlusherCompat.flush(res);
+        }
         return currentUiMode != newUiMode;
     }
 
-    private static Field sDrawableCacheField;
-    private static boolean sDrawableCacheFieldFetched;
-
-    /**
-     * 强制刷新 Resources 资源缓存
-     *
-     * @param resources .
-     * @return .
-     * @see android.support.v7.app.ResourcesFlusher 参考自
-     */
-    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
-    public static boolean flushResourcesV16(@NonNull final Resources resources) {
-        if (!sDrawableCacheFieldFetched) {
-            try {
-                sDrawableCacheField = Resources.class.getDeclaredField("mDrawableCache");
-                sDrawableCacheField.setAccessible(true);
-            } catch (NoSuchFieldException e) {
-                // no-op
-            }
-            sDrawableCacheFieldFetched = true;
-        }
-        if (sDrawableCacheField != null) {
-            LongSparseArray drawableCache = null;
-            try {
-                drawableCache = (LongSparseArray) sDrawableCacheField.get(resources);
-            } catch (IllegalAccessException e) {
-                // no-op
-            }
-            if (drawableCache != null) {
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    drawableCache.clear();
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
 
 }

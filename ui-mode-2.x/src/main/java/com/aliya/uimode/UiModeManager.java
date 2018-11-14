@@ -9,6 +9,7 @@ import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.support.v7.app.ResourcesFlusherCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 
@@ -201,7 +202,7 @@ public final class UiModeManager implements ApplyPolicy {
             return;
         }
 
-        final boolean uiModeChange = Utils.hasUiModeChange(mode, sContext);
+        final boolean uiModeChange = Utils.updateUiModeForApplication(mode, sContext);
         setDefaultUiMode(mode);
         int appTheme = 0;
         // 应用Application
@@ -240,14 +241,11 @@ public final class UiModeManager implements ApplyPolicy {
             }
         }
 
-        if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.KITKAT) {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                Utils.flushResourcesV16(sContext.getResources());
-            }
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+            ResourcesFlusherCompat.flush(sContext.getResources());
         }
 
-        // 应用UiMode
-        UiMode.applyUiMode(get());
+        UiMode.dispatchApplyUiMode(get());
     }
 
     /**
@@ -257,6 +255,7 @@ public final class UiModeManager implements ApplyPolicy {
      * @see #setUiMode(int)
      * @deprecated 为兼容v1.x版本保留的方法
      */
+    @Deprecated
     public static void setTheme(int resId) {
         if (sContext == null) {
             HideLog.e(TAG, "Using the ui mode, you need to initialize");
@@ -280,7 +279,7 @@ public final class UiModeManager implements ApplyPolicy {
         sContext.setTheme(resId);
 
         // 执行View到对应主题
-        UiMode.applyUiMode(get());
+        UiMode.dispatchApplyUiMode(get());
 
     }
 

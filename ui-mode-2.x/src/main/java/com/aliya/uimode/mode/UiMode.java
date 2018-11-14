@@ -86,11 +86,11 @@ public final class UiMode {
     }
 
     /**
-     * 执行全部 UiMode
+     * 分发执行全部 view UiMode
      *
      * @param policy apply 策略
      */
-    public static void applyUiMode(ApplyPolicy policy) {
+    public static void dispatchApplyUiMode(ApplyPolicy policy) {
 
         // 1、先执行Activity相关的View
         for (Map.Entry<Context, Set<WeakReference<View>>> entry :
