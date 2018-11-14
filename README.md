@@ -255,3 +255,17 @@ public class MainActivity extends AppCompatActivity implements UiModeChangeListe
 }
 
 ```
+
+### 九、已知问题
+
+#### 9.1 遮罩问题
+
+当 drawable 通过xml定义旋转90度，且原图是长方形时，应用在 : ImageView - android:src，TextView - android:drawableTop 等属性，存在被裁剪的问题。
+```
+<rotate xmlns:android="http://schemas.android.com/apk/res/android"
+    android:drawable="@mipmap/ic_arrow_bottom"
+    android:fromDegrees="90"
+    android:pivotX="50%"
+    android:pivotY="50%"
+    android:toDegrees="90" />
+```

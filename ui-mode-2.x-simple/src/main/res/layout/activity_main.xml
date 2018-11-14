@@ -114,7 +114,23 @@
         android:paddingLeft="25dp"
         android:text="TextView示例页"
         android:textColor="@color/text_color"
-        android:textSize="16sp" />
+        android:textSize="16sp"
+        app:maskColor="@android:color/transparent" />
+
+    <include layout="@layout/layout_divider_line" />
+
+    <TextView
+        android:id="@+id/btn_go_bug_simple"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:background="?android:selectableItemBackground"
+        android:drawableRight="@drawable/ic_arrow_right"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="25dp"
+        android:text="问题示例页"
+        android:textColor="@color/text_color"
+        android:textSize="16sp"
+        app:maskColor="@android:color/transparent" />
 
     <include layout="@layout/layout_divider_line" />
 

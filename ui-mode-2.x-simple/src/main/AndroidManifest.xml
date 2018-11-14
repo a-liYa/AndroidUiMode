@@ -49,6 +49,10 @@
             android:name=".TextViewSimpleActivity"
             android:configChanges="uiMode"
             android:label="TextView示例页" />
+        <activity
+            android:name=".BugSimpleActivity"
+            android:configChanges="uiMode"
+            android:label="Bug示例页" />
     </application>
 
 </manifest>
