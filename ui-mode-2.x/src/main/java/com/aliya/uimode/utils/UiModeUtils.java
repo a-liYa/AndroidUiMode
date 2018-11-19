@@ -109,4 +109,16 @@ public class UiModeUtils {
         }
     }
 
+    /**
+     * 判断当前 context 是否为夜间模式.
+     *
+     * @param context The current context.
+     * @return true : 表示为夜间模式.
+     */
+    public static boolean isUiModeNight(Context context) {
+        final Configuration config = context.getResources().getConfiguration();
+        final int currentUiMode = config.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        return Configuration.UI_MODE_NIGHT_YES == currentUiMode;
+    }
+
 }
