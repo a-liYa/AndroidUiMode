@@ -23,13 +23,12 @@ public class ResourcesFlusherCompat {
      * @return .
      * @see android.support.v7.app.ResourcesFlusher 参考自
      */
-    public static boolean flush(@NonNull final Resources resources) {
+    public static void flush(@NonNull final Resources resources) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            return ResourcesFlusher.flush(resources);
+            ResourcesFlusher.flush(resources);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-            return flushJellyBeans(resources);
+            flushJellyBeans(resources);
         }
-        return false;
     }
 
     private static Field sDrawableCacheField;
