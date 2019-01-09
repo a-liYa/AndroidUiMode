@@ -20,12 +20,12 @@ public class ResourcesFlusherCompat {
      * 强制刷新 Resources 资源缓存
      *
      * @param resources .
-     * @return .
      * @see android.support.v7.app.ResourcesFlusher 参考自
      */
     public static void flush(@NonNull final Resources resources) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            ResourcesFlusher.flush(resources);
+            if (Build.VERSION.SDK_INT < 28) // v7包的v28以下版本flush方法内部使用非SDK接口
+                ResourcesFlusher.flush(resources);
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
             flushJellyBeans(resources);
         }
