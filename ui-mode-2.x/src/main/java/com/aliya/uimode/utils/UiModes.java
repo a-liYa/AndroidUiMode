@@ -25,11 +25,9 @@ import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_YES;
  * 帮助解析资源保存资源 - 工具类
  *
  * @author a_liYa
- * @date 2017/7/24 10:05.
- * @see UiModes
- * @deprecated
+ * @date 2018/12/17 21:44.
  */
-public class UiModeUtils {
+public class UiModes {
 
     /**
      * ImageView应用src属性， 并加入到UiMode列表

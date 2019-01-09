@@ -25,7 +25,7 @@ import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.aliya.uimode.utils.UiModeUtils.correctConfigUiMode;
+import static com.aliya.uimode.utils.UiModes.correctConfigUiMode;
 
 /**
  * Xml创建View拦截器 - Factory
