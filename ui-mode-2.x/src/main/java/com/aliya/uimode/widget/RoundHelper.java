@@ -10,6 +10,7 @@ import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.RectF;
 import android.graphics.Xfermode;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.StyleableRes;
@@ -31,6 +32,7 @@ class RoundHelper {
 
     private RectF mRect;
     private Path mClipPath;
+    private Path mOverallPath;
 
     // 圆角半径
     private float radiusLeftTop;
@@ -48,7 +50,9 @@ class RoundHelper {
     private Context mContext;
 
     private Paint mPaint = new Paint(Paint.ANTI_ALIAS_FLAG);
-    final private Xfermode PDX_DST_IN = new PorterDuffXfermode(PorterDuff.Mode.DST_IN);
+    private final Xfermode PDX_MODE = Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT
+            ? new PorterDuffXfermode(PorterDuff.Mode.CLEAR) : new PorterDuffXfermode(PorterDuff
+            .Mode.DST_IN);
 
     private static final String NAME_ATTR_BORDER_COLOR = "border_color"; // MaskImageView 属性名称
 
@@ -136,9 +140,18 @@ class RoundHelper {
                 radii[6] = radii[7] = radiusLeftBottom;
                 mClipPath.addRoundRect(mRect, radii, Path.Direction.CW);
             }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                if (mOverallPath == null) mOverallPath = new Path();
+                else mOverallPath.reset();
+
+                mOverallPath.addRect(0, 0,
+                        canvas.getWidth(), canvas.getHeight(), Path.Direction.CW);
+                mClipPath.op(mOverallPath, Path.Op.XOR);
+            }
+
             mPaint.reset();
             mPaint.setAntiAlias(true);
-            mPaint.setXfermode(PDX_DST_IN);
+            mPaint.setXfermode(PDX_MODE);
             mPaint.setStyle(Paint.Style.FILL);
             canvas.drawPath(mClipPath, mPaint);
         }
