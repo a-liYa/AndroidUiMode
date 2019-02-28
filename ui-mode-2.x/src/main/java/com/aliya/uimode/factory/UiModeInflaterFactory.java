@@ -2,11 +2,11 @@ package com.aliya.uimode.factory;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
@@ -33,7 +33,7 @@ import static com.aliya.uimode.utils.UiModes.correctConfigUiMode;
  * @author a_liYa
  * @date 2016/11/24 19:20.
  */
-public class UiModeInflaterFactory implements LayoutInflaterFactory {
+public class UiModeInflaterFactory implements LayoutInflater.Factory2 {
 
     /**
      * 通过软引用单例来优化内存
@@ -54,6 +54,11 @@ public class UiModeInflaterFactory implements LayoutInflaterFactory {
 
     private UiModeInflaterFactory(InflaterSupport support) {
         mInflaterSupport = support;
+    }
+
+    @Override
+    public View onCreateView(String name, Context context, AttributeSet attrs) {
+        return null;
     }
 
     @Override

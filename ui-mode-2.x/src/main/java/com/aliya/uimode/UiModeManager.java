@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
-import android.support.v4.view.LayoutInflaterFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.app.ResourcesFlusherCompat;
@@ -184,8 +183,8 @@ public final class UiModeManager implements ApplyPolicy {
             ((Application) sContext).registerActivityLifecycleCallbacks(lifecycleCallbacks);
 
             LayoutInflater inflater = LayoutInflater.from(sContext);
-            if (LayoutInflaterCompat.getFactory(inflater) == null) {
-                LayoutInflaterCompat.setFactory(inflater, obtainInflaterFactory());
+            if (inflater.getFactory2() == null) {
+                LayoutInflaterCompat.setFactory2(inflater, obtainInflaterFactory());
             }
         }
 
@@ -318,7 +317,7 @@ public final class UiModeManager implements ApplyPolicy {
 
     public static void setInflaterFactor(LayoutInflater inflater) {
         if (sContext != null) {
-            LayoutInflaterCompat.setFactory(inflater, UiModeManager.obtainInflaterFactory());
+            LayoutInflaterCompat.setFactory2(inflater, UiModeManager.obtainInflaterFactory());
         } else {
             HideLog.e(TAG, "Using the ui mode, you need to initialize");
         }
@@ -328,7 +327,7 @@ public final class UiModeManager implements ApplyPolicy {
      * @return LayoutInflaterFactory
      * @see #setInflaterFactor(LayoutInflater)
      */
-    public static LayoutInflaterFactory obtainInflaterFactory() {
+    public static LayoutInflater.Factory2 obtainInflaterFactory() {
         return UiModeInflaterFactory.get(get().mInflaterSupport);
     }
 
