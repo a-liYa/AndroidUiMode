@@ -315,6 +315,19 @@ public final class UiModeManager implements ApplyPolicy {
         sSupportApplies.put(key, apply);
     }
 
+    /**
+     * <p> 设置 UiMode 相关的 Factory2 </p>
+     * <p>
+     * 如果还需要设置自己的 Factory, {@link com.aliya.uimode.factory.FactoryMerger}, 参考以下代码
+     * </p>
+     * <pre>
+     *     LayoutInflater.Factory2 before = UiModeManager.obtainInflaterFactory();
+     *     LayoutInflater.Factory2 after; // 赋值自己的Factory
+     *     LayoutInflaterCompat.setFactory2(inflater, new FactoryMerger(before, after))
+     * </pre>
+     *
+     * @param inflater {@link android.app.Activity#getLayoutInflater()}
+     */
     public static void setInflaterFactor(LayoutInflater inflater) {
         if (sContext != null) {
             LayoutInflaterCompat.setFactory2(inflater, UiModeManager.obtainInflaterFactory());
@@ -324,6 +337,8 @@ public final class UiModeManager implements ApplyPolicy {
     }
 
     /**
+     * 获取 Inflater Factory 实例
+     *
      * @return LayoutInflaterFactory
      * @see #setInflaterFactor(LayoutInflater)
      */

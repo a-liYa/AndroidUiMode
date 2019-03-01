@@ -6,7 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 /**
- * <p>扩展 {@link LayoutInflater#setFactory2(LayoutInflater.Factory2)} 只能设置一个Factory的限制<p/>
+ * <p>扩展 {@link LayoutInflater#setFactory2(LayoutInflater.Factory2)} 只能设置一个Factory的限制</p>
  *
  * @author a_liYa
  * @date 2019/2/28 23:14.

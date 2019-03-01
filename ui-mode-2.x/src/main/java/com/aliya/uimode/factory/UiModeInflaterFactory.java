@@ -28,7 +28,7 @@ import java.util.Map;
 import static com.aliya.uimode.utils.UiModes.correctConfigUiMode;
 
 /**
- * Xml创建View拦截器 - Factory
+ * Xml创建View拦截器 - Factory2
  *
  * @author a_liYa
  * @date 2016/11/24 19:20.
