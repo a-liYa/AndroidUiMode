@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.aliya.uimode.sample">
+
+    <application
+        android:name="com.aliya.uimode.sample.App"
+        android:allowBackup="true"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/AppTheme">
+        <activity
+            android:name="com.aliya.uimode.sample.MainActivity"
+            android:configChanges="uiMode"
+            android:label="主界面">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.aliya.uimode.sample.SimpleActivity"
+            android:configChanges="uiMode"
+            android:label="示例页" />
+        <activity
+            android:name="com.aliya.uimode.sample.ThemeSimpleActivity"
+            android:configChanges="uiMode"
+            android:label="Theme示例页"
+            android:theme="@style/AppThemeScarlet" />
+        <activity
+            android:name="com.aliya.uimode.sample.ImageViewSimpleActivity"
+            android:configChanges="uiMode"
+            android:label="ImageView示例页" />
+        <activity
+            android:name="com.aliya.uimode.sample.ListViewSimpleActivity"
+            android:configChanges="uiMode"
+            android:label="ListView示例页" />
+        <activity
+            android:name="com.aliya.uimode.sample.WebViewSimpleActivity"
+            android:configChanges="uiMode"
+            android:label="WebView示例页" />
+        <activity
+            android:name="com.aliya.uimode.sample.RecyclerSimpleActivity"
+            android:configChanges="uiMode"
+            android:label="RecyclerView" />
+        <activity
+            android:name="com.aliya.uimode.sample.TextViewSimpleActivity"
+            android:configChanges="uiMode"
+            android:label="TextView示例页" />
+        <activity
+            android:name="com.aliya.uimode.sample.BugSimpleActivity"
+            android:configChanges="uiMode"
+            android:label="Bug示例页" />
+    </application>
+
+</manifest>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical"
+    tools:context=".TextViewSimpleActivity">
+
+    <com.aliya.uimode.sample.view.TopBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:drawableTop="@mipmap/ic_home"
+        android:text="原图"
+        android:textColor="@color/_484848_7a7b7d"
+        app:maskColor="@android:color/transparent" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:drawableTop="@mipmap/ic_home"
+        android:text="默认遮罩"
+        android:textColor="@color/_484848_7a7b7d" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="25dp"
+        android:drawableTop="@mipmap/ic_home"
+        android:text="自定义"
+        android:textColor="@color/_484848_7a7b7d"
+        app:maskColor="@color/_484848_7a7b7d" />
+
+</LinearLayout>

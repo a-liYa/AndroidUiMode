@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/bg_color"
+    android:orientation="vertical"
+    tools:context="com.aliya.uimode.sample.SimpleActivity">
+
+    <com.aliya.uimode.sample.view.TopBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:text="TextView - android:drawableLeft"
+            android:textColor="@color/text_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:drawableBottom="@mipmap/ic_arrow_bottom"
+            android:drawableLeft="@drawable/ic_arrow_left"
+            android:drawablePadding="0dp"
+            android:drawableRight="@drawable/ic_arrow_right"
+            android:drawableTop="@drawable/ic_arrow_top"
+            android:text="文本"
+            android:textColor="@color/text_color"
+            app:maskColor="@android:color/transparent" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:text="View - android:alpha"
+            android:textColor="@color/text_color" />
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:alpha="@string/ui_mode_alpha"
+            android:background="@mipmap/ic_me_wechat_no_night" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:text="CheckBox - android:button"
+            android:textColor="@color/text_color" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:button="@drawable/sl_star" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:text="Toolbar - app:navigationIcon"
+            android:textColor="@color/text_color" />
+
+        <android.support.v7.widget.Toolbar
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical|right"
+            app:navigationIcon="@mipmap/ic_nav_bar_back_dark" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="CheckBox - android:button"
+            android:textColor="@color/text_color" />
+
+        <SeekBar
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:background="@null"
+            android:indeterminateOnly="false"
+            android:max="1000"
+            android:maxHeight="1dp"
+            android:minHeight="1dp"
+            android:paddingEnd="6dp"
+            android:paddingStart="6dp"
+            android:progressDrawable="@drawable/seek_bar_drawable"
+            android:secondaryProgress="800"
+            android:splitTrack="false"
+            android:thumb="@drawable/seek_bar_thumb" />
+
+    </LinearLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:text="TextView - android:color"
+            android:textColor="@color/text_color" />
+
+        <TextView
+            android:id="@+id/tv_tab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:onClick="onClick"
+            android:text="文本"
+            android:textColor="@color/tc_tab" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|left"
+            android:text="TextView - android:textColorHint"
+            android:textColor="@color/text_color" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical|right"
+            android:hint="hint文本"
+            android:textColorHint="@color/text_color" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:id="@+id/ll_test"
+            android:layout_width="100dp"
+            android:layout_height="45dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="8dp"
+            android:background="@drawable/bg_fillet"
+            android:onClick="onClick"
+            android:orientation="vertical" />
+
+    </FrameLayout>
+
+    <include layout="@layout/layout_divider_line" />
+
+</LinearLayout>
