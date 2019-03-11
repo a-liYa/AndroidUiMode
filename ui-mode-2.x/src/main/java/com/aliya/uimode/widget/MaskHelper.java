@@ -66,14 +66,14 @@ public class MaskHelper {
                 if (NAME_ATTR_MASK_COLOR.equals(attrName)) {
                     String attrVal = attrs.getAttributeValue(i);
                     if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("?")) {
-                        String subStr = attrVal.substring(1, attrVal.length());
+                        String subStr = attrVal.substring(1);
                         try {
                             mMaskAttrId = Integer.valueOf(subStr);
                         } catch (Exception e) {
                             // no-op
                         }
                     } else if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("@")) {
-                        String subStr = attrVal.substring(1, attrVal.length());
+                        String subStr = attrVal.substring(1);
                         try {
                             mMaskColorResId = Integer.valueOf(subStr);
                         } catch (Exception e) {
