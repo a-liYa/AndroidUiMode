@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.support.v4.view.LayoutInflaterCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.app.ResourcesFlusherCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 
@@ -241,7 +240,7 @@ public final class UiModeManager implements ApplyPolicy {
         }
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            ResourcesFlusherCompat.flush(sContext.getResources());
+            ResourcesFlusher.flush(sContext.getResources());
         }
 
         UiMode.dispatchApplyUiMode(get());

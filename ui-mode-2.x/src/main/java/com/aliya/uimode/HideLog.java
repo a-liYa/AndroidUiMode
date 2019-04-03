@@ -52,44 +52,49 @@ final class HideLog {
 
     // 下面四个是默认tag的函数
     public static void i(String msg) {
-        if (isDebug && debuggable)
-            Log.i(TAG, msg + "");
+        if (isDebug && debuggable && msg != null)
+            Log.i(TAG, msg);
     }
 
     public static void d(String msg) {
-        if (isDebug && debuggable)
-            Log.d(TAG, msg + "");
+        if (isDebug && debuggable && msg != null)
+            Log.d(TAG, msg);
     }
 
     public static void e(String msg) {
-        if (isDebug && debuggable)
-            Log.e(TAG, msg + "");
+        if (isDebug && debuggable && msg != null)
+            Log.e(TAG, msg);
     }
 
     public static void v(String msg) {
-        if (isDebug && debuggable)
-            Log.v(TAG, msg + "");
+        if (isDebug && debuggable && msg != null)
+            Log.v(TAG, msg);
     }
 
     // 下面是传入自定义tag的函数
     public static void i(String tag, String msg) {
-        if (isDebug && debuggable)
-            Log.i(tag, msg + "");
+        if (isDebug && debuggable && msg != null)
+            Log.i(tag, msg);
     }
 
     public static void d(String tag, String msg) {
-        if (isDebug && debuggable)
-            Log.d(tag, msg + "");
+        if (isDebug && debuggable && msg != null)
+            Log.d(tag, msg);
     }
 
     public static void e(String tag, String msg) {
-        if (isDebug && debuggable)
-            Log.e(tag, msg + "");
+        if (isDebug && debuggable && msg != null)
+            Log.e(tag, msg);
     }
 
     public static void v(String tag, String msg) {
-        if (isDebug && debuggable)
-            Log.v(tag, msg + "");
+        if (isDebug && debuggable && msg != null)
+            Log.v(tag, msg);
+    }
+
+    public static void e(String tag, String msg, Throwable tr) {
+        if (isDebug && debuggable && msg != null)
+            Log.e(tag, msg, tr);
     }
 
 }

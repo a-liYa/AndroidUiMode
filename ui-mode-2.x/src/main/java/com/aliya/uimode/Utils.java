@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.support.v7.app.AppCompatDelegate;
-import android.support.v7.app.ResourcesFlusherCompat;
 import android.util.DisplayMetrics;
 
 /**
@@ -64,7 +63,7 @@ final class Utils {
             res.updateConfiguration(config, metrics);
 
             // We may need to flush the Resources' drawable cache due to framework bugs..
-            ResourcesFlusherCompat.flush(res);
+            ResourcesFlusher.flush(res);
         }
         return currentUiMode != newUiMode;
     }
