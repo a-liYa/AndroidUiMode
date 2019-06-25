@@ -52,7 +52,7 @@ public final class UiModeManager implements ApplyPolicy {
 
     private static final String TAG = "UiMode";
 
-    private static Context sContext;
+    private static Context sAppContext;
 
     // 指定支持的 R.attr 属性集合
     private static Set<Integer> sSupportAttrIds;
@@ -167,21 +167,21 @@ public final class UiModeManager implements ApplyPolicy {
      */
     public static void init(Context context, int[] attrs) {
 
-        sContext = context.getApplicationContext();
-        HideLog.init(sContext);
+        sAppContext = context.getApplicationContext();
+        HideLog.init(sAppContext);
 
-        final int appTheme = Utils.getManifestApplicationTheme(sContext);
+        final int appTheme = Utils.getManifestApplicationTheme(sAppContext);
         if (appTheme != 0) {
-            sContext.getTheme().applyStyle(appTheme, true);
+            sAppContext.getTheme().applyStyle(appTheme, true);
         }
 
         addSupportAttrIds(attrs);
 
-        if (sContext instanceof Application) {
-            ((Application) sContext).unregisterActivityLifecycleCallbacks(lifecycleCallbacks);
-            ((Application) sContext).registerActivityLifecycleCallbacks(lifecycleCallbacks);
+        if (sAppContext instanceof Application) {
+            ((Application) sAppContext).unregisterActivityLifecycleCallbacks(lifecycleCallbacks);
+            ((Application) sAppContext).registerActivityLifecycleCallbacks(lifecycleCallbacks);
 
-            LayoutInflater inflater = LayoutInflater.from(sContext);
+            LayoutInflater inflater = LayoutInflater.from(sAppContext);
             if (inflater.getFactory2() == null) {
                 LayoutInflaterCompat.setFactory2(inflater, obtainInflaterFactory());
             }
@@ -189,25 +189,24 @@ public final class UiModeManager implements ApplyPolicy {
 
     }
 
-    public static void setDefaultUiMode(@AppCompatDelegate.NightMode int mode) {
+    public static boolean setDefaultUiMode(@AppCompatDelegate.NightMode int mode) {
         AppCompatDelegate.setDefaultNightMode(mode); // 设置默认的日夜间模式
+        return Utils.updateUiModeForApplication(sAppContext, mode);
     }
 
-
     public static void setUiMode(@AppCompatDelegate.NightMode int mode) {
-        if (sContext == null) {
+        if (sAppContext == null) {
             HideLog.e(TAG, "Using the ui mode, you need to initialize");
             return;
         }
 
-        final boolean uiModeChange = Utils.updateUiModeForApplication(mode, sContext);
-        setDefaultUiMode(mode);
+        boolean uiModeChange = setDefaultUiMode(mode);
         int appTheme = 0;
         // 应用Application
         if (uiModeChange) {
-            appTheme = Utils.getManifestApplicationTheme(sContext);
+            appTheme = Utils.getManifestApplicationTheme(sAppContext);
             if (appTheme != 0) {
-                sContext.getTheme().applyStyle(appTheme, true);
+                sAppContext.getTheme().applyStyle(appTheme, true);
             }
         }
 
@@ -239,10 +238,6 @@ public final class UiModeManager implements ApplyPolicy {
             }
         }
 
-        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
-            ResourcesFlusher.flush(sContext.getResources());
-        }
-
         UiMode.dispatchApplyUiMode(get());
     }
 
@@ -255,7 +250,7 @@ public final class UiModeManager implements ApplyPolicy {
      */
     @Deprecated
     public static void setTheme(int resId) {
-        if (sContext == null) {
+        if (sAppContext == null) {
             HideLog.e(TAG, "Using the ui mode, you need to initialize");
             return;
         }
@@ -274,7 +269,7 @@ public final class UiModeManager implements ApplyPolicy {
         }
 
         // 设置Application的主题
-        sContext.setTheme(resId);
+        sAppContext.setTheme(resId);
 
         // 执行View到对应主题
         UiMode.dispatchApplyUiMode(get());
@@ -328,7 +323,7 @@ public final class UiModeManager implements ApplyPolicy {
      * @param inflater {@link android.app.Activity#getLayoutInflater()}
      */
     public static void setInflaterFactor(LayoutInflater inflater) {
-        if (sContext != null) {
+        if (sAppContext != null) {
             LayoutInflaterCompat.setFactory2(inflater, UiModeManager.obtainInflaterFactory());
         } else {
             HideLog.e(TAG, "Using the ui mode, you need to initialize");

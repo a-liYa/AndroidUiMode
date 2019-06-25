@@ -45,8 +45,9 @@ final class Utils {
      * @return true : 刷新成功
      * @see android.support.v7.app.AppCompatDelegateImplV14#updateForNightMode(int)
      */
-    public static boolean updateUiModeForApplication(int mode, Context context) {
-        final Resources res = context.getResources();
+    public static boolean updateUiModeForApplication(Context context,
+                                                     @AppCompatDelegate.NightMode int mode) {
+        final Resources res = context.getApplicationContext().getResources();
         final Configuration conf = res.getConfiguration();
         final int currentUiMode = conf.uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
@@ -65,6 +66,10 @@ final class Utils {
             // We may need to flush the Resources' drawable cache due to framework bugs..
             ResourcesFlusher.flush(res);
         }
+
+//        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
+//            ResourcesFlusher.flush(sAppContext.getResources());
+//        }
         return currentUiMode != newUiMode;
     }
 
