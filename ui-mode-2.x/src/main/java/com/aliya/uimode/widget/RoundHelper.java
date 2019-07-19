@@ -87,7 +87,7 @@ class RoundHelper {
                 if (NAME_ATTR_BORDER_COLOR.equals(attrName)) {
                     String attrVal = attrs.getAttributeValue(i);
                     if (!TextUtils.isEmpty(attrVal) && attrVal.startsWith("@")) {
-                        String subStr = attrVal.substring(1, attrVal.length());
+                        String subStr = attrVal.substring(1);
                         try {
                             borderColorRes = Integer.valueOf(subStr);
                         } catch (Exception e) {
