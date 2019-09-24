@@ -151,6 +151,7 @@ class RoundHelper {
 
             mPaint.reset();
             mPaint.setAntiAlias(true);
+            mPaint.setDither(true);
             mPaint.setXfermode(PDX_MODE);
             mPaint.setStyle(Paint.Style.FILL);
             canvas.drawPath(mClipPath, mPaint);
