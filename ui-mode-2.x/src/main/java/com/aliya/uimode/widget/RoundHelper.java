@@ -159,10 +159,10 @@ class RoundHelper {
         // 处理边框
         if (borderWidth > 0 && borderColor != Color.TRANSPARENT) {
             mClipPath.reset();
-            mRect.left = mRect.left + borderWidth / 2;
-            mRect.top = mRect.top + borderWidth / 2;
-            mRect.right = mRect.right - borderWidth / 2;
-            mRect.bottom = mRect.bottom - borderWidth / 2;
+            mRect.left = mRect.left - v.getPaddingLeft() + borderWidth / 2;
+            mRect.top = mRect.top - v.getPaddingTop() + borderWidth / 2;
+            mRect.right = mRect.right + v.getPaddingRight() - borderWidth / 2;
+            mRect.bottom = mRect.bottom + v.getPaddingBottom() - borderWidth / 2;
 
             if (radiusOval) {
                 mClipPath.addOval(mRect, Path.Direction.CW);
