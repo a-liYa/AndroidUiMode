@@ -30,4 +30,5 @@ dependencies {
     compileOnly 'com.android.support:appcompat-v7:28.0.0'
 }
 
+
 apply from: "${rootDir}/publish.gradle"

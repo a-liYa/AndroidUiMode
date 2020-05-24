@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="ui_mode_alpha" format="float" type="dimen">1</item>
-    <item name="ui_mode_alpha_night" format="float" type="dimen">0.5</item>
-
-</resources>
