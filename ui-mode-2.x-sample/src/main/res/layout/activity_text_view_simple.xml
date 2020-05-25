@@ -42,4 +42,15 @@
         android:textColor="@color/_484848_7a7b7d"
         app:maskColor="@color/_484848_7a7b7d" />
 
+    <RadioButton
+        android:id="@+id/rb_top"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:button="@null"
+        android:layout_marginTop="25dp"
+        android:drawableLeft="@drawable/ic_drawable_top"
+        android:text="测试"
+        android:textColor="@color/_484848_7a7b7d" />
+
 </LinearLayout>

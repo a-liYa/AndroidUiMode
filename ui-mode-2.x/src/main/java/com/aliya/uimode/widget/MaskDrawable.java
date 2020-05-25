@@ -220,7 +220,6 @@ public class MaskDrawable extends Drawable implements UiModeChangeListener {
     @Override
     public void getHotspotBounds(@NonNull Rect outRect) {
         mDrawable.getHotspotBounds(outRect);
-        super.getHotspotBounds(outRect);
     }
 
     @Override
@@ -230,8 +229,7 @@ public class MaskDrawable extends Drawable implements UiModeChangeListener {
 
     @Override
     public boolean setState(@NonNull int[] stateSet) {
-        mDrawable.setState(stateSet);
-        return super.setState(stateSet);
+        return mDrawable.setState(stateSet);
     }
 
     @NonNull
