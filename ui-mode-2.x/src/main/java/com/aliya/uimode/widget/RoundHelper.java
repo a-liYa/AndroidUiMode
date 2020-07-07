@@ -44,7 +44,7 @@ class RoundHelper {
 
     private int borderColor;
     private float borderWidth;
-    //    private boolean borderOverlay;
+    // private boolean borderOverlay; // 开发者可通过设置 Padding 达到同样效果
     private int borderColorRes = UiMode.NO_ID;
 
     private Context mContext;
@@ -144,8 +144,14 @@ class RoundHelper {
                 if (mOverallPath == null) mOverallPath = new Path();
                 else mOverallPath.reset();
 
-                mOverallPath.addRect(0, 0,
-                        canvas.getWidth(), canvas.getHeight(), Path.Direction.CW);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
+                    // 范围上、下、左、右均扩大 1 是因执行缩放动画时边缘偶现1px未被清除.
+                    mOverallPath.addRect(-1, -1,
+                            canvas.getWidth() + 1, canvas.getHeight() + 1, Path.Direction.CW);
+                } else {
+                    mOverallPath.addRect(0, 0,
+                            canvas.getWidth(), canvas.getHeight(), Path.Direction.CW);
+                }
                 mClipPath.op(mOverallPath, Path.Op.XOR);
             }
 
