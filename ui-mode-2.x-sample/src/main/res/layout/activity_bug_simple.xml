@@ -64,6 +64,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="#888888"
+                android:contentDescription="此问题暂时已被修复"
+                android:visibility="gone"
                 android:orientation="vertical">
 
                 <ImageView

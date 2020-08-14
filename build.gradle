@@ -8,9 +8,9 @@ buildscript {
 //        addRepos(repositories)
     }
     dependencies {
-        classpath deps.gradle_plugin
+//        classpath deps.gradle_plugin
         classpath deps.novoda_bintray
-//        classpath 'com.android.tools.build:gradle:3.5.4'
+        classpath 'com.android.tools.build:gradle:3.5.4'
 //        classpath 'com.novoda:bintray-release:0.9.2'
     }
 }

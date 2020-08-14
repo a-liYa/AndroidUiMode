@@ -5,6 +5,7 @@
 https://bintray.com/a-liya/maven/android-uimode/_latestVersion
 
 #### 简介
+v3.x Migrate to Androidx
 
 为了方便升级过度，v2.x目前完全兼容v1.x的方案；v2.x是结合官方v7包日夜主题实现的(参考AppCompatDelegate.NightMode)。  
 
@@ -26,8 +27,8 @@ res
 
 ```
 dependencies {
-    compile 'com.aliya:android-uimode:2.0.8'
-    compile 'com.android.support:appcompat-v7:x.x.x'
+    compile 'com.aliya:android-uimode:3.0.0'
+    compile 'androidx.appcompat:appcompat:x.x.x'
 }
 ```
 
