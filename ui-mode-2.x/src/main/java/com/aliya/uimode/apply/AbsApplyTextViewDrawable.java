@@ -1,7 +1,6 @@
 package com.aliya.uimode.apply;
 
 import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
@@ -12,6 +11,8 @@ import com.aliya.uimode.mode.ResourceEntry;
 import com.aliya.uimode.mode.Type;
 import com.aliya.uimode.widget.MaskDrawable;
 import com.aliya.uimode.widget.MaskHelper;
+
+import androidx.core.content.ContextCompat;
 
 /**
  * 应用{@link TextView}的以下4个属性

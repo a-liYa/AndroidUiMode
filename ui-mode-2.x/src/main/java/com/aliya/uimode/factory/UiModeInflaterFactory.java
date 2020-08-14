@@ -2,8 +2,8 @@ package com.aliya.uimode.factory;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -87,7 +87,7 @@ public class UiModeInflaterFactory implements LayoutInflater.Factory2 {
                 break;
             default:
                 /**
-                 * @see android.support.v7.app.AppCompatDelegateImplV9#createView(View, String,
+                 * @see androidx.appcompat.app.AppCompatDelegateImplV9#createView(View, String,
                  * Context, AttributeSet)
                  */
                 if (context instanceof AppCompatActivity) {

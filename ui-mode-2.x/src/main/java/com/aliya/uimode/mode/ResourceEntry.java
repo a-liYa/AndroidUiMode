@@ -2,7 +2,7 @@ package com.aliya.uimode.mode;
 
 import android.content.Context;
 import android.content.res.Resources;
-import android.support.annotation.AnyRes;
+import androidx.annotation.AnyRes;
 
 /**
  * 资源实体类 - 包括：资源类型、资源id

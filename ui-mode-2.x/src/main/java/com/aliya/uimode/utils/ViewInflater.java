@@ -1,7 +1,7 @@
 package com.aliya.uimode.utils;
 
 import android.content.Context;
-import android.support.v4.util.ArrayMap;
+import androidx.collection.ArrayMap;
 import android.util.AttributeSet;
 import android.view.InflateException;
 import android.view.View;

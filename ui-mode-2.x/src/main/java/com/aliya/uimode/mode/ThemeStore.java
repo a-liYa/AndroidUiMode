@@ -1,6 +1,6 @@
 package com.aliya.uimode.mode;
 
-import android.support.annotation.StyleRes;
+import androidx.annotation.StyleRes;
 import android.util.SparseArray;
 
 import java.util.HashSet;

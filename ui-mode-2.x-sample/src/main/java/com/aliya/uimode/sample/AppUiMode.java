@@ -3,7 +3,7 @@ package com.aliya.uimode.sample;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import com.aliya.uimode.UiModeManager;
 

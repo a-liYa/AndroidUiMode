@@ -6,8 +6,9 @@ import android.content.Context;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.support.v7.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 /**
  * 工具类
@@ -43,7 +44,7 @@ final class Utils {
      * @param mode    ui mode type
      * @param context context
      * @return true : 刷新成功
-     * @see android.support.v7.app.AppCompatDelegateImplV14#updateForNightMode(int)
+     * @see androidx.appcompat.app.AppCompatDelegateImplV14#updateForNightMode(int)
      */
     public static boolean updateUiModeForApplication(Context context,
                                                      @AppCompatDelegate.NightMode int mode) {

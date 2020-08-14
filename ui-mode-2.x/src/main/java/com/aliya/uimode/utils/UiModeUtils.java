@@ -3,9 +3,9 @@ package com.aliya.uimode.utils;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.support.annotation.AnyRes;
-import android.support.annotation.AttrRes;
-import android.support.v7.app.AppCompatDelegate;
+import androidx.annotation.AnyRes;
+import androidx.annotation.AttrRes;
+import androidx.appcompat.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +19,7 @@ import com.aliya.uimode.mode.UiMode;
 
 import java.util.Map;
 
-import static android.support.v7.app.AppCompatDelegate.MODE_NIGHT_YES;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 
 /**
  * 帮助解析资源保存资源 - 工具类
@@ -94,7 +94,7 @@ public class UiModeUtils {
      */
     public static void correctConfigUiMode(Context context) {
         /**
-         * 参考自 {@link android.support.v7.app.AppCompatDelegateImplV14#updateForNightMode(int)}
+         * 参考自 {@link androidx.appcompat.app.AppCompatDelegateImplV14#updateForNightMode(int)}
          */
         final Resources res = context.getResources();
         final Configuration conf = res.getConfiguration();

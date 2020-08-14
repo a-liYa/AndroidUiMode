@@ -2,7 +2,7 @@ package com.aliya.uimode.apply;
 
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
-import android.support.v4.content.ContextCompat;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;

@@ -4,6 +4,7 @@ buildscript {
     repositories {
         apply from: "https://gitee.com/a_liYa/gradleconfig/raw/master/dependency/versions.gradle"
         addAliyunRepos(repositories)
+        google()
 //        addRepos(repositories)
     }
     dependencies {
@@ -17,6 +18,7 @@ buildscript {
 allprojects {
     repositories {
         addAliyunRepos(repositories)
+        google()
 //        addRepos(repositories)
     }
 

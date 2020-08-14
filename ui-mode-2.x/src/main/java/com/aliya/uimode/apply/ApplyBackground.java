@@ -2,8 +2,8 @@ package com.aliya.uimode.apply;
 
 import android.graphics.drawable.Drawable;
 import android.os.Build;
-import android.support.annotation.DrawableRes;
-import android.support.v4.content.ContextCompat;
+import androidx.annotation.DrawableRes;
+import androidx.core.content.ContextCompat;
 import android.text.TextUtils;
 import android.util.TypedValue;
 import android.view.View;
