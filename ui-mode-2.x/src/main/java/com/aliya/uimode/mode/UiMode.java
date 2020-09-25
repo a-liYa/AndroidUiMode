@@ -62,15 +62,9 @@ public final class UiMode {
         if (ctx instanceof Application) {
             putView2Map(ctx, v, sContextViewMap, queue);
         } else {
-            while (!(ctx instanceof Activity)) {
-                if (ctx instanceof ContextWrapper) {
-                    ctx = ((ContextWrapper) ctx).getBaseContext();
-                } else {
-                    break;
-                }
-            }
-            if (ctx instanceof Activity) {
-                putView2Map(ctx, v, sActivityViewMap, null);
+            Activity activity = findActivity(ctx);
+            if (activity != null) {
+                putView2Map(activity, v, sActivityViewMap, null);
             }
         }
     }
@@ -231,5 +225,18 @@ public final class UiMode {
      */
     public static boolean idValid(int id) {
         return id != NO_ID;
+    }
+
+    /**
+     * 通过 context 找到所依附的 Activity
+     */
+    public static Activity findActivity(Context context) {
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        return null;
     }
 }

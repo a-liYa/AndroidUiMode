@@ -2,7 +2,6 @@ package com.aliya.uimode.apply;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.ContextWrapper;
 import android.content.res.Resources;
 import android.text.TextUtils;
 import android.util.TypedValue;
@@ -10,6 +9,7 @@ import android.view.View;
 
 import com.aliya.uimode.mode.ResourceEntry;
 import com.aliya.uimode.mode.Type;
+import com.aliya.uimode.mode.UiMode;
 
 /**
  * 应用android:theme {@link View}
@@ -60,12 +60,9 @@ public class ApplyTheme extends AbsApply {
 
     private Resources.Theme getActivityTheme(View v) {
         Context context = v.getContext();
-        while (context instanceof ContextWrapper) {
-            if (context instanceof Activity) {
-                return context.getTheme();
-            }
-            context = ((ContextWrapper) context).getBaseContext();
-        }
+        Activity activity = UiMode.findActivity(context);
+        if (activity != null)
+            return activity.getTheme();
         return context.getTheme();
     }
 

@@ -2,12 +2,13 @@ package com.aliya.uimode;
 
 import android.content.res.Resources;
 import android.os.Build;
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
 import android.util.LongSparseArray;
 
 import java.lang.reflect.Field;
 import java.util.Map;
+
+import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 
 /**
  * ResourcesFlusher 兼容类
@@ -23,9 +24,12 @@ final class ResourcesFlusher {
      * 强制刷新 Resources 资源缓存
      *
      * @param resources .
-     * @see androidx.appcompat.app.ResourcesFlusher 参考自
      */
     static void flush(@NonNull final Resources resources) {
+        /**
+         * 参考自
+         * @see androidx.appcompat.app.ResourcesFlusher#flush(Resources)
+         */
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.P) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
                 flushNougats(resources);

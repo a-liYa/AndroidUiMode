@@ -1,11 +1,11 @@
 package com.aliya.uimode.factory;
 
+import android.app.Activity;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
@@ -24,6 +24,9 @@ import com.aliya.uimode.widget.MaskImageView;
 import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 import static com.aliya.uimode.utils.UiModes.correctConfigUiMode;
 
@@ -58,7 +61,7 @@ public class UiModeInflaterFactory implements LayoutInflater.Factory2 {
 
     @Override
     public View onCreateView(String name, Context context, AttributeSet attrs) {
-        return null;
+        return onCreateView(null, name, context, attrs);
     }
 
     @Override
@@ -86,13 +89,15 @@ public class UiModeInflaterFactory implements LayoutInflater.Factory2 {
                 view = new MaskImageView(context, attrs);
                 break;
             default:
-                /**
-                 * @see androidx.appcompat.app.AppCompatDelegateImplV9#createView(View, String,
-                 * Context, AttributeSet)
-                 */
-                if (context instanceof AppCompatActivity) {
-                    AppCompatDelegate delegate = ((AppCompatActivity) context).getDelegate();
+                Activity activity = UiMode.findActivity(context);
+                if (activity instanceof AppCompatActivity) {
+                    /**
+                     * @see androidx.appcompat.app.AppCompatDelegateImpl#createView(View, String, Context, AttributeSet)
+                     */
+                    AppCompatDelegate delegate = ((AppCompatActivity) activity).getDelegate();
                     view = delegate.createView(parent, name, context, attrs);
+                } else {
+                    Log.e("TAG", "uiModeCreateView: " + context);
                 }
                 break;
         }
