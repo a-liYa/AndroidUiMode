@@ -5,11 +5,11 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.text.TextUtils;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.TextView;
 
+import com.aliya.uimode.InflaterSupportImpl;
 import com.aliya.uimode.R;
 import com.aliya.uimode.intef.InflaterSupport;
 import com.aliya.uimode.intef.UiModeChangeListener;
@@ -21,7 +21,6 @@ import com.aliya.uimode.widget.MaskDrawable;
 import com.aliya.uimode.widget.MaskHelper;
 import com.aliya.uimode.widget.MaskImageView;
 
-import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,25 +37,14 @@ import static com.aliya.uimode.utils.UiModes.correctConfigUiMode;
  */
 public class UiModeInflaterFactory implements LayoutInflater.Factory2 {
 
-    /**
-     * 通过软引用单例来优化内存
-     */
-    private static SoftReference<UiModeInflaterFactory> sSoftInstance;
-
     private static ThreadLocal<Map<String, ResourceEntry>> sAttrIdsLocal = new ThreadLocal<>();
 
     private InflaterSupport mInflaterSupport;
+    private LayoutInflater.Factory2 mInflaterFactory;
 
-    public static UiModeInflaterFactory get(InflaterSupport support) {
-        UiModeInflaterFactory factory;
-        if (sSoftInstance == null || (factory = sSoftInstance.get()) == null) {
-            sSoftInstance = new SoftReference<>(factory = new UiModeInflaterFactory(support));
-        }
-        return factory;
-    }
-
-    private UiModeInflaterFactory(InflaterSupport support) {
-        mInflaterSupport = support;
+    public UiModeInflaterFactory(LayoutInflater.Factory2 factory) {
+        mInflaterFactory = factory;
+        mInflaterSupport = new InflaterSupportImpl();
     }
 
     @Override
@@ -96,8 +84,11 @@ public class UiModeInflaterFactory implements LayoutInflater.Factory2 {
                      */
                     AppCompatDelegate delegate = ((AppCompatActivity) activity).getDelegate();
                     view = delegate.createView(parent, name, context, attrs);
-                } else {
-                    Log.e("TAG", "uiModeCreateView: " + context);
+                }
+                if (view == null) {
+                    if (mInflaterFactory != null) {
+                        view = mInflaterFactory.onCreateView(parent, name, context, attrs);
+                    }
                 }
                 break;
         }
@@ -167,7 +158,7 @@ public class UiModeInflaterFactory implements LayoutInflater.Factory2 {
             attrIdsMap.clear();
 
             if (view == null) { // 系统没有创建
-                view = ViewInflater.createViewFromTag(context, name, attrs);
+                view = ViewInflater.createViewFromTag(name, context, attrs);
             }
 
             if (view != null) {
@@ -181,7 +172,7 @@ public class UiModeInflaterFactory implements LayoutInflater.Factory2 {
                 try {
                     Class<?> clazz = Class.forName(name);
                     if (UiModeChangeListener.class.isAssignableFrom(clazz)) {
-                        view = ViewInflater.createViewFromTag(context, name, attrs);
+                        view = ViewInflater.createViewFromTag(name, context, attrs);
                         UiMode.saveView(context, view); // 缓存View
                     }
                 } catch (Exception e) {

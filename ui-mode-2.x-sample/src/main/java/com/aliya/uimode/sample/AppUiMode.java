@@ -3,9 +3,13 @@ package com.aliya.uimode.sample;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
-import androidx.appcompat.app.AppCompatDelegate;
+import android.util.AttributeSet;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.aliya.uimode.UiModeManager;
+
+import androidx.appcompat.app.AppCompatDelegate;
 
 /**
  * UiMode 相关信息存储以及切换封装
@@ -47,7 +51,18 @@ public final class AppUiMode {
 
     public static void init(Context context) {
         sContext = context.getApplicationContext();
-        UiModeManager.init(sContext, null);
+        UiModeManager.init(sContext, null, new LayoutInflater.Factory2() {
+            @Override
+            public View onCreateView(View parent, String name, Context context, AttributeSet attrs) {
+                // 此处可自定义拦截创建View
+                return null;
+            }
+
+            @Override
+            public View onCreateView(String name, Context context, AttributeSet attrs) {
+                return onCreateView(null, name, context, attrs);
+            }
+        });
         UiModeManager.setDefaultUiMode(_get().uiMode);
     }
 

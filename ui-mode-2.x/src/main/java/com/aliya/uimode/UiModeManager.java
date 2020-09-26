@@ -5,9 +5,6 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Build;
 import android.os.Bundle;
-import androidx.core.view.LayoutInflaterCompat;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 
@@ -30,17 +27,21 @@ import com.aliya.uimode.apply.ApplyTheme;
 import com.aliya.uimode.apply.ApplyThumb;
 import com.aliya.uimode.factory.UiModeInflaterFactory;
 import com.aliya.uimode.intef.ApplyPolicy;
-import com.aliya.uimode.intef.InflaterSupport;
 import com.aliya.uimode.intef.UiApply;
 import com.aliya.uimode.intef.UiModeChangeListener;
 import com.aliya.uimode.mode.Attr;
 import com.aliya.uimode.mode.UiMode;
 
+import java.lang.ref.SoftReference;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 import java.util.Stack;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
+import androidx.core.view.LayoutInflaterCompat;
 
 /**
  * UiMode管理类
@@ -53,10 +54,11 @@ public final class UiModeManager implements ApplyPolicy {
     private static final String TAG = "UiMode";
 
     private static Context sAppContext;
+    private static LayoutInflater.Factory2 sFactory2;
 
     // 指定支持的 R.attr 属性集合
-    private static Set<Integer> sSupportAttrIds;
-    private static Map<String, UiApply> sSupportApplies = new HashMap<>();
+    static Set<Integer> sSupportAttrIds;
+    final static Map<String, UiApply> sSupportApplies = new HashMap<>();
 
     private static volatile UiModeManager sInstance;
 
@@ -81,26 +83,7 @@ public final class UiModeManager implements ApplyPolicy {
         sSupportApplies.put(Attr.INVALIDATE, new ApplyInvalidate());
     }
 
-    private InflaterSupport mInflaterSupport;
-
     private UiModeManager() {
-        mInflaterSupport = new InflaterSupport() {
-            @Override
-            public boolean isSupportApply(String name) {
-                return sSupportApplies.containsKey(name);
-            }
-
-            @Override
-            public boolean isSupportApplyType(String name, String type) {
-                UiApply uiApply = sSupportApplies.get(name);
-                return uiApply != null && uiApply.isSupportType(type);
-            }
-
-            @Override
-            public boolean isSupportAttrId(Integer attrId) { // sSupportAttrIds == null 支持所有
-                return sSupportAttrIds == null || sSupportAttrIds.contains(attrId);
-            }
-        };
     }
 
     /**
@@ -165,10 +148,11 @@ public final class UiModeManager implements ApplyPolicy {
      * @param context Context
      * @param attrs   支持UiMode的属性数组，为null时表示支持所有的属性
      */
-    public static void init(Context context, int[] attrs) {
+    public static void init(Context context, int[] attrs, LayoutInflater.Factory2 factory2) {
 
         sAppContext = context.getApplicationContext();
         HideLog.init(sAppContext);
+        sFactory2 = factory2;
 
         final int appTheme = Utils.getManifestApplicationTheme(sAppContext);
         if (appTheme != 0) {
@@ -219,7 +203,9 @@ public final class UiModeManager implements ApplyPolicy {
                 }
 
                 if (next instanceof AppCompatActivity) {
-                    ((AppCompatActivity) next).getDelegate().setLocalNightMode(mode);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
+                        ((AppCompatActivity) next).getDelegate().setLocalNightMode(mode);
+                    }
                 }
 
                 if (uiModeChange) {
@@ -337,7 +323,7 @@ public final class UiModeManager implements ApplyPolicy {
      * @see #setInflaterFactor(LayoutInflater)
      */
     public static LayoutInflater.Factory2 obtainInflaterFactory() {
-        return UiModeInflaterFactory.get(get().mInflaterSupport);
+        return LayoutInflaterFactory.get();
     }
 
     /**
@@ -347,6 +333,23 @@ public final class UiModeManager implements ApplyPolicy {
      */
     public static void setLogDebug(boolean isDebug) {
         HideLog.setIsDebug(isDebug);
+    }
+
+
+    static class LayoutInflaterFactory {
+        /**
+         * 通过软引用单例来优化内存
+         */
+        static SoftReference<UiModeInflaterFactory> sSoftInstance;
+
+        static UiModeInflaterFactory get() {
+            UiModeInflaterFactory factory;
+            if (sSoftInstance == null || (factory = sSoftInstance.get()) == null) {
+                factory = new UiModeInflaterFactory(sFactory2);
+                sSoftInstance = new SoftReference<>(factory);
+            }
+            return factory;
+        }
     }
 
 }
