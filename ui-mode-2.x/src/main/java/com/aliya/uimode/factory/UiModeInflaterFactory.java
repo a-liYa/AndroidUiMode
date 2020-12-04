@@ -1,6 +1,8 @@
 package com.aliya.uimode.factory;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.ContextWrapper;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
@@ -90,8 +92,9 @@ public class UiModeInflaterFactory implements LayoutInflater.Factory2 {
                  * @see android.support.v7.app.AppCompatDelegateImplV9#createView(View, String,
                  * Context, AttributeSet)
                  */
-                if (context instanceof AppCompatActivity) {
-                    AppCompatDelegate delegate = ((AppCompatActivity) context).getDelegate();
+                Activity activity = findActivity(context);
+                if (activity instanceof AppCompatActivity) {
+                    AppCompatDelegate delegate = ((AppCompatActivity) activity).getDelegate();
                     view = delegate.createView(parent, name, context, attrs);
                 }
                 break;
@@ -235,4 +238,16 @@ public class UiModeInflaterFactory implements LayoutInflater.Factory2 {
         return UiMode.NO_ID;
     }
 
+    /**
+     * 通过 context 找到所依附的 Activity
+     */
+    static Activity findActivity(Context context) {
+        while (context instanceof ContextWrapper) {
+            if (context instanceof Activity) {
+                return (Activity) context;
+            }
+            context = ((ContextWrapper) context).getBaseContext();
+        }
+        return null;
+    }
 }
