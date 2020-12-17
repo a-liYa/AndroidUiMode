@@ -9,7 +9,15 @@ import android.view.View;
 
 import com.aliya.uimode.UiModeManager;
 
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+
+import androidx.annotation.IntDef;
 import androidx.appcompat.app.AppCompatDelegate;
+
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_NO;
+import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
 
 /**
  * UiMode 相关信息存储以及切换封装
@@ -29,7 +37,7 @@ public final class AppUiMode {
     private AppUiMode() {
         sharedPreferences = sContext.getSharedPreferences("AppUiMode", Activity.MODE_PRIVATE);
         if (sharedPreferences.contains(KEY_UI_MODE)) {
-            uiMode = sharedPreferences.getInt(KEY_UI_MODE, AppCompatDelegate.MODE_NIGHT_NO);
+            uiMode = sharedPreferences.getInt(KEY_UI_MODE, MODE_NIGHT_NO);
         } else {
             uiMode = AppCompatDelegate.getDefaultNightMode();
         }
@@ -70,14 +78,18 @@ public final class AppUiMode {
         UiModeManager.setDefaultUiMode(_get().uiMode);
     }
 
-    public static void setNight(boolean night) {
-        _get().setUiMode(
-                night ? AppCompatDelegate.MODE_NIGHT_YES : AppCompatDelegate.MODE_NIGHT_NO);
+    public static void applyUiMode(@ApplyableNightMode int uiMode) {
+        _get().setUiMode(uiMode);
         UiModeManager.setUiMode(_get().uiMode);
     }
 
-    public static boolean isNight() {
-        return _get().uiMode == AppCompatDelegate.MODE_NIGHT_YES;
+    @ApplyableNightMode
+    public static int getUiMode() {
+        return _get().uiMode;
     }
+
+    @IntDef({MODE_NIGHT_NO, MODE_NIGHT_YES, MODE_NIGHT_FOLLOW_SYSTEM})
+    @Retention(RetentionPolicy.SOURCE)
+    @interface ApplyableNightMode {}
 
 }

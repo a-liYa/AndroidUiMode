@@ -61,7 +61,7 @@ final class Utils {
                 newNightMode = Configuration.UI_MODE_NIGHT_NO;
                 break;
             default:
-                newNightMode = currentNightMode;
+                newNightMode = Resources.getSystem().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
                 break;
         }
 
