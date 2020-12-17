@@ -3,9 +3,6 @@ package com.aliya.uimode.utils;
 import android.content.Context;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import androidx.annotation.AnyRes;
-import androidx.annotation.AttrRes;
-import androidx.appcompat.app.AppCompatDelegate;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +16,9 @@ import com.aliya.uimode.mode.UiMode;
 
 import java.util.Map;
 
-import static androidx.appcompat.app.AppCompatDelegate.MODE_NIGHT_YES;
+import androidx.annotation.AnyRes;
+import androidx.annotation.AttrRes;
+import androidx.appcompat.app.AppCompatDelegate;
 
 /**
  * 帮助解析资源保存资源 - 工具类
@@ -92,13 +91,22 @@ public class UiModes {
      */
     public static void correctConfigUiMode(Context context) {
         /**
-         * 参考自 {@link androidx.appcompat.app.AppCompatDelegateImplV14#updateForNightMode(int)}
+         * 参考自 {@link androidx.appcompat.app.AppCompatDelegateImpl#updateForNightMode()}
          */
         final Resources res = context.getResources();
         final Configuration conf = res.getConfiguration();
-        final int uiMode = (AppCompatDelegate.getDefaultNightMode() == MODE_NIGHT_YES)
-                ? Configuration.UI_MODE_NIGHT_YES
-                : Configuration.UI_MODE_NIGHT_NO;
+        final int uiMode;
+        switch (AppCompatDelegate.getDefaultNightMode()) {
+            case AppCompatDelegate.MODE_NIGHT_YES:
+                uiMode = Configuration.UI_MODE_NIGHT_YES;
+                break;
+            case AppCompatDelegate.MODE_NIGHT_NO:
+                uiMode = Configuration.UI_MODE_NIGHT_NO;
+                break;
+            default:
+                uiMode = Resources.getSystem().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
+                break;
+        }
         if ((conf.uiMode & Configuration.UI_MODE_NIGHT_MASK) != uiMode) {
             final Configuration config = new Configuration(conf);
             final DisplayMetrics metrics = res.getDisplayMetrics();

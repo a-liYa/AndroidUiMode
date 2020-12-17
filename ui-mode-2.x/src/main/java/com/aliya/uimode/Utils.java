@@ -44,24 +44,33 @@ final class Utils {
      * @param mode    ui mode type
      * @param context context
      * @return true : 刷新成功
-     * @see androidx.appcompat.app.AppCompatDelegateImplV14#updateForNightMode(int)
+     * @see androidx.appcompat.app.AppCompatDelegateImpl#updateForNightMode(int, boolean) 
      */
     public static boolean updateUiModeForApplication(Context context,
                                                      @AppCompatDelegate.NightMode int mode) {
         final Resources res = context.getApplicationContext().getResources();
         final Configuration conf = res.getConfiguration();
-        final int currentUiMode = conf.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        final int currentNightMode = conf.uiMode & Configuration.UI_MODE_NIGHT_MASK;
 
-        final int newUiMode = (mode == AppCompatDelegate.MODE_NIGHT_YES)
-                ? Configuration.UI_MODE_NIGHT_YES
-                : Configuration.UI_MODE_NIGHT_NO;
+        final int newNightMode;
+        switch (mode) {
+            case AppCompatDelegate.MODE_NIGHT_YES:
+                newNightMode = Configuration.UI_MODE_NIGHT_YES;
+                break;
+            case AppCompatDelegate.MODE_NIGHT_NO:
+                newNightMode = Configuration.UI_MODE_NIGHT_NO;
+                break;
+            default:
+                newNightMode = currentNightMode;
+                break;
+        }
 
-        if (currentUiMode != newUiMode) {
+        if (currentNightMode != newNightMode) {
             final Configuration config = new Configuration(conf);
             final DisplayMetrics metrics = res.getDisplayMetrics();
 
             // Update the UI Mode to reflect the new night mode
-            config.uiMode = newUiMode | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
+            config.uiMode = newNightMode | (config.uiMode & ~Configuration.UI_MODE_NIGHT_MASK);
             res.updateConfiguration(config, metrics);
 
             // We may need to flush the Resources' drawable cache due to framework bugs..
@@ -71,7 +80,7 @@ final class Utils {
 //        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.LOLLIPOP) {
 //            ResourcesFlusher.flush(sAppContext.getResources());
 //        }
-        return currentUiMode != newUiMode;
+        return currentNightMode != newNightMode;
     }
 
 
