@@ -1,12 +1,12 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion build_versions.compile_sdk
+    compileSdkVersion 29
 
     defaultConfig {
         applicationId "com.aliya.uimode.sample"
         minSdkVersion build_versions.min_sdk
-        targetSdkVersion build_versions.target_sdk
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 

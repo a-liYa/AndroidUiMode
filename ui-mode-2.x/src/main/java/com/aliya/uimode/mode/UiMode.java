@@ -85,7 +85,6 @@ public final class UiMode {
      * @param policy apply 策略
      */
     public static void dispatchApplyUiMode(ApplyPolicy policy) {
-
         // 1、先执行Activity相关的View
         for (Map.Entry<Context, Set<WeakReference<View>>> entry :
                 sActivityViewMap.entrySet()) {
@@ -93,8 +92,7 @@ public final class UiMode {
                 // Activity#recreate()会调用，无需动态替换
                 continue;
             }
-            Set<WeakReference<View>> weakViewSet = entry.getValue();
-            onApplyUiMode(policy, weakViewSet);
+            onApplyUiMode(policy, entry.getValue());
         }
 
         // 2、在执行ApplicationContext相关的View
@@ -105,13 +103,19 @@ public final class UiMode {
 
     }
 
+    public static void applyUiMode(Activity activity, ApplyPolicy policy) {
+        if (!isRecreateOnUiModeChange(activity)) { // 若Activity#recreate()会调用，无需动态替换
+            onApplyUiMode(policy, sActivityViewMap.get(activity));
+        }
+    }
+
     /**
      * 夜间模式切换时是否执行了 {@link Activity#recreate()}
      *
      * @param context .
      * @return true : 表示执行了
      */
-    private static boolean isRecreateOnUiModeChange(Context context) {
+    public static boolean isRecreateOnUiModeChange(Context context) {
         if (context instanceof Activity) {
             final PackageManager pm = context.getPackageManager();
             try {

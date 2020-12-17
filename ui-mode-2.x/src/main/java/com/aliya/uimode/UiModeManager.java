@@ -203,9 +203,7 @@ public final class UiModeManager implements ApplyPolicy {
                 }
 
                 if (next instanceof AppCompatActivity) {
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                        ((AppCompatActivity) next).getDelegate().setLocalNightMode(mode);
-                    }
+                    ((AppCompatActivity) next).getDelegate().applyDayNight();
                 }
 
                 if (uiModeChange) {
@@ -220,11 +218,14 @@ public final class UiModeManager implements ApplyPolicy {
                 if (next instanceof UiModeChangeListener) {
                     ((UiModeChangeListener) next).onUiModeChange();
                 }
-
             }
         }
 
         UiMode.dispatchApplyUiMode(get());
+    }
+
+    public static void applyUiModeViews(Activity activity) {
+        UiMode.applyUiMode(activity, get());
     }
 
     /**
@@ -259,7 +260,6 @@ public final class UiModeManager implements ApplyPolicy {
 
         // 执行View到对应主题
         UiMode.dispatchApplyUiMode(get());
-
     }
 
     public static void addSupportAttrIds(int[] attrs) {
