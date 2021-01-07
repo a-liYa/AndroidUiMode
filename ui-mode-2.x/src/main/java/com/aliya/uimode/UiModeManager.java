@@ -271,8 +271,8 @@ public final class UiModeManager implements ApplyPolicy {
         if (sSupportAttrIds == null) {
             synchronized (UiModeManager.class) {
                 if (sSupportAttrIds == null)
-                    // 创建时指定初始容量，更节省内存
-                    sSupportAttrIds = new HashSet<>(attrs.length);
+                    // 创建时指定初始容量，减少扩容次数
+                    sSupportAttrIds = new HashSet<>((int)(attrs.length / 0.75f + 1));
             }
         }
         // 添加全部
