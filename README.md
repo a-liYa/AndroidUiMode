@@ -32,8 +32,8 @@ dependencies {
 }
 ```
 
-### 二、代码配置，具体用法参考示例 [ui-mode-2.x-simple](./ui-mode-2.x-simple)
-* 初始化 Application#onCreate(); 参考示例代码 [UiMode.init(context)](./ui-mode-2.x-simple/src/main/java/com/aliya/uimode/simple/UiMode.java)
+### 二、代码配置，具体用法参考示例 [ui-mode-2.x-simple](ui-mode-2.x-sample)
+* 初始化 Application#onCreate(); 参考示例代码 [UiMode.init(context)](ui-mode-2.x-sample/src/main/java/com/aliya/uimode/sample/AppUiMode.java)
 
 ```java
 /*
@@ -270,3 +270,7 @@ public class MainActivity extends AppCompatActivity implements UiModeChangeListe
     android:pivotY="50%"
     android:toDegrees="90" />
 ```
+
+### 十、UML
+
+![avatar](/doc/AndroidUiMode_UML.png)
