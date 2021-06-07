@@ -53,6 +53,15 @@
             android:name="com.aliya.uimode.sample.BugSimpleActivity"
             android:configChanges="uiMode"
             android:label="Bug示例页" />
+
+        <receiver
+            android:name="com.aliya.uimode.sample.ConfigChangesReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter android:priority="1000">
+                <action android:name="android.intent.action.LOCALE_CHANGED"/>
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

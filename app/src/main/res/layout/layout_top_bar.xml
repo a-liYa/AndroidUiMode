@@ -18,7 +18,8 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="50dp"
         android:textColor="@color/tc_top_bar_title"
         android:textSize="18sp" />
 

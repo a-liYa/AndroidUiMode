@@ -9,7 +9,7 @@
 
         <!--水波纹颜色-->
         <item name="colorControlHighlight">#33ffffff</item>
-
+        <item name="android:windowBackground">@android:color/transparent</item>
     </style>
 
     <style name="AppThemeScarlet" parent="Theme.AppCompat.DayNight.NoActionBar">
