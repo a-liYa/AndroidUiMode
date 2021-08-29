@@ -204,26 +204,29 @@ public final class UiModeManager implements ApplyPolicy {
         // 遍历应用所有Activity
         Stack<Activity> appStack = AppStack.getAppStack();
         if (appStack != null) {
-            for (Activity next : appStack) {
+            for (Activity activity : appStack) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR1) {
-                    if (next.isDestroyed()) continue;
+                    if (activity.isDestroyed()) continue;
                 }
 
-//                if (next instanceof AppCompatActivity) {
-//                    ((AppCompatActivity) next).getDelegate().applyDayNight();
-//                }
+                { // 跟随系统时，以下方法仍需要调用
+                    if (activity instanceof AppCompatActivity) {
+                        ((AppCompatActivity) activity).getDelegate().applyDayNight();
+                    }
 
-//                if (uiModeChange) {
-//                    final int theme = Utils.getManifestActivityTheme(next);
-//                    if (theme != 0) {
-//                        next.getTheme().applyStyle(theme, true);
-//                    } else if (appTheme != 0) {
-//                        next.getTheme().applyStyle(appTheme, true);
-//                    }
-//                }
+                    if (uiModeChange) {
+                        final int theme = Utils.getManifestActivityTheme(activity);
+                        if (theme != 0) {
+                            activity.getTheme().applyStyle(theme, true);
+                        } else if (appTheme != 0) {
+                            activity.getTheme().applyStyle(appTheme, true);
+                        }
+                    }
+                }
 
-                if (next instanceof UiModeChangeListener) {
-                    ((UiModeChangeListener) next).onUiModeChange();
+
+                if (activity instanceof UiModeChangeListener) {
+                    ((UiModeChangeListener) activity).onUiModeChange();
                 }
             }
         }
@@ -279,7 +282,7 @@ public final class UiModeManager implements ApplyPolicy {
             synchronized (UiModeManager.class) {
                 if (sSupportAttrIds == null)
                     // 创建时指定初始容量，减少扩容次数
-                    sSupportAttrIds = new HashSet<>((int)(attrs.length / 0.75f + 1));
+                    sSupportAttrIds = new HashSet<>((int) (attrs.length / 0.75f + 1));
             }
         }
         // 添加全部

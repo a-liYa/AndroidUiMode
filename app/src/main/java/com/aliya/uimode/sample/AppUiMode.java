@@ -54,7 +54,7 @@ public final class AppUiMode {
         return sInstance;
     }
 
-    public static void setUiMode(@ApplicableNightMode int uiMode) {
+    public static void setUiMode(@ApplyableNightMode int uiMode) {
         if (_get().uiMode != uiMode) {
             _get().uiMode = uiMode;
             _get().sharedPreferences.edit().putInt(KEY_UI_MODE, uiMode).apply();
@@ -80,13 +80,13 @@ public final class AppUiMode {
     }
 
 
-    @ApplicableNightMode
+    @ApplyableNightMode
     public static int getUiMode() {
         return _get().uiMode;
     }
 
     @IntDef({MODE_NIGHT_NO, MODE_NIGHT_YES, MODE_NIGHT_FOLLOW_SYSTEM})
     @Retention(RetentionPolicy.SOURCE)
-    @interface ApplicableNightMode {}
+    @interface ApplyableNightMode {}
 
 }

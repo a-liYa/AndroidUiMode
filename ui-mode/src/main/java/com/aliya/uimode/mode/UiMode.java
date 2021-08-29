@@ -46,7 +46,7 @@ public final class UiMode {
             if (tag instanceof HashMap) {
                 attrsMap = (Map<String, ResourceEntry>) tag;
             } else {
-                attrsMap = new HashMap<>((int)(attrs.size() / 0.75f + 1));
+                attrsMap = new HashMap<>((int) (attrs.size() / 0.75f + 1));
                 v.setTag(R.id.tag_ui_mode, attrsMap);
             }
             attrsMap.putAll(attrs);

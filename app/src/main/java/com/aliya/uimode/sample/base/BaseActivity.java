@@ -2,14 +2,15 @@ package com.aliya.uimode.sample.base;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.aliya.uimode.UiModeManager;
 import com.aliya.uimode.intef.UiModeChangeListener;
+import com.aliya.uimode.sample.AppUiMode;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 
 /**
  * Base Activity
@@ -19,25 +20,28 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class BaseActivity extends AppCompatActivity implements UiModeChangeListener {
 
-    private int uiMode;
+    private int nightMode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         UiModeManager.setInflaterFactor(getLayoutInflater());
         super.onCreate(savedInstanceState);
-        uiMode = getResources().getConfiguration().uiMode;
+        nightMode = getResources().getConfiguration().uiMode & Configuration.UI_MODE_NIGHT_MASK;
     }
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        UiModeManager.applyUiModeViews(this);
-        Log.e("TAG", "onConfigurationChanged: " + uiMode + " - newUiMode" + newConfig.uiMode);
+        final int newNightMode = newConfig.uiMode & Configuration.UI_MODE_NIGHT_MASK;
+        if (AppUiMode.getUiMode() == AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM && nightMode != newNightMode) {
+            UiModeManager.applyUiModeViews(this);
+            nightMode = newNightMode;
+        }
     }
 
     @Override
     public void onUiModeChange() {
-        Log.e("TAG","onUiModeChange " + getResources().getConfiguration().uiMode);
+        //
     }
 
 }
