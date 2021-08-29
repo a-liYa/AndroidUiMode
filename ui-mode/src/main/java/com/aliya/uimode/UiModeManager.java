@@ -174,7 +174,14 @@ public final class UiModeManager implements ApplyPolicy {
     }
 
     public static boolean setDefaultUiMode(@AppCompatDelegate.NightMode int mode) {
-        AppCompatDelegate.setDefaultNightMode(mode); // 设置默认的日夜间模式
+        /**
+         * 1. 设置默认 uiMode
+         * 2. 遍历 AppCompatDelegate 执行 applyDayNight
+         *   2.1 更新 Configuration#uiMode
+         *   2.2 Activity#recreate 或者 Activity.onConfigurationChanged(mode);
+         */
+        AppCompatDelegate.setDefaultNightMode(mode);
+        // 更新 ApplicationContext
         return Utils.updateUiModeForApplication(sAppContext, mode);
     }
 
@@ -202,18 +209,18 @@ public final class UiModeManager implements ApplyPolicy {
                     if (next.isDestroyed()) continue;
                 }
 
-                if (next instanceof AppCompatActivity) {
-                    ((AppCompatActivity) next).getDelegate().applyDayNight();
-                }
+//                if (next instanceof AppCompatActivity) {
+//                    ((AppCompatActivity) next).getDelegate().applyDayNight();
+//                }
 
-                if (uiModeChange) {
-                    final int theme = Utils.getManifestActivityTheme(next);
-                    if (theme != 0) {
-                        next.getTheme().applyStyle(theme, true);
-                    } else if (appTheme != 0) {
-                        next.getTheme().applyStyle(appTheme, true);
-                    }
-                }
+//                if (uiModeChange) {
+//                    final int theme = Utils.getManifestActivityTheme(next);
+//                    if (theme != 0) {
+//                        next.getTheme().applyStyle(theme, true);
+//                    } else if (appTheme != 0) {
+//                        next.getTheme().applyStyle(appTheme, true);
+//                    }
+//                }
 
                 if (next instanceof UiModeChangeListener) {
                     ((UiModeChangeListener) next).onUiModeChange();

@@ -43,13 +43,6 @@ public final class AppUiMode {
         }
     }
 
-    private void setUiMode(@AppCompatDelegate.NightMode int uiMode) {
-        if (this.uiMode != uiMode) {
-            this.uiMode = uiMode;
-            sharedPreferences.edit().putInt(KEY_UI_MODE, uiMode).apply();
-        }
-    }
-
     private static AppUiMode _get() {
         if (sInstance == null) {
             synchronized (AppUiMode.class) {
@@ -59,6 +52,14 @@ public final class AppUiMode {
             }
         }
         return sInstance;
+    }
+
+    public static void setUiMode(@ApplicableNightMode int uiMode) {
+        if (_get().uiMode != uiMode) {
+            _get().uiMode = uiMode;
+            _get().sharedPreferences.edit().putInt(KEY_UI_MODE, uiMode).apply();
+            UiModeManager.setUiMode(uiMode);
+        }
     }
 
     public static void init(Context context) {
@@ -78,18 +79,14 @@ public final class AppUiMode {
         UiModeManager.setDefaultUiMode(_get().uiMode);
     }
 
-    public static void applyUiMode(@ApplyableNightMode int uiMode) {
-        _get().setUiMode(uiMode);
-        UiModeManager.setUiMode(_get().uiMode);
-    }
 
-    @ApplyableNightMode
+    @ApplicableNightMode
     public static int getUiMode() {
         return _get().uiMode;
     }
 
     @IntDef({MODE_NIGHT_NO, MODE_NIGHT_YES, MODE_NIGHT_FOLLOW_SYSTEM})
     @Retention(RetentionPolicy.SOURCE)
-    @interface ApplyableNightMode {}
+    @interface ApplicableNightMode {}
 
 }

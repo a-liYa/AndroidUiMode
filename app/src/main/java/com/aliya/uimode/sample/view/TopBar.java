@@ -68,6 +68,10 @@ public class TopBar extends FrameLayout implements View.OnClickListener, UiModeC
         bindModeView();
     }
 
+    public void setTitle(String title) {
+        mTvTitle.setText(title);
+    }
+
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -98,7 +102,7 @@ public class TopBar extends FrameLayout implements View.OnClickListener, UiModeC
                 nextUiMode = AppCompatDelegate.MODE_NIGHT_NO;
                 break;
         }
-        AppUiMode.applyUiMode(nextUiMode);
+        AppUiMode.setUiMode(nextUiMode);
     }
 
     private void bindModeView() {

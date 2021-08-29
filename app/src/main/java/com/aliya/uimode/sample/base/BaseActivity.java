@@ -19,17 +19,20 @@ import androidx.appcompat.app.AppCompatActivity;
  */
 public class BaseActivity extends AppCompatActivity implements UiModeChangeListener {
 
+    private int uiMode;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         UiModeManager.setInflaterFactor(getLayoutInflater());
         super.onCreate(savedInstanceState);
+        uiMode = getResources().getConfiguration().uiMode;
     }
 
     @Override
     public void onConfigurationChanged(@NonNull Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         UiModeManager.applyUiModeViews(this);
-        Log.e("TAG", "onConfigurationChanged: " + getResources().getConfiguration().uiMode);
+        Log.e("TAG", "onConfigurationChanged: " + uiMode + " - newUiMode" + newConfig.uiMode);
     }
 
     @Override

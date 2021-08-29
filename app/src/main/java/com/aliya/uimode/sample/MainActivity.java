@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.aliya.uimode.sample.base.BaseActivity;
+import com.aliya.uimode.sample.view.TopBar;
 
 /**
  * 主界面
@@ -27,6 +28,8 @@ public class MainActivity extends BaseActivity implements View.OnClickListener {
         findViewById(R.id.btn_go_web_view_simple).setOnClickListener(this);
         findViewById(R.id.btn_go_text_view_simple).setOnClickListener(this);
         findViewById(R.id.btn_go_bug_simple).setOnClickListener(this);
+
+        ((TopBar)findViewById(R.id.top_bar)).setTitle("主界面");
 
     }
 
